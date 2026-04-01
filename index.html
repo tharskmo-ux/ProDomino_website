@@ -23,7 +23,8 @@ a{text-decoration:none;color:inherit}
 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .4s}
-.nav.sc{background:rgba(9,9,11,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd)}
+.nav{background:rgba(9,9,11,.4);backdrop-filter:blur(16px)}
+.nav.sc{background:rgba(9,9,11,.65);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.08)}
 .nav-in{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
 .nav-logo{color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
 .nav-logo svg{width:24px;height:24px}
@@ -450,56 +451,78 @@ a{text-decoration:none;color:inherit}
 </div>
 <div id="formSuccess" class="fok"><div class="fchk">&#10003;</div><h4>Request received</h4><p>I will reach out within 24 hours.</p></div>
 </div>
-<p style="font-size:11px;color:var(--t4);margin-top:16px">Or email harshad@enalsys.com</p>
+<p style="font-size:11px;color:var(--t4);margin-top:16px">Or email harshad.am@enalsys.com</p>
 </div></section>
 
 <!-- FOOTER -->
 <footer class="footer"><div class="mx"><div class="footer-in">
 <span style="color:var(--t3);font-size:12px">ProDomino - Enalsys Consulting</span>
 <span>&#169; 2026</span>
-<div style="display:flex;gap:16px"><a href="mailto:harshad@enalsys.com">Email</a><a href="https://www.linkedin.com/in/harshadmohgaonkar/" target="_blank">LinkedIn</a></div>
+<div style="display:flex;gap:16px"><a href="mailto:harshad.am@enalsys.com">Email</a><a href="https://www.linkedin.com/in/harshadmohgaonkar/" target="_blank">LinkedIn</a></div>
 </div></div></footer>
 <div class="flc"><a onclick="goTo('sec-cta')">Book a demo</a></div>
 
 <script>
+// ═══ NAVIGATION ═══
 function goTo(id) {
   var el = document.getElementById(id);
-  if (el) {
-    var y = el.getBoundingClientRect().top + window.pageYOffset - 70;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }
+  if (!el) return;
+  var y = el.getBoundingClientRect().top + window.pageYOffset - 70;
+  window.scrollTo({ top: y, behavior: 'smooth' });
 }
-function closeMob() { document.getElementById('mobMenu').classList.remove('open'); }
+
+function closeMob() {
+  document.getElementById('mobMenu').classList.remove('open');
+}
+
+// Nav background on scroll
 window.addEventListener('scroll', function() {
   document.getElementById('mainNav').classList.toggle('sc', window.scrollY > 30);
 });
 
-// Sticky scroll: sync dots
+// ═══ STICKY SCROLL — Zoho style dot sync ═══
 var allCards = document.querySelectorAll('.scard');
 var allDots = document.querySelectorAll('.sdot');
-var currentActive = 0;
+var lastActiveIdx = 0;
 
-var cardObs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var idx = parseInt(entry.target.getAttribute('data-stage'));
-      currentActive = idx;
-      // Dim all cards, brighten active
-      allCards.forEach(function(c, i) {
-        if (i === idx) { c.classList.remove('dimmed'); }
-        else { c.classList.add('dimmed'); }
-      });
-      // Sync dots
-      allDots.forEach(function(d) { d.classList.remove('active'); });
-      if (allDots[idx]) { allDots[idx].classList.add('active'); }
+function updateActive(idx) {
+  if (idx === lastActiveIdx) return;
+  lastActiveIdx = idx;
+  allCards.forEach(function(c, i) {
+    if (i === idx) c.classList.remove('dimmed');
+    else c.classList.add('dimmed');
+  });
+  allDots.forEach(function(d, i) {
+    if (i === idx) d.classList.add('active');
+    else d.classList.remove('active');
+  });
+}
+
+// Use scroll position to determine active card
+function checkCards() {
+  var bestIdx = 0;
+  var bestDist = 99999;
+  var viewMid = window.innerHeight * 0.35;
+  allCards.forEach(function(card, i) {
+    var rect = card.getBoundingClientRect();
+    var cardMid = rect.top + rect.height * 0.3;
+    var dist = Math.abs(cardMid - viewMid);
+    if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.1) {
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestIdx = i;
+      }
     }
   });
-}, { threshold: 0.35, rootMargin: '-10% 0px -50% 0px' });
+  updateActive(bestIdx);
+}
 
-allCards.forEach(function(card) { cardObs.observe(card); });
+window.addEventListener('scroll', checkCards);
+// Initial check
+setTimeout(checkCards, 100);
 
-// Click dot to scroll
-allDots.forEach(function(dot) {
+// Click dot to scroll to card
+allDots.forEach(function(dot, i) {
   dot.addEventListener('click', function() {
     var idx = parseInt(dot.getAttribute('data-idx'));
     if (allCards[idx]) {
@@ -509,7 +532,7 @@ allDots.forEach(function(dot) {
   });
 });
 
-// FAQ
+// ═══ FAQ ═══
 function toggleFaq(btn) {
   var item = btn.parentElement;
   document.querySelectorAll('.fqi').forEach(function(el) {
@@ -518,7 +541,7 @@ function toggleFaq(btn) {
   item.classList.toggle('open');
 }
 
-// Form
+// ═══ FORM ═══
 function submitForm() {
   var n = document.getElementById('inp-name').value.trim();
   var e = document.getElementById('inp-email').value.trim();
@@ -527,12 +550,12 @@ function submitForm() {
   var r = document.getElementById('inp-role').value || '-';
   var subj = encodeURIComponent('ProDomino Demo - ' + c);
   var body = encodeURIComponent('Demo request\n\nName: ' + n + '\nEmail: ' + e + '\nCompany: ' + c + '\nRole: ' + r);
-  window.open('mailto:harshad@enalsys.com?subject=' + subj + '&body=' + body);
+  window.open('mailto:harshad.am@enalsys.com?subject=' + subj + '&body=' + body);
   document.getElementById('formFields').classList.add('hidden');
   document.getElementById('formSuccess').classList.add('show');
 }
 
-// Pipeline glow: nodes light up orange when document passes
+// ═══ PIPELINE GLOW ═══
 ;(function() {
   var pipe = document.getElementById('pipeline');
   if (!pipe) return;
