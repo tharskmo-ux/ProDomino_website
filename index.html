@@ -450,18 +450,18 @@ a{text-decoration:none;color:inherit}
 </div>
 <div id="formSuccess" class="fok"><div class="fchk">&#10003;</div><h4>Request received</h4><p>I will reach out within 24 hours.</p></div>
 </div>
-<p style="font-size:11px;color:var(--t4);margin-top:16px">Or email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6901081b1a01080d290c0708051a101a470a0604">[email&#160;protected]</a></p>
+<p style="font-size:11px;color:var(--t4);margin-top:16px">Or email harshad@enalsys.com</p>
 </div></section>
 
 <!-- FOOTER -->
 <footer class="footer"><div class="mx"><div class="footer-in">
 <span style="color:var(--t3);font-size:12px">ProDomino - Enalsys Consulting</span>
 <span>&#169; 2026</span>
-<div style="display:flex;gap:16px"><a href="/cdn-cgi/l/email-protection#224a4350514a434662474c434e515b510c414d4f">Email</a><a href="https://www.linkedin.com/in/harshadmohgaonkar/" target="_blank">LinkedIn</a></div>
+<div style="display:flex;gap:16px"><a href="mailto:harshad@enalsys.com">Email</a><a href="https://www.linkedin.com/in/harshadmohgaonkar/" target="_blank">LinkedIn</a></div>
 </div></div></footer>
 <div class="flc"><a onclick="goTo('sec-cta')">Book a demo</a></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 function goTo(id) {
   var el = document.getElementById(id);
   if (el) {
@@ -549,4 +549,15 @@ function submitForm() {
     nodes.forEach(function(n) {
       var nr = n.getBoundingClientRect();
       var nx = nr.left - pr.left + nr.width / 2;
-      var near = fa
+      var near = false;
+      docXs.forEach(function(dx) { if (Math.abs(dx - nx) < 50) near = true; });
+      if (near) n.classList.add('glow');
+      else n.classList.remove('glow');
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
