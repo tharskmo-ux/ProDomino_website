@@ -15,9 +15,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 a{text-decoration:none;color:inherit}
 .mx{max-width:1080px;margin:0 auto;padding:0 24px}
 .sec{padding:100px 0}
-.divider{border-top:1px solid var(--brd)}
-.lb{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
-.st{color:var(--t1);font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:600;letter-spacing:-.03em;line-height:1.15;margin-bottom:18px}
+.divider{border-top:1px solid var(--brd);opacity:.4}
+.lb{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ind);margin-bottom:14px;opacity:.6}
+.st{color:var(--t1);font-family:'Rubik',sans-serif;font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:700;letter-spacing:-.03em;line-height:1.12;margin-bottom:18px}
 .sd{font-size:16px;color:var(--t2);max-width:500px;line-height:1.75;margin-bottom:48px}
 @media(max-width:768px){.sec{padding:64px 0}}
 
@@ -31,60 +31,61 @@ a{text-decoration:none;color:inherit}
 .nav-lk{display:flex;align-items:center;gap:28px}
 .nav-lk a{font-size:13px;color:rgba(255,255,255,.5);transition:color .2s;cursor:pointer}
 .nav-lk a:hover{color:#fff}
-.nav-cta{background:#fff!important;color:#09090B!important;font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer}
+.nav-cta{background:var(--ind)!important;color:#fff!important;font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;transition:all .2s}.nav-cta:hover{box-shadow:0 0 14px rgba(129,140,248,.3)}
 .mob-btn{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer}
 .mob-menu{display:none;background:rgba(9,9,11,.96);border-top:1px solid var(--brd);padding:20px 24px;flex-direction:column;gap:16px}
 .mob-menu.open{display:flex}
 .mob-menu a{color:rgba(255,255,255,.6);font-size:14px;cursor:pointer}
 @media(max-width:768px){.nav-lk{display:none}.mob-btn{display:block}}
 
-/* HERO — Cinematic */
+/* HERO */
 .hero{position:relative;min-height:100vh;background:#000;overflow:hidden;display:flex;flex-direction:column;align-items:center}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-.hero-content{position:relative;z-index:2;text-align:center;padding:160px 24px 0;width:100%;max-width:1080px}
-@media(max-width:768px){.hero-content{padding-top:120px}}
-.hero h1{font-family:'Rubik',sans-serif;font-weight:800;text-transform:uppercase;color:#fff;font-size:clamp(3.2rem,10vw,96px);line-height:.92;letter-spacing:-3px;margin-bottom:8px;background:linear-gradient(180deg,#fff 40%,rgba(255,255,255,.3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-content{position:relative;z-index:2;text-align:center;padding:140px 24px 0;width:100%;max-width:1080px}
+@media(max-width:768px){.hero-content{padding-top:110px}}
+.hero h1{font-family:'Rubik',sans-serif;font-weight:800;text-transform:uppercase;color:#fff;font-size:clamp(2.6rem,8vw,76px);line-height:.94;letter-spacing:-3px;margin-bottom:8px;background:linear-gradient(180deg,#fff 40%,rgba(255,255,255,.3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @media(max-width:768px){.hero h1{letter-spacing:-2px}}
-.hero-tagline{color:rgba(255,255,255,.3);font-size:13px;letter-spacing:5px;text-transform:uppercase;font-weight:500;margin-bottom:16px}
-.hero-sub{font-size:16px;color:rgba(255,255,255,.4);max-width:440px;margin:0 auto 32px;line-height:1.7}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
-.hero-cta-primary{display:inline-flex;align-items:center;justify-content:center;padding:15px 36px;background:#fff;color:#000;font-family:'Rubik',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:12px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(255,255,255,.1)}
+.hero-contrast{font-family:'Rubik',sans-serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:400;color:rgba(255,255,255,.22);letter-spacing:-0.5px;margin-bottom:14px;font-style:italic}
+.hero-tagline{color:rgba(255,255,255,.28);font-size:12px;letter-spacing:5px;text-transform:uppercase;font-weight:500;margin-bottom:14px}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.38);max-width:440px;margin:0 auto 30px;line-height:1.7;text-align:center}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.hero-cta-primary{display:inline-flex;align-items:center;padding:15px 36px;background:#fff;color:#000;font-family:'Rubik',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:12px;cursor:pointer;transition:all .2s;box-shadow:0 0 30px rgba(255,255,255,.1)}
 .hero-cta-primary:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(255,255,255,.2)}
 .hero-cta-primary:active{transform:scale(.95)}
-.hero-cta-ghost{display:inline-flex;align-items:center;justify-content:center;padding:15px 36px;background:transparent;color:rgba(255,255,255,.5);font-family:'Inter',sans-serif;font-weight:500;font-size:14px;border:1px solid rgba(255,255,255,.12);border-radius:12px;cursor:pointer;transition:all .2s}
+.hero-cta-ghost{display:inline-flex;align-items:center;padding:15px 36px;background:transparent;color:rgba(255,255,255,.45);font-size:14px;font-weight:500;border:1px solid rgba(255,255,255,.1);border-radius:12px;cursor:pointer;transition:all .2s}
 .hero-cta-ghost:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25)}
 
-/* Product mockup in hero */
-.hero-mockup{position:relative;z-index:2;width:90%;max-width:840px;margin:0 auto;border:1px solid rgba(255,255,255,.08);border-radius:12px 12px 0 0;background:rgba(255,255,255,.02);backdrop-filter:blur(4px);overflow:hidden;animation:mockupFade 1.5s ease-out .5s both}
-@keyframes mockupFade{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
-.hero-mock-bar{height:32px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 12px;gap:5px;border-bottom:1px solid rgba(255,255,255,.06)}
-.hero-mock-bar i{width:7px;height:7px;border-radius:50%}
-.hero-mock-bar i:nth-child(1){background:#ff5f57}.hero-mock-bar i:nth-child(2){background:#ffbd2e}.hero-mock-bar i:nth-child(3){background:#28ca42}
-.hero-mock-bar em{font-style:normal;margin-left:10px;font-size:10px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace}
-.hero-mock-body{display:flex;min-height:180px}
-.hero-mock-sidebar{width:160px;background:rgba(255,255,255,.02);border-right:1px solid rgba(255,255,255,.05);padding:12px 10px}
-.hero-mock-sidebar .logo-row{display:flex;align-items:center;gap:5px;margin-bottom:12px}
-.hero-mock-sidebar .logo-row svg{width:14px;height:14px}
-.hero-mock-sidebar .logo-row span{font-size:10px;color:rgba(255,255,255,.5);font-weight:600}
-.hero-mock-nav-item{padding:5px 8px;font-size:8px;color:rgba(255,255,255,.25);border-radius:4px;margin-bottom:2px;display:flex;align-items:center;gap:5px}
-.hero-mock-nav-item.active{background:rgba(99,102,241,.1);color:rgba(129,140,248,.8)}
-.hero-mock-nav-item::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.5}
-.hero-mock-main{flex:1;padding:12px 16px}
-.hero-mock-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.hero-mock-kpi{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:6px;padding:8px}
-.hero-mock-kpi small{display:block;font-size:7px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
-.hero-mock-kpi b{font-size:16px;color:#fff;font-weight:700}
-.hero-mock-kpi .delta{font-size:7px;color:#4ade80;font-weight:500}
-.hero-mock-flow{display:flex;align-items:center;gap:3px;padding:8px;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.04);border-radius:6px}
-.hero-mock-fn{flex:1;text-align:center;padding:4px;border-radius:4px;font-size:7px;color:rgba(129,140,248,.4);border:1px solid rgba(129,140,248,.1);background:rgba(129,140,248,.03);transition:all .4s}
-.hero-mock-fn.glow{border-color:rgba(249,115,22,.5);color:rgba(249,115,22,.8);background:rgba(249,115,22,.06);box-shadow:0 0 8px rgba(249,115,22,.15)}
-.hero-mock-fa{font-size:8px;color:rgba(255,255,255,.1)}
 
+/* Product mockup */
+.hero-mockup{position:relative;z-index:2;width:90%;max-width:840px;margin:0 auto;border:1px solid rgba(255,255,255,.08);border-radius:12px 12px 0 0;background:rgba(255,255,255,.02);overflow:hidden;animation:mockFade 1.2s ease-out .4s both}
+@keyframes mockFade{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
+.hm-bar{height:30px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 10px;gap:5px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hm-bar i{width:6px;height:6px;border-radius:50%}.hm-bar i:nth-child(1){background:#ff5f57}.hm-bar i:nth-child(2){background:#ffbd2e}.hm-bar i:nth-child(3){background:#28ca42}
+.hm-bar em{font-style:normal;margin-left:8px;font-size:9px;color:rgba(255,255,255,.18);font-family:'JetBrains Mono',monospace}
+.hm-body{display:flex;min-height:160px}
+.hm-side{width:140px;background:rgba(255,255,255,.02);border-right:1px solid rgba(255,255,255,.04);padding:10px 8px}
+.hm-side .hm-logo{display:flex;align-items:center;gap:4px;margin-bottom:10px}.hm-side .hm-logo svg{width:12px;height:12px}.hm-side .hm-logo span{font-size:9px;color:rgba(255,255,255,.4);font-weight:600}
+.hm-ni{padding:4px 6px;font-size:7px;color:rgba(255,255,255,.2);border-radius:3px;margin-bottom:1px;display:flex;align-items:center;gap:4px}
+.hm-ni::before{content:'';width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.4}
+.hm-ni.on{background:rgba(129,140,248,.08);color:rgba(129,140,248,.7)}
+.hm-main{flex:1;padding:10px 14px}
+.hm-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.hm-kpi{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:5px;padding:6px}
+.hm-kpi small{display:block;font-size:6px;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.4px}
+.hm-kpi b{font-size:14px;color:#fff;font-weight:700}
+.hm-kpi .dt{font-size:6px;color:#4ade80}
+.hm-flow{display:flex;align-items:center;gap:2px;padding:6px;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.03);border-radius:5px}
+.hm-fn{flex:1;text-align:center;padding:3px;border-radius:3px;font-size:6px;color:rgba(129,140,248,.35);border:1px solid rgba(129,140,248,.08);transition:all .4s}
+.hm-fn.glow{border-color:rgba(249,115,22,.5);color:rgba(249,115,22,.8);background:rgba(249,115,22,.05);box-shadow:0 0 6px rgba(249,115,22,.12)}
+.hm-fa{font-size:7px;color:rgba(255,255,255,.08)}
 
-/* removed */ .pipe-line-old{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.2),transparent);top:50%;left:0;right:0}
-/* removed */ .pipe-node-old{position:absolute;width:60px;height:60px;border-radius:14px;border:1.5px solid rgba(129,140,248,.2);background:rgba(15,15,18,.85);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(129,140,248,.5);text-align:center;line-height:1.2;transition:all .4s ease;z-index:2}
+/* Pipeline animation */
+.pipeline{position:absolute;right:0;bottom:60px;width:48%;height:38%;z-index:1;overflow:hidden;opacity:.55;pointer-events:none}
+@media(max-width:900px){.pipeline{display:none}}
+.pipe-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.2),transparent);top:50%;left:0;right:0}
+.pipe-node{position:absolute;width:60px;height:60px;border-radius:14px;border:1.5px solid rgba(129,140,248,.2);background:rgba(15,15,18,.85);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(129,140,248,.5);text-align:center;line-height:1.2;transition:all .4s ease;z-index:2}
 .pipe-node.glow{border-color:rgba(251,146,60,.7);color:rgba(251,146,60,.9);box-shadow:0 0 20px rgba(251,146,60,.3),0 0 40px rgba(251,146,60,.1);background:rgba(251,146,60,.06)}
-/* removed */ .pipe-doc-old{position:absolute;width:22px;height:28px;border-radius:4px;top:calc(50% - 14px);z-index:3;animation:docFlow 10s ease-in-out infinite;background:linear-gradient(135deg,rgba(251,146,60,.4),rgba(249,115,22,.6));border:1.5px solid rgba(251,146,60,.7);box-shadow:0 0 14px rgba(251,146,60,.4),0 0 28px rgba(251,146,60,.15)}
+.pipe-doc{position:absolute;width:22px;height:28px;border-radius:4px;top:calc(50% - 14px);z-index:3;animation:docFlow 10s ease-in-out infinite;background:linear-gradient(135deg,rgba(251,146,60,.4),rgba(249,115,22,.6));border:1.5px solid rgba(251,146,60,.7);box-shadow:0 0 14px rgba(251,146,60,.4),0 0 28px rgba(251,146,60,.15)}
 .pipe-doc:nth-child(9){animation-delay:-3s}
 .pipe-doc:nth-child(10){animation-delay:-5.5s}
 .pipe-doc:nth-child(11){animation-delay:-8s}
@@ -104,9 +105,13 @@ a{text-decoration:none;color:inherit}
 .chaos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border-radius:14px;overflow:hidden;border:1px solid var(--brd)}
 @media(max-width:768px){.chaos-grid{grid-template-columns:1fr}}
 .cc{background:var(--bg2);padding:32px;transition:background .3s}.cc:hover{background:var(--bg3)}
-.cc .cst{color:var(--t1);font-size:30px;font-weight:700;margin-bottom:6px}
+.cc .cst{font-family:'Rubik',sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .cc h3{color:var(--t1);font-size:15px;font-weight:600;margin-bottom:10px}
 .cc p{font-size:14px;color:var(--t2);line-height:1.65}
+
+.cc .cc-icon{font-size:22px;margin-bottom:10px;display:block}
+.cc .cc-fix{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;color:var(--ind);font-weight:500;opacity:.6}
+
 
 /* STICKY SCROLL */
 .sticky-sec{position:relative}
@@ -173,20 +178,30 @@ a{text-decoration:none;color:inherit}
 .ctbl th:first-child{text-align:left}.ctbl th:last-child{color:var(--t1)}
 .ctbl td{padding:10px 14px;border-bottom:1px solid var(--brd);text-align:center;color:var(--t3)}
 .ctbl td:first-child{text-align:left;color:var(--t2);font-weight:500}
-.ctbl td:last-child{color:var(--grn);font-weight:500}
+.ctbl td:last-child{color:var(--grn);font-weight:600;background:rgba(74,222,128,.02)}
 .ctbl tr:last-child td{border-bottom:none}
 
 /* FLAG CARDS */
-.flag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px;max-width:640px}
-@media(max-width:600px){.flag-grid{grid-template-columns:repeat(2,1fr)}}
-.flag-card{border:1px solid var(--brd);border-radius:12px;background:var(--bg2);padding:20px;text-align:center;transition:all .3s}
-.flag-card:hover{border-color:var(--brd2);background:var(--bg3)}
+.flag-grid{display:flex;gap:12px;margin-bottom:36px;overflow-x:auto;padding-bottom:4px}
+.flag-card{min-width:110px;flex:1}
+@media(max-width:768px){.flag-grid{flex-wrap:wrap}.flag-card{min-width:calc(50% - 6px);flex:none}}
+.flag-card{border:1px solid var(--brd);border-radius:12px;background:var(--bg2);padding:16px 12px;text-align:center;transition:all .3s;cursor:pointer}
+.flag-card:hover{border-color:var(--brd2);background:var(--bg3);transform:translateY(-2px)}
+.flag-card .fc-tap{font-size:9px;color:var(--t4);margin-top:5px;transition:color .2s}
+.flag-card:hover .fc-tap{color:var(--t2)}
+.fd-panel{display:none;padding:20px;border:1px solid var(--brd);border-radius:12px;background:var(--bg2);margin-bottom:20px;animation:fdOpen .3s ease}
+.fd-panel.open{display:block}
+@keyframes fdOpen{0%{opacity:0;transform:translateY(-6px)}100%{opacity:1;transform:translateY(0)}}
+.fd-panel h4{color:var(--t1);font-size:15px;font-weight:600;margin-bottom:8px}
+.fd-panel p{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:12px}
+.fd-tags{display:flex;flex-wrap:wrap;gap:6px}
+.fd-tag{font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--brd);color:var(--t2);background:var(--bg3)}
 .flag-card .ff{font-size:28px;margin-bottom:8px;display:block}
 .flag-card .fcn{color:var(--t1);font-size:14px;font-weight:600;margin-bottom:4px}
 .flag-card .fcs{font-size:11px;font-weight:500;display:inline-block;padding:3px 10px;border-radius:100px}
 .flag-card .fcs.live{background:rgba(74,222,128,.1);color:var(--grn)}
 .flag-card .fcs.soon{background:rgba(129,140,248,.08);color:var(--ind)}
-.flag-card.is-live{border-color:rgba(74,222,128,.2)}
+.flag-card.is-live{border-color:rgba(74,222,128,.3);box-shadow:0 0 16px rgba(74,222,128,.06)}
 
 /* COMPLIANCE */
 .cpbox{border:1px solid var(--brd);border-radius:12px;background:var(--bg2);padding:28px;max-width:600px}
@@ -199,15 +214,22 @@ a{text-decoration:none;color:inherit}
 .cpi span{color:var(--t2)}
 
 /* GO-LIVE */
-.glg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border-radius:12px;overflow:hidden;border:1px solid var(--brd);max-width:760px;margin:0 auto}
-@media(max-width:600px){.glg{grid-template-columns:1fr}}
-.glc{background:var(--bg2);padding:28px;text-align:center}
-.glc .dy{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--t1);margin-bottom:10px}
+.glg{display:flex;gap:0;max-width:800px;margin:0 auto;position:relative}
+@media(max-width:600px){.glg{flex-direction:column}}
+.glg::before{content:'';position:absolute;top:30px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--ind),var(--grn));opacity:.15}
+@media(max-width:600px){.glg::before{display:none}}
+.glc{flex:1;text-align:center;padding:0 16px}
+.glc-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--ind);background:var(--bg);margin:20px auto 14px;position:relative;z-index:1}
+.glc:nth-child(2) .glc-dot{border-color:var(--blue)}
+.glc:nth-child(3) .glc-dot{border-color:var(--grn);background:var(--grn);box-shadow:0 0 10px rgba(74,222,128,.25)}
+.glc .dy{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--ind);margin-bottom:8px}
+.glc:nth-child(2) .dy{color:var(--blue)}
+.glc:nth-child(3) .dy{color:var(--grn)}
 .glc h3{color:var(--t1);font-size:16px;font-weight:600;margin-bottom:6px}
 .glc p{font-size:13px;color:var(--t2);line-height:1.6}
 
 /* FOUNDER */
-.fq{font-size:16px;line-height:1.8;color:var(--t2);text-align:center;max-width:540px;margin:0 auto 28px;font-style:italic}
+.fq{font-size:17px;line-height:1.85;color:var(--t2);text-align:center;max-width:560px;margin:0 auto 28px;font-style:italic;position:relative}.fq::before{content:"\201C";position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:64px;color:var(--ind);opacity:.12;font-family:Georgia,serif}
 .fif{display:flex;align-items:center;justify-content:center;gap:10px}
 .fav{width:36px;height:36px;border-radius:50%;background:var(--bg2);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--t3)}
 .fif .fn{color:var(--t1);font-size:13px;font-weight:600}
@@ -222,6 +244,16 @@ a{text-decoration:none;color:inherit}
 .fqi.open .fqa{max-height:220px;padding-bottom:18px}
 .fqa p{font-size:14px;color:var(--t2);line-height:1.75}
 
+
+/* CTA layout */
+.cta-wrap{display:flex;gap:48px;align-items:flex-start;max-width:880px;margin:0 auto}
+@media(max-width:768px){.cta-wrap{flex-direction:column;gap:28px}}
+.cta-left{flex:1;padding-top:4px}
+.cta-right{width:400px;flex-shrink:0}
+@media(max-width:768px){.cta-right{width:100%}}
+.cta-perks{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.cta-perk{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)}
+.cta-perk .cpi{color:var(--grn);font-size:11px;width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 /* FORM */
 .fb{border:1px solid var(--brd);border-radius:12px;background:var(--bg2);padding:28px;max-width:420px;margin:0 auto;text-align:left}
 .fb h3{color:var(--t1);font-size:14px;font-weight:600;text-align:center;margin-bottom:20px}
@@ -230,7 +262,7 @@ a{text-decoration:none;color:inherit}
 .fg input,.fg select{width:100%;background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--t1);outline:none}
 .fg input::placeholder{color:var(--t4)}
 .fg select{-webkit-appearance:none;color:var(--t3)}
-.fbt{width:100%;margin-top:8px;background:var(--t1);color:var(--bg);font-size:14px;font-weight:600;padding:12px;border:none;border-radius:10px;cursor:pointer}
+.fbt{width:100%;margin-top:8px;background:var(--ind);color:#fff;font-size:14px;font-weight:600;padding:13px;border:none;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(129,140,248,.2)}.fbt:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(129,140,248,.3)}
 .fok{display:none;text-align:center;padding:20px 0}.fok.show{display:block}
 .fok .fchk{color:var(--grn);font-size:24px;margin-bottom:10px}
 .fok h4{color:var(--t1);font-size:14px;font-weight:600;margin-bottom:3px}
@@ -243,7 +275,7 @@ a{text-decoration:none;color:inherit}
 .footer-in a{font-size:12px;color:var(--t3)}.footer-in a:hover{color:var(--t1)}
 .footer-in span{font-size:11px;color:var(--t4)}
 .flc{display:none;position:fixed;bottom:0;left:0;right:0;z-index:40;padding:10px 16px;background:rgba(9,9,11,.96);backdrop-filter:blur(20px);border-top:1px solid var(--brd)}
-.flc a{display:block;width:100%;text-align:center;background:var(--t1);color:var(--bg);font-weight:600;padding:12px;border-radius:10px;font-size:14px;cursor:pointer}
+.flc a{display:block;width:100%;text-align:center;background:var(--ind);color:#fff;font-weight:600;padding:13px;border-radius:10px;font-size:14px;cursor:pointer}
 @media(max-width:768px){.flc{display:block}body{padding-bottom:60px}}
 </style>
 </head>
@@ -256,47 +288,47 @@ a{text-decoration:none;color:inherit}
 <button class="mob-btn" onclick="document.getElementById('mobMenu').classList.toggle('open')">&#9776;</button>
 </div><div class="mob-menu" id="mobMenu"><a onclick="goTo('sec-journey');closeMob()">The Flow</a><a onclick="goTo('sec-modules');closeMob()">Modules</a><a onclick="goTo('sec-compare');closeMob()">Compare</a><a onclick="goTo('sec-faq');closeMob()">FAQ</a><a class="nav-cta" style="text-align:center;display:block" onclick="goTo('sec-cta');closeMob()">Book a demo</a></div></nav>
 
-<!-- HERO — Cinematic -->
+<!-- HERO -->
 <section class="hero">
 <canvas id="heroCanvas"></canvas>
 <div class="hero-content">
-<h1>SOURCE.<br>PROCURE.<br>MATCH. PAY.</h1>
+<h1>BUILT BY<br>PROCUREMENT<br>PEOPLE.</h1>
+<p class="hero-contrast">Not accountants. Not developers.</p>
 <div class="hero-tagline">Procurement reimagined</div>
-<p class="hero-sub">From purchase request to payment. One flow. Zero gaps. Multi-project MRP. Built for mid-market companies worldwide.</p>
+<p class="hero-sub">The last procurement tool you will ever need. Source-to-Pay with multi-project MRP, country-specific compliance, and real-time analytics.</p>
 <div class="hero-btns">
 <button class="hero-cta-primary" onclick="goTo('sec-cta')">GET STARTED</button>
 <button class="hero-cta-ghost" onclick="goTo('sec-journey')">See the flow &rarr;</button>
 </div>
 </div>
-<!-- Product mockup fading in -->
 <div class="hero-mockup">
-<div class="hero-mock-bar"><i></i><i></i><i></i><em>app.prodomino.in/dashboard</em></div>
-<div class="hero-mock-body">
-<div class="hero-mock-sidebar">
-<div class="logo-row"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="14" r="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="14" r="8" fill="#312E81" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="34" r="8" fill="#4338CA" stroke="#818CF8" stroke-width="1.6"/><circle cx="16" cy="34" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.6"/></svg><span>ProDomino</span></div>
-<div class="hero-mock-nav-item active">Dashboard</div>
-<div class="hero-mock-nav-item">Purchase Requests</div>
-<div class="hero-mock-nav-item">Purchase Orders</div>
-<div class="hero-mock-nav-item">Vendors</div>
-<div class="hero-mock-nav-item">GRN &amp; Stores</div>
-<div class="hero-mock-nav-item">RFQ Management</div>
-<div class="hero-mock-nav-item">Projects &amp; MRP</div>
-<div class="hero-mock-nav-item">Analytics</div>
+<div class="hm-bar"><i></i><i></i><i></i><em>app.prodomino.in/dashboard</em></div>
+<div class="hm-body">
+<div class="hm-side">
+<div class="hm-logo"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="14" r="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="14" r="8" fill="#312E81" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="34" r="8" fill="#4338CA" stroke="#818CF8" stroke-width="1.6"/><circle cx="16" cy="34" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.6"/></svg><span>ProDomino</span></div>
+<div class="hm-ni on">Dashboard</div>
+<div class="hm-ni">Purchase Requests</div>
+<div class="hm-ni">Purchase Orders</div>
+<div class="hm-ni">Vendors</div>
+<div class="hm-ni">GRN &amp; Stores</div>
+<div class="hm-ni">RFQ Management</div>
+<div class="hm-ni">Projects &amp; MRP</div>
+<div class="hm-ni">Analytics</div>
 </div>
-<div class="hero-mock-main">
-<div class="hero-mock-kpis">
-<div class="hero-mock-kpi"><small>Total spend</small><b>$2.4M</b><span class="delta">&uarr; 12%</span></div>
-<div class="hero-mock-kpi"><small>POs issued</small><b>147</b><span class="delta">&uarr; 8</span></div>
-<div class="hero-mock-kpi"><small>PR to PO</small><b>4.2d</b><span class="delta">&darr; from 15</span></div>
-<div class="hero-mock-kpi"><small>Compliance</small><b>98%</b><span class="delta">&uarr; 3%</span></div>
+<div class="hm-main">
+<div class="hm-kpis">
+<div class="hm-kpi"><small>Total spend</small><b>$2.4M</b><span class="dt">&uarr; 12%</span></div>
+<div class="hm-kpi"><small>POs issued</small><b>147</b><span class="dt">&uarr; 8</span></div>
+<div class="hm-kpi"><small>PR to PO</small><b>4.2d</b><span class="dt">&darr; from 15</span></div>
+<div class="hm-kpi"><small>Compliance</small><b>98%</b><span class="dt">&uarr; 3%</span></div>
 </div>
-<div class="hero-mock-flow">
-<div class="hero-mock-fn" id="hf0">PR</div><span class="hero-mock-fa">&rarr;</span>
-<div class="hero-mock-fn" id="hf1">Approve</div><span class="hero-mock-fa">&rarr;</span>
-<div class="hero-mock-fn" id="hf2">RFQ</div><span class="hero-mock-fa">&rarr;</span>
-<div class="hero-mock-fn" id="hf3">PO</div><span class="hero-mock-fa">&rarr;</span>
-<div class="hero-mock-fn" id="hf4">GRN</div><span class="hero-mock-fa">&rarr;</span>
-<div class="hero-mock-fn" id="hf5">Match</div>
+<div class="hm-flow">
+<div class="hm-fn" id="hf0">PR</div><span class="hm-fa">&rarr;</span>
+<div class="hm-fn" id="hf1">Approve</div><span class="hm-fa">&rarr;</span>
+<div class="hm-fn" id="hf2">RFQ</div><span class="hm-fa">&rarr;</span>
+<div class="hm-fn" id="hf3">PO</div><span class="hm-fa">&rarr;</span>
+<div class="hm-fn" id="hf4">GRN</div><span class="hm-fa">&rarr;</span>
+<div class="hm-fn" id="hf5">Match</div>
 </div>
 </div>
 </div>
@@ -315,12 +347,12 @@ a{text-decoration:none;color:inherit}
 <section class="sec" id="sec-problem"><div class="mx">
 <div style="text-align:center"><p class="lb">Today's reality</p><h2 class="st" style="text-align:center">This is what procurement looks like<br>at most mid-market companies.</h2><p class="sd" style="margin:0 auto 48px;text-align:center">Disconnected tools. No audit trail. Decisions made on memory.</p></div>
 <div class="chaos-grid">
-<div class="cc"><div class="cst">$1.2M+</div><h3>Maverick spend per year</h3><p>Purchases outside policy. No enforcement.</p></div>
-<div class="cc"><div class="cst">15 days</div><h3>PR-to-PO cycle time</h3><p>Manual routing. Missing sign-offs.</p></div>
-<div class="cc"><div class="cst">15%</div><h3>Invoice error rate</h3><p>Manual matching. Tax mismatches.</p></div>
-<div class="cc"><div class="cst">3 days</div><h3>To get spend data</h3><p>Reconciling spreadsheets. Always stale.</p></div>
-<div class="cc"><div class="cst">45+ days</div><h3>Vendor payment delays</h3><p>Compliance deadlines missed.</p></div>
-<div class="cc"><div class="cst">6%</div><h3>Price hike from slow approvals</h3><p>Quote expires. Price goes up.</p></div>
+<div class="cc"><span class="cc-icon">&#128176;</span><div class="cst">$1.2M+</div><h3>Maverick spend per year</h3><p>Purchases outside policy because there is no system to enforce it. Nobody knows until audit.</p><div class="cc-fix">ProDomino enforces policy &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#9202;</span><div class="cst">15 days</div><h3>PR-to-PO cycle time</h3><p>Manual routing through email. Approvers forget. Reminders go unseen. Quotes expire while waiting.</p><div class="cc-fix">Down to 4.2 days &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#9888;</span><div class="cst">15%</div><h3>Invoice error rate</h3><p>Manual matching of PO, GRN, and Invoice in spreadsheets. Tax miscalculations. Payment disputes.</p><div class="cc-fix">Auto 3-way match &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#128202;</span><div class="cst">3 days</div><h3>To get spend data</h3><p>Finance reconciles spreadsheets from multiple departments. Data is always stale by the time it arrives.</p><div class="cc-fix">Real-time dashboard &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#128197;</span><div class="cst">45+ days</div><h3>Vendor payment delays</h3><p>MSME compliance deadlines missed. Penalty interest accumulates. Vendor relationships damaged.</p><div class="cc-fix">Countdown alerts &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#128200;</span><div class="cst">6%</div><h3>Price hike from slow approvals</h3><p>By the time the PO is approved, the vendor quote has expired. New quote is always higher.</p><div class="cc-fix">Auto-escalation SLA &#8594;</div></div>
 </div></div></section>
 <div class="divider"></div>
 
@@ -439,14 +471,20 @@ a{text-decoration:none;color:inherit}
 <!-- COMPLIANCE -->
 <section class="sec"><div class="mx">
 <p class="lb">Compliance</p><h2 class="st">Country-specific. Not bolted on.</h2><p class="sd">Built into core logic. Not plugins. Not config screens.</p>
-<div class="flag-grid" style="margin-bottom:36px">
-<div class="flag-card is-live"><span class="ff">&#127470;&#127475;</span><div class="fcn">India</div><span class="fcs live">Live</span></div>
-<div class="flag-card"><span class="ff">&#127482;&#127480;</span><div class="fcn">United States</div><span class="fcs soon">2026</span></div>
-<div class="flag-card"><span class="ff">&#127468;&#127463;</span><div class="fcn">United Kingdom</div><span class="fcs soon">2026</span></div>
-<div class="flag-card"><span class="ff">&#127462;&#127466;</span><div class="fcn">UAE</div><span class="fcs soon">2027</span></div>
-<div class="flag-card"><span class="ff">&#127480;&#127468;</span><div class="fcn">Singapore</div><span class="fcs soon">2027</span></div>
-<div class="flag-card"><span class="ff">&#127466;&#127482;</span><div class="fcn">European Union</div><span class="fcs soon">2027</span></div>
+<div class="flag-grid" style="margin-bottom:14px">
+<div class="flag-card is-live" onclick="showCountry('fd-in')"><span class="ff">&#127470;&#127475;</span><div class="fcn">India</div><span class="fcs live">Live</span><div class="fc-tap">Details</div></div>
+<div class="flag-card" onclick="showCountry('fd-us')"><span class="ff">&#127482;&#127480;</span><div class="fcn">United States</div><span class="fcs soon">2026</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-uk')"><span class="ff">&#127468;&#127463;</span><div class="fcn">United Kingdom</div><span class="fcs soon">2026</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-ae')"><span class="ff">&#127462;&#127466;</span><div class="fcn">UAE</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-sg')"><span class="ff">&#127480;&#127468;</span><div class="fcn">Singapore</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-eu')"><span class="ff">&#127466;&#127482;</span><div class="fcn">European Union</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
 </div>
+<div class="fd-panel" id="fd-in"><h4>&#127470;&#127475; India — Live Now</h4><p>Full compliance pack built into core logic. Every transaction respects Indian tax law automatically. Not bolted on, not a plugin.</p><div class="fd-tags"><span class="fd-tag">GST (CGST/SGST/IGST)</span><span class="fd-tag">GSTIN Validation</span><span class="fd-tag">HSN/SAC Codes</span><span class="fd-tag">TDS Section 194C</span><span class="fd-tag">MSME 45-day Rule</span><span class="fd-tag">UOM/GST UQC</span><span class="fd-tag">INR Formatting</span><span class="fd-tag">e-Invoice Ready</span></div></div>
+<div class="fd-panel" id="fd-us"><h4>&#127482;&#127480; United States — Planned 2026</h4><p>US compliance for mid-market companies with multi-state operations. Sales tax automation, 1099 vendor tracking, and federal procurement basics.</p><div class="fd-tags"><span class="fd-tag">Sales Tax (state-level)</span><span class="fd-tag">1099 Tracking</span><span class="fd-tag">W-9 Collection</span><span class="fd-tag">ACH Payments</span><span class="fd-tag">USD Formatting</span><span class="fd-tag">FAR Compliance</span></div></div>
+<div class="fd-panel" id="fd-uk"><h4>&#127468;&#127463; United Kingdom — Planned 2026</h4><p>UK compliance for post-Brexit VAT, Making Tax Digital, and standard payment terms. CIS deductions for construction.</p><div class="fd-tags"><span class="fd-tag">VAT (Standard/Reduced/Zero)</span><span class="fd-tag">Making Tax Digital</span><span class="fd-tag">CIS Deductions</span><span class="fd-tag">GBP Formatting</span><span class="fd-tag">30-day Terms</span><span class="fd-tag">Companies House</span></div></div>
+<div class="fd-panel" id="fd-ae"><h4>&#127462;&#127466; UAE — Planned 2027</h4><p>UAE compliance for VAT, free zone regulations, and customs duties. Supporting mainland and free zone operations.</p><div class="fd-tags"><span class="fd-tag">VAT 5%</span><span class="fd-tag">Free Zone Rules</span><span class="fd-tag">TRN Validation</span><span class="fd-tag">AED/USD Dual</span><span class="fd-tag">Customs Duty</span><span class="fd-tag">WPS Payments</span></div></div>
+<div class="fd-panel" id="fd-sg"><h4>&#127480;&#127468; Singapore — Planned 2027</h4><p>Singapore compliance for GST, IRAS reporting, and cross-border ASEAN procurement.</p><div class="fd-tags"><span class="fd-tag">GST 9%</span><span class="fd-tag">IRAS Reporting</span><span class="fd-tag">UEN Validation</span><span class="fd-tag">SGD Formatting</span><span class="fd-tag">ASEAN Trade</span><span class="fd-tag">Peppol e-Invoice</span></div></div>
+<div class="fd-panel" id="fd-eu"><h4>&#127466;&#127482; European Union — Planned 2027</h4><p>EU compliance across member states. VAT reverse charge, GDPR data handling, e-invoicing. Starting with Germany, France, Netherlands.</p><div class="fd-tags"><span class="fd-tag">VAT (per state)</span><span class="fd-tag">Reverse Charge</span><span class="fd-tag">GDPR Handling</span><span class="fd-tag">e-Invoice EN 16931</span><span class="fd-tag">EUR Formatting</span><span class="fd-tag">VIES Validation</span></div></div>
 <div class="cpbox"><div class="cphead"><span style="font-size:18px">&#127470;&#127475;</span><span class="cn2">India Pack</span><span class="cl">Live</span></div>
 <div class="cpi"><span class="ck">&#10003;</span><div><strong>GST auto-calculation</strong> <span>— CGST / SGST / IGST from state codes</span></div></div>
 <div class="cpi"><span class="ck">&#10003;</span><div><strong>GSTIN validation</strong> <span>— Check-digit rejection</span></div></div>
@@ -461,9 +499,9 @@ a{text-decoration:none;color:inherit}
 <section class="sec"><div class="mx">
 <div style="text-align:center"><p class="lb">Setup</p><h2 class="st" style="text-align:center">Live in under two weeks.</h2></div>
 <div class="glg">
-<div class="glc"><div class="dy">Day 1-3</div><h3>Configure</h3><p>Import data. Set rules, budgets, tax rates.</p></div>
-<div class="glc"><div class="dy">Day 4-7</div><h3>Train</h3><p>Founder-led onboarding. Real transactions.</p></div>
-<div class="glc"><div class="dy">Day 8-14</div><h3>Go live</h3><p>Real matching. Real dashboards.</p></div>
+<div class="glc"><div class="glc-dot"></div><div class="dy">Day 1-3</div><h3>Configure</h3><p>Import data. Set rules, budgets, tax rates.</p></div>
+<div class="glc"><div class="glc-dot"></div><div class="dy">Day 4-7</div><h3>Train</h3><p>Founder-led onboarding. Real transactions.</p></div>
+<div class="glc"><div class="glc-dot"></div><div class="dy">Day 8-14</div><h3>Go live</h3><p>Real matching. Real dashboards.</p></div>
 </div></div></section>
 <div class="divider"></div>
 
@@ -488,8 +526,21 @@ a{text-decoration:none;color:inherit}
 <div class="divider"></div>
 
 <!-- CTA -->
-<section class="sec" id="sec-cta"><div class="mx" style="max-width:440px;text-align:center">
-<p class="lb">Early access</p><h2 class="st" style="text-align:center">10 companies. Real feedback.<br>Fraction of eventual pricing.</h2><p style="font-size:14px;color:var(--t3);margin-bottom:32px">You get the product early. We get the feedback that shapes it.</p>
+<section class="sec" id="sec-cta" style="padding:64px 0"><div class="mx">
+<div class="cta-wrap">
+<div class="cta-left">
+<p class="lb">Early access</p>
+<h2 class="st">10 companies. Real feedback.<br>Fraction of eventual pricing.</h2>
+<p style="font-size:15px;color:var(--t2);margin-bottom:20px;line-height:1.7">You get the product early. We get the feedback that shapes it.</p>
+<div class="cta-perks">
+<div class="cta-perk"><span class="cpi">&#10003;</span>All modules included from day one</div>
+<div class="cta-perk"><span class="cpi">&#10003;</span>Founder-led onboarding (not a chatbot)</div>
+<div class="cta-perk"><span class="cpi">&#10003;</span>Priority support and direct Slack access</div>
+<div class="cta-perk"><span class="cpi">&#10003;</span>Shape the roadmap with your feedback</div>
+<div class="cta-perk"><span class="cpi">&#10003;</span>Lock in early pricing forever</div>
+</div>
+</div>
+<div class="cta-right">
 <div class="fb">
 <h3>Book a 15-minute demo</h3>
 <div id="formFields" class="ffields">
@@ -502,7 +553,7 @@ a{text-decoration:none;color:inherit}
 <div id="formSuccess" class="fok"><div class="fchk">&#10003;</div><h4>Request received</h4><p>I will reach out within 24 hours.</p></div>
 </div>
 <p style="font-size:11px;color:var(--t4);margin-top:16px">Or email harshad.am@enalsys.com</p>
-</div></section>
+</div></div></div></section>
 
 <!-- FOOTER -->
 <footer class="footer"><div class="mx"><div class="footer-in">
@@ -632,70 +683,29 @@ function submitForm() {
   requestAnimationFrame(tick);
 })();
 
-// Particle network for hero
-;(function() {
-  var cv = document.getElementById('heroCanvas');
-  if (!cv) return;
-  function resize() { cv.width = cv.offsetWidth; cv.height = cv.offsetHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-  var ctx = cv.getContext('2d');
-  var dots = [];
-  for (var i = 0; i < 80; i++) {
-    dots.push({
-      x: Math.random() * cv.width,
-      y: Math.random() * cv.height,
-      r: Math.random() * 1.5 + 0.5,
-      dx: (Math.random() - 0.5) * 0.4,
-      dy: (Math.random() - 0.5) * 0.4,
-      a: Math.random() * 0.35 + 0.05
-    });
-  }
-  function draw() {
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    dots.forEach(function(d) {
-      d.x += d.dx; d.y += d.dy;
-      if (d.x < 0 || d.x > cv.width) d.dx *= -1;
-      if (d.y < 0 || d.y > cv.height) d.dy *= -1;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(129,140,248,' + d.a + ')';
-      ctx.fill();
-    });
-    for (var i = 0; i < dots.length; i++) {
-      for (var j = i + 1; j < dots.length; j++) {
-        var dx = dots[i].x - dots[j].x;
-        var dy = dots[i].y - dots[j].y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(dots[i].x, dots[i].y);
-          ctx.lineTo(dots[j].x, dots[j].y);
-          ctx.strokeStyle = 'rgba(129,140,248,' + (0.06 * (1 - dist / 100)) + ')';
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
+// Particle network
+;(function(){
+  var cv=document.getElementById('heroCanvas');
+  if(!cv)return;
+  function rs(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight}
+  rs();window.addEventListener('resize',rs);
+  var ctx=cv.getContext('2d'),dots=[];
+  for(var i=0;i<80;i++)dots.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.5+.5,dx:(Math.random()-.5)*.35,dy:(Math.random()-.5)*.35,a:Math.random()*.3+.05});
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    dots.forEach(function(d){d.x+=d.dx;d.y+=d.dy;if(d.x<0||d.x>cv.width)d.dx*=-1;if(d.y<0||d.y>cv.height)d.dy*=-1;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle='rgba(129,140,248,'+d.a+')';ctx.fill()});
+    for(var i=0;i<dots.length;i++)for(var j=i+1;j<dots.length;j++){var dx=dots[i].x-dots[j].x,dy=dots[i].y-dots[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<100){ctx.beginPath();ctx.moveTo(dots[i].x,dots[i].y);ctx.lineTo(dots[j].x,dots[j].y);ctx.strokeStyle='rgba(129,140,248,'+(0.06*(1-dist/100))+')';ctx.lineWidth=.5;ctx.stroke()}}
     requestAnimationFrame(draw);
   }
   draw();
 })();
-
 // Mockup pipeline glow
-;(function() {
-  var idx = 0;
-  setInterval(function() {
-    for (var i = 0; i < 6; i++) {
-      var el = document.getElementById('hf' + i);
-      if (el) {
-        if (i === idx) el.classList.add('glow');
-        else el.classList.remove('glow');
-      }
-    }
-    idx = (idx + 1) % 6;
-  }, 900);
-})();
+;(function(){var idx=0;setInterval(function(){for(var i=0;i<6;i++){var el=document.getElementById('hf'+i);if(el){if(i===idx)el.classList.add('glow');else el.classList.remove('glow')}}idx=(idx+1)%6},900)})();
+
+function showCountry(id){
+  var all=document.querySelectorAll('.fd-panel');
+  all.forEach(function(p){if(p.id===id)p.classList.toggle('open');else p.classList.remove('open')});
+}
 </script>
 </body>
 </html>
