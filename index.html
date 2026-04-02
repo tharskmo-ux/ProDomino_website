@@ -313,7 +313,7 @@ a{text-decoration:none;color:inherit}
 
 <!-- NAV -->
 <nav class="nav" id="mainNav"><div class="nav-in">
-<a class="nav-logo"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="14" r="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="14" r="8" fill="#312E81" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="34" r="8" fill="#4338CA" stroke="#818CF8" stroke-width="1.6"/><circle cx="16" cy="34" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.6"/></svg>ProDomino</a>
+<a class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="14" r="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="14" r="8" fill="#312E81" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="34" r="8" fill="#4338CA" stroke="#818CF8" stroke-width="1.6"/><circle cx="16" cy="34" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.6"/></svg>ProDomino</a>
 <div class="nav-lk"><a onclick="goTo('sec-journey')">The Flow</a><a onclick="goTo('sec-modules')">Modules</a><a onclick="goTo('sec-compare')">Compare</a><a onclick="goTo('sec-faq')">FAQ</a><a class="nav-cta" onclick="goTo('sec-cta')">Book a demo</a></div>
 <button class="mob-btn" onclick="document.getElementById('mobMenu').classList.toggle('open')">&#9776;</button>
 </div><div class="mob-menu" id="mobMenu"><a onclick="goTo('sec-journey');closeMob()">The Flow</a><a onclick="goTo('sec-modules');closeMob()">Modules</a><a onclick="goTo('sec-compare');closeMob()">Compare</a><a onclick="goTo('sec-faq');closeMob()">FAQ</a><a class="nav-cta" style="text-align:center;display:block" onclick="goTo('sec-cta');closeMob()">Book a demo</a></div></nav>
@@ -410,6 +410,67 @@ a{text-decoration:none;color:inherit}
 <div class="fif"><div class="fav">HM</div><div><div class="fn">Harshad A. Mohgaonkar</div><div class="fr">Founder - Enalsys Consulting - Pune</div></div></div>
 </div></section>
 <div class="divider"></div>
+
+<!-- JOURNEY -->
+<div class="sticky-sec" id="sec-journey">
+<div class="sticky-wrap">
+<div class="sticky-left">
+<p class="lb">The flow</p>
+<h2 class="st">One cycle.<br>Eight stages.</h2>
+<p style="font-size:14px;color:var(--t2);margin-bottom:28px;max-width:280px;line-height:1.7">Every stage feeds the next. No handoffs. No data lost.</p>
+<div class="sdots" id="sdots">
+<div class="sdot active" data-idx="0"><div class="sdot-circle"></div><div class="sdot-label">Identify</div></div>
+<div class="sdot" data-idx="1"><div class="sdot-circle"></div><div class="sdot-label">Approve</div></div>
+<div class="sdot" data-idx="2"><div class="sdot-circle"></div><div class="sdot-label">Source</div></div>
+<div class="sdot" data-idx="3"><div class="sdot-circle"></div><div class="sdot-label">Order</div></div>
+<div class="sdot" data-idx="4"><div class="sdot-circle"></div><div class="sdot-label">Receive</div></div>
+<div class="sdot" data-idx="5"><div class="sdot-circle"></div><div class="sdot-label">Match</div></div>
+<div class="sdot" data-idx="6"><div class="sdot-circle"></div><div class="sdot-label">Pay</div></div>
+<div class="sdot" data-idx="7"><div class="sdot-circle"></div><div class="sdot-label">Analyse</div></div>
+</div></div>
+<div class="sticky-right">
+<div class="scard" data-stage="0"><div class="snum">01</div><div class="stag purple">Identify</div><h3>Need identified. PR created.</h3><p>MRP calculates net need from project milestones, checks inventory, creates purchase request automatically.</p><div class="stags"><span>MRP Engine</span><span>Budget Check</span><span>Auto-PR</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/mrp-review</em></div><div class="smock-body"><div class="smock-hdr"><b>MRP Review</b><u>Run MRP</u></div><div class="smock-row"><span>TMT Steel 12mm</span><span>500 MT</span><span>120 MT</span><span class="pill pill-r">Urgent</span></div><div class="smock-row"><span>OPC Cement</span><span>800 Bags</span><span>200 Bags</span><span class="pill pill-a">PR Due</span></div><div class="smock-row"><span>MS Plates</span><span>200 Nos</span><span>200 Nos</span><span class="pill pill-g">OK</span></div></div></div></div>
+<div class="scard" data-stage="1"><div class="snum">02</div><div class="stag purple">Approve</div><h3>Routed. Reviewed. Approved.</h3><p>PR enters configurable approval chain. Auto-escalation. Full audit trail with timestamps.</p><div class="stags"><span>Delegation of Authority</span><span>Auto-Escalation</span><span>Audit Trail</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/pr/PR-2026-0412</em></div><div class="smock-body"><div class="smock-hdr"><b>PR-2026-0412</b><u class="a">Pending</u></div><div class="smock-row"><span>L1 — Project Manager</span><span class="pill pill-g">Approved</span></div><div class="smock-row"><span>L2 — Procurement Head</span><span class="pill pill-a">Awaiting</span></div><div class="smock-row"><span>L3 — CFO (>$25K)</span><span class="pill pill-b">Queued</span></div></div></div></div>
+<div class="scard" data-stage="2"><div class="snum">03</div><div class="stag blue">Source</div><h3>Vendors compared. Best price found.</h3><p>System checks rate contracts. If none, floats RFQ. Responses scored on price, quality, delivery.</p><div class="stags"><span>Rate Contracts</span><span>RFQ Portal</span><span>Reverse Auction</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/rfq/RFQ-0087</em></div><div class="smock-body"><div class="smock-hdr"><b>RFQ Evaluation</b><u class="g">Award</u></div><div class="smock-row"><span>Tata Steel</span><span>$620/MT</span><span class="pill pill-g">92</span></div><div class="smock-row"><span>JSW Steel</span><span>$598/MT</span><span class="pill pill-a">78</span></div><div class="smock-row"><span>Vizag Steel</span><span>$645/MT</span><span class="pill pill-a">74</span></div></div></div></div>
+<div class="scard" data-stage="3"><div class="snum">04</div><div class="stag blue">Order</div><h3>PO generated. Sent to vendor.</h3><p>One click converts approved PR into purchase order. Tax calculated automatically. PDF dispatched.</p><div class="stags"><span>Auto Tax Calc</span><span>PDF Generation</span><span>Vendor Notify</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/po/PO-2026-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>PO-2026-0298</b><u class="g">Issued</u></div><div class="smock-row"><span>Item</span><strong>TMT Steel 12mm — 380 MT</strong></div><div class="smock-row"><span>Subtotal</span><strong>$235,600</strong></div><div class="smock-row"><span>GST (18%)</span><strong>$42,408</strong></div><div class="smock-row"><span>Total</span><strong>$278,008</strong></div></div></div></div>
+<div class="scard" data-stage="4"><div class="snum">05</div><div class="stag green">Receive</div><h3>Goods arrive. GRN posted.</h3><p>Quantity verified against PO. Quality inspection recorded. Inventory updated across all stores.</p><div class="stags"><span>GRN vs PO</span><span>Quality Check</span><span>Multi-Store</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/grn/GRN-0156</em></div><div class="smock-body"><div class="smock-hdr"><b>GRN-0156</b><u class="g">Posted</u></div><div class="smock-row"><span>Ordered</span><strong>380 MT</strong></div><div class="smock-row"><span>Received</span><strong>380 MT</strong></div><div class="smock-row"><span>Quality</span><span class="pill pill-g">Passed</span></div><div class="smock-row"><span>Store</span><strong>Site A</strong></div></div></div></div>
+<div class="scard" data-stage="5"><div class="snum">06</div><div class="stag green">Match</div><h3>PO. GRN. Invoice. Matched.</h3><p>Three-way matching with configurable tolerance. Auto-clear or flag with line-level detail.</p><div class="stags"><span>3-Way Match</span><span>Tolerance Rules</span><span>Exceptions</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/invoices/INV-4821</em></div><div class="smock-body"><div class="smock-hdr"><b>3-Way Match</b><u class="g">Matched</u></div><div class="smock-row"><span>Qty</span><span>380</span><span>380</span><span class="pill pill-g">380 OK</span></div><div class="smock-row"><span>Price</span><span>$620</span><span>—</span><span class="pill pill-g">$620 OK</span></div></div></div></div>
+<div class="scard" data-stage="6"><div class="snum">07</div><div class="stag amber">Pay</div><h3>Tax deducted. Payment processed.</h3><p>Tax deductions by vendor type. Compliance deadlines tracked. Payment through same DoA engine.</p><div class="stags"><span>TDS</span><span>MSME Compliance</span><span>Payment Approval</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/payments/PAY-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>Payment — Tata Steel</b><u class="a">Processing</u></div><div class="smock-row"><span>Invoice</span><strong>$278,008</strong></div><div class="smock-row"><span>TDS (1%)</span><strong>-$2,780</strong></div><div class="smock-row"><span>Net Payable</span><strong>$275,228</strong></div><div class="smock-row"><span>MSME Deadline</span><span class="pill pill-a">12 days</span></div></div></div></div>
+<div class="scard" data-stage="7"><div class="snum">08</div><div class="stag green">Analyse</div><h3>Every transaction becomes insight.</h3><p>Spend by category, project, vendor. Anomaly detection. Weekly CXO digest automatically.</p><div class="stags"><span>Analytics</span><span>Budget Tracking</span><span>Anomaly Alerts</span><span>CXO Digest</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/analytics</em></div><div class="smock-body"><div class="smock-hdr"><b>Procurement Analytics</b><u>Export</u></div><div class="smock-kpis"><div class="smock-kpi"><small>Spend</small><strong>$2.4M</strong></div><div class="smock-kpi"><small>Savings</small><strong>$184K</strong></div><div class="smock-kpi"><small>Compliance</small><strong>98%</strong></div></div><div class="smock-row"><span>Alert</span><span class="pill pill-r">Split PO — Vendor #412</span></div><div class="smock-row"><span>Alert</span><span class="pill pill-a">Maverick $8.2K</span></div></div></div></div>
+</div></div></div>
+<div class="divider"></div>
+
+<!-- MODULES -->
+<section class="sec" id="sec-modules"><div class="mx">
+<p class="lb">Modules</p><h2 class="st">Ten modules. One platform.</h2><p class="sd">Every module connects. Data flows, never gets stuck.</p>
+<div class="mgrid">
+<div class="mc"><div class="mbg">VM</div><div><h3>Vendor Management</h3><p>Tax validation, compliance, scoring.</p></div></div>
+<div class="mc"><div class="mbg">PR</div><div><h3>Purchase Requests</h3><p>Approvals, audit trail, versioning.</p></div></div>
+<div class="mc"><div class="mbg">PO</div><div><h3>Purchase Orders</h3><p>3-way matching, tax auto-calc.</p></div></div>
+<div class="mc"><div class="mbg">GR</div><div><h3>GRN + Stores</h3><p>Multi-store inventory, inspection.</p></div></div>
+<div class="mc"><div class="mbg">IN</div><div><h3>Invoices</h3><p>Tax deduction, compliance alerts.</p></div></div>
+<div class="mc"><div class="mbg">RQ</div><div><h3>RFQ + Auction</h3><p>Portal, reverse auction, scoring.</p></div></div>
+<div class="mc"><div class="mbg">MP</div><div><h3>Multi-Project MRP</h3><p>BOM-to-PR, cross-store inventory.</p></div></div>
+<div class="mc"><div class="mbg">AN</div><div><h3>Analytics + CXO</h3><p>Spend intelligence, anomalies.</p></div></div>
+<div class="mc"><div class="mbg">MD</div><div><h3>7 Master Data</h3><p>UOM, Categories, Items, Pricing.</p></div></div>
+<div class="mc"><div class="mbg">AD</div><div><h3>Admin + DoA</h3><p>Roles, permissions, thresholds.</p></div></div>
+</div></div></section>
+<div class="divider"></div>
+
+<!-- COMPARE -->
+<section class="sec" id="sec-compare"><div class="mx">
+<div style="text-align:center"><p class="lb">Compare</p><h2 class="st" style="text-align:center">Enterprise depth. Mid-market pricing.</h2></div>
+<div class="ctbl"><table><thead><tr><th style="text-align:left">Feature</th><th>SAP Ariba</th><th>Tally/Zoho</th><th>Procurify</th><th>ProDomino</th></tr></thead><tbody>
+<tr><td>Multi-level approvals</td><td style="color:var(--grn)">&#10003;</td><td style="color:var(--t4)">—</td><td style="color:var(--grn)">&#10003;</td><td>&#10003; Built-in</td></tr>
+<tr><td>Three-way matching</td><td style="color:var(--grn)">&#10003;</td><td style="color:var(--t4)">—</td><td>Basic</td><td>&#10003; Auto</td></tr>
+<tr><td>Multi-project MRP</td><td style="color:var(--t4)">—</td><td style="color:var(--t4)">—</td><td style="color:var(--t4)">—</td><td>&#10003; Unique</td></tr>
+<tr><td>Country tax engine</td><td>Add-on</td><td>Partial</td><td style="color:var(--t4)">—</td><td>&#10003; Native</td></tr>
+<tr><td>RFQ + reverse auction</td><td style="color:var(--grn)">&#10003;</td><td style="color:var(--t4)">—</td><td style="color:var(--t4)">—</td><td>&#10003; Built-in</td></tr>
+<tr><td>Setup time</td><td>12-18 mo</td><td>1 day</td><td>2-4 wks</td><td>&#10003; &lt; 2 weeks</td></tr>
+<tr><td>Annual cost</td><td>$60K+</td><td>$200</td><td>$7K+</td><td>&#10003; Talk to us</td></tr>
+</tbody></table></div></div></section>
+<div class="divider"></div>
+
 <div class="divider"></div>
 
 <!-- FAQ -->
@@ -445,6 +506,7 @@ a{text-decoration:none;color:inherit}
 <div id="formFields" class="ffields">
 <div class="fg"><label>Your name *</label><input type="text" id="inp-name" placeholder="e.g. Rajesh Mehta"></div>
 <div class="fg"><label>Work email *</label><input type="email" id="inp-email" placeholder="e.g. rajesh@company.com"></div>
+<div class="fg"><label>Phone *</label><input type="tel" id="inp-phone" placeholder="e.g. +91 98765 43210"></div>
 <div class="fg"><label>Company *</label><input type="text" id="inp-company" placeholder="e.g. BuildTech Pvt Ltd"></div>
 <div class="fg"><label>Role</label><select id="inp-role"><option value="">Select role</option><option>CFO / Finance Head</option><option>Procurement Head</option><option>COO / Operations</option><option>Project Manager</option><option>MD / CEO</option><option>Other</option></select></div>
 <button class="fbt" onclick="submitForm()">Request demo</button>
@@ -542,14 +604,23 @@ function toggleFaq(btn) {
 function submitForm() {
   var n = document.getElementById('inp-name').value.trim();
   var e = document.getElementById('inp-email').value.trim();
-  var c = document.getElementById('inp-company').value.trim();
-  if (!n || !e || !c) { alert('Please fill in name, email, and company.'); return; }
+  var co = document.getElementById('inp-company').value.trim();
+  var ph = document.getElementById('inp-phone').value.trim();
+  if (!n || !e || !ph || !co) { alert('Please fill in name, email, phone, and company.'); return; }
   var r = document.getElementById('inp-role').value || '-';
-  var subj = encodeURIComponent('ProDomino Demo - ' + c);
-  var body = encodeURIComponent('Demo request\n\nName: ' + n + '\nEmail: ' + e + '\nCompany: ' + c + '\nRole: ' + r);
-  window.open('mailto:harshad.am@enalsys.com?subject=' + subj + '&body=' + body);
-  document.getElementById('formFields').classList.add('hidden');
-  document.getElementById('formSuccess').classList.add('show');
+  var btn = document.querySelector('.fbt');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  var url = 'https://script.google.com/macros/s/AKfycbwzMPZeBYj-nTImLmYHioQFeFgMs8_pG-XCYat5RA1NGSMnI477t02KMR88K85X9UCW/exec';
+  // Use URL params approach - most reliable with Google Apps Script
+  var params = '?name=' + encodeURIComponent(n) + '&email=' + encodeURIComponent(e) + '&phone=' + encodeURIComponent(ph) + '&company=' + encodeURIComponent(co) + '&role=' + encodeURIComponent(r);
+  fetch(url + params, { method: 'GET', mode: 'no-cors' }).then(function() {
+    document.getElementById('formFields').classList.add('hidden');
+    document.getElementById('formSuccess').classList.add('show');
+  }).catch(function() {
+    document.getElementById('formFields').classList.add('hidden');
+    document.getElementById('formSuccess').classList.add('show');
+  });
 }
 
 // ═══ PIPELINE GLOW ═══
