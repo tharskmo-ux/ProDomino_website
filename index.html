@@ -38,25 +38,53 @@ a{text-decoration:none;color:inherit}
 .mob-menu a{color:rgba(255,255,255,.6);font-size:14px;cursor:pointer}
 @media(max-width:768px){.nav-lk{display:none}.mob-btn{display:block}}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;background:#0B1D3A;overflow:hidden;display:flex;align-items:flex-start}
-.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(99,102,241,.08),transparent 60%);z-index:1}
-.hero-content{position:relative;z-index:2;width:100%;max-width:1080px;margin:0 auto;padding:0 24px;padding-top:160px}
+/* HERO — Cinematic */
+.hero{position:relative;min-height:100vh;background:#000;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-content{position:relative;z-index:2;text-align:center;padding:160px 24px 0;width:100%;max-width:1080px}
 @media(max-width:768px){.hero-content{padding-top:120px}}
-.hero h1{font-family:'Rubik',sans-serif;font-weight:800;text-transform:uppercase;color:#fff;font-size:clamp(3rem,9vw,90px);line-height:.98;letter-spacing:-3px;margin-bottom:24px}
+.hero h1{font-family:'Rubik',sans-serif;font-weight:800;text-transform:uppercase;color:#fff;font-size:clamp(3.2rem,10vw,96px);line-height:.92;letter-spacing:-3px;margin-bottom:8px;background:linear-gradient(180deg,#fff 40%,rgba(255,255,255,.3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @media(max-width:768px){.hero h1{letter-spacing:-2px}}
-.hero-sub{font-size:17px;color:rgba(255,255,255,.6);max-width:460px;line-height:1.7;margin-bottom:36px}
-.hero-cta-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;background:#fff;color:#0B1D3A;font-family:'Rubik',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:12px;cursor:pointer;transition:transform .2s}
-.hero-cta-btn:hover{transform:scale(1.05)}
-.hero-cta-btn:active{transform:scale(.95)}
+.hero-tagline{color:rgba(255,255,255,.3);font-size:13px;letter-spacing:5px;text-transform:uppercase;font-weight:500;margin-bottom:16px}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.4);max-width:440px;margin:0 auto 32px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.hero-cta-primary{display:inline-flex;align-items:center;justify-content:center;padding:15px 36px;background:#fff;color:#000;font-family:'Rubik',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:12px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(255,255,255,.1)}
+.hero-cta-primary:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(255,255,255,.2)}
+.hero-cta-primary:active{transform:scale(.95)}
+.hero-cta-ghost{display:inline-flex;align-items:center;justify-content:center;padding:15px 36px;background:transparent;color:rgba(255,255,255,.5);font-family:'Inter',sans-serif;font-weight:500;font-size:14px;border:1px solid rgba(255,255,255,.12);border-radius:12px;cursor:pointer;transition:all .2s}
+.hero-cta-ghost:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25)}
 
-/* Pipeline animation */
-.pipeline{position:absolute;right:0;bottom:60px;width:48%;height:38%;z-index:1;overflow:hidden;opacity:.55;pointer-events:none}
-@media(max-width:900px){.pipeline{display:none}}
-.pipe-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.2),transparent);top:50%;left:0;right:0}
-.pipe-node{position:absolute;width:60px;height:60px;border-radius:14px;border:1.5px solid rgba(129,140,248,.2);background:rgba(15,15,18,.85);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(129,140,248,.5);text-align:center;line-height:1.2;transition:all .4s ease;z-index:2}
+/* Product mockup in hero */
+.hero-mockup{position:relative;z-index:2;width:90%;max-width:840px;margin:0 auto;border:1px solid rgba(255,255,255,.08);border-radius:12px 12px 0 0;background:rgba(255,255,255,.02);backdrop-filter:blur(4px);overflow:hidden;animation:mockupFade 1.5s ease-out .5s both}
+@keyframes mockupFade{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
+.hero-mock-bar{height:32px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 12px;gap:5px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hero-mock-bar i{width:7px;height:7px;border-radius:50%}
+.hero-mock-bar i:nth-child(1){background:#ff5f57}.hero-mock-bar i:nth-child(2){background:#ffbd2e}.hero-mock-bar i:nth-child(3){background:#28ca42}
+.hero-mock-bar em{font-style:normal;margin-left:10px;font-size:10px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace}
+.hero-mock-body{display:flex;min-height:180px}
+.hero-mock-sidebar{width:160px;background:rgba(255,255,255,.02);border-right:1px solid rgba(255,255,255,.05);padding:12px 10px}
+.hero-mock-sidebar .logo-row{display:flex;align-items:center;gap:5px;margin-bottom:12px}
+.hero-mock-sidebar .logo-row svg{width:14px;height:14px}
+.hero-mock-sidebar .logo-row span{font-size:10px;color:rgba(255,255,255,.5);font-weight:600}
+.hero-mock-nav-item{padding:5px 8px;font-size:8px;color:rgba(255,255,255,.25);border-radius:4px;margin-bottom:2px;display:flex;align-items:center;gap:5px}
+.hero-mock-nav-item.active{background:rgba(99,102,241,.1);color:rgba(129,140,248,.8)}
+.hero-mock-nav-item::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.5}
+.hero-mock-main{flex:1;padding:12px 16px}
+.hero-mock-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.hero-mock-kpi{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:6px;padding:8px}
+.hero-mock-kpi small{display:block;font-size:7px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.hero-mock-kpi b{font-size:16px;color:#fff;font-weight:700}
+.hero-mock-kpi .delta{font-size:7px;color:#4ade80;font-weight:500}
+.hero-mock-flow{display:flex;align-items:center;gap:3px;padding:8px;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.04);border-radius:6px}
+.hero-mock-fn{flex:1;text-align:center;padding:4px;border-radius:4px;font-size:7px;color:rgba(129,140,248,.4);border:1px solid rgba(129,140,248,.1);background:rgba(129,140,248,.03);transition:all .4s}
+.hero-mock-fn.glow{border-color:rgba(249,115,22,.5);color:rgba(249,115,22,.8);background:rgba(249,115,22,.06);box-shadow:0 0 8px rgba(249,115,22,.15)}
+.hero-mock-fa{font-size:8px;color:rgba(255,255,255,.1)}
+
+
+/* removed */ .pipe-line-old{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.2),transparent);top:50%;left:0;right:0}
+/* removed */ .pipe-node-old{position:absolute;width:60px;height:60px;border-radius:14px;border:1.5px solid rgba(129,140,248,.2);background:rgba(15,15,18,.85);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(129,140,248,.5);text-align:center;line-height:1.2;transition:all .4s ease;z-index:2}
 .pipe-node.glow{border-color:rgba(251,146,60,.7);color:rgba(251,146,60,.9);box-shadow:0 0 20px rgba(251,146,60,.3),0 0 40px rgba(251,146,60,.1);background:rgba(251,146,60,.06)}
-.pipe-doc{position:absolute;width:22px;height:28px;border-radius:4px;top:calc(50% - 14px);z-index:3;animation:docFlow 10s ease-in-out infinite;background:linear-gradient(135deg,rgba(251,146,60,.4),rgba(249,115,22,.6));border:1.5px solid rgba(251,146,60,.7);box-shadow:0 0 14px rgba(251,146,60,.4),0 0 28px rgba(251,146,60,.15)}
+/* removed */ .pipe-doc-old{position:absolute;width:22px;height:28px;border-radius:4px;top:calc(50% - 14px);z-index:3;animation:docFlow 10s ease-in-out infinite;background:linear-gradient(135deg,rgba(251,146,60,.4),rgba(249,115,22,.6));border:1.5px solid rgba(251,146,60,.7);box-shadow:0 0 14px rgba(251,146,60,.4),0 0 28px rgba(251,146,60,.15)}
 .pipe-doc:nth-child(9){animation-delay:-3s}
 .pipe-doc:nth-child(10){animation-delay:-5.5s}
 .pipe-doc:nth-child(11){animation-delay:-8s}
@@ -228,28 +256,50 @@ a{text-decoration:none;color:inherit}
 <button class="mob-btn" onclick="document.getElementById('mobMenu').classList.toggle('open')">&#9776;</button>
 </div><div class="mob-menu" id="mobMenu"><a onclick="goTo('sec-journey');closeMob()">The Flow</a><a onclick="goTo('sec-modules');closeMob()">Modules</a><a onclick="goTo('sec-compare');closeMob()">Compare</a><a onclick="goTo('sec-faq');closeMob()">FAQ</a><a class="nav-cta" style="text-align:center;display:block" onclick="goTo('sec-cta');closeMob()">Book a demo</a></div></nav>
 
-<!-- HERO -->
+<!-- HERO — Cinematic -->
 <section class="hero">
-<div class="hero-overlay"></div>
-<!-- Animated procurement pipeline -->
-<div class="pipeline" id="pipeline">
-<div class="pipe-line"></div>
-<div class="pipe-node" style="left:2%;top:calc(50% - 30px)">PR<br>Request</div>
-<div class="pipe-node" style="left:19%;top:calc(50% - 30px)">Approve</div>
-<div class="pipe-node" style="left:36%;top:calc(50% - 30px)">RFQ<br>Source</div>
-<div class="pipe-node" style="left:53%;top:calc(50% - 30px)">Purchase<br>Order</div>
-<div class="pipe-node" style="left:70%;top:calc(50% - 30px)">GRN<br>Receive</div>
-<div class="pipe-node" style="left:86%;top:calc(50% - 30px)">Invoice<br>Match</div>
-<!-- Animated document icons flowing along pipeline -->
-<div class="pipe-doc"></div>
-<div class="pipe-doc"></div>
-<div class="pipe-doc"></div>
-<div class="pipe-doc"></div>
-</div>
+<canvas id="heroCanvas"></canvas>
 <div class="hero-content">
 <h1>SOURCE.<br>PROCURE.<br>MATCH. PAY.</h1>
-<p class="hero-sub">One connected procurement workflow from purchase request to payment. Multi-project MRP. Country-specific compliance. Built for mid-market.</p>
-<button class="hero-cta-btn" onclick="goTo('sec-cta')">GET STARTED</button>
+<div class="hero-tagline">Procurement reimagined</div>
+<p class="hero-sub">From purchase request to payment. One flow. Zero gaps. Multi-project MRP. Built for mid-market companies worldwide.</p>
+<div class="hero-btns">
+<button class="hero-cta-primary" onclick="goTo('sec-cta')">GET STARTED</button>
+<button class="hero-cta-ghost" onclick="goTo('sec-journey')">See the flow &rarr;</button>
+</div>
+</div>
+<!-- Product mockup fading in -->
+<div class="hero-mockup">
+<div class="hero-mock-bar"><i></i><i></i><i></i><em>app.prodomino.in/dashboard</em></div>
+<div class="hero-mock-body">
+<div class="hero-mock-sidebar">
+<div class="logo-row"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="14" r="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="14" r="8" fill="#312E81" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="34" r="8" fill="#4338CA" stroke="#818CF8" stroke-width="1.6"/><circle cx="16" cy="34" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.6"/></svg><span>ProDomino</span></div>
+<div class="hero-mock-nav-item active">Dashboard</div>
+<div class="hero-mock-nav-item">Purchase Requests</div>
+<div class="hero-mock-nav-item">Purchase Orders</div>
+<div class="hero-mock-nav-item">Vendors</div>
+<div class="hero-mock-nav-item">GRN &amp; Stores</div>
+<div class="hero-mock-nav-item">RFQ Management</div>
+<div class="hero-mock-nav-item">Projects &amp; MRP</div>
+<div class="hero-mock-nav-item">Analytics</div>
+</div>
+<div class="hero-mock-main">
+<div class="hero-mock-kpis">
+<div class="hero-mock-kpi"><small>Total spend</small><b>$2.4M</b><span class="delta">&uarr; 12%</span></div>
+<div class="hero-mock-kpi"><small>POs issued</small><b>147</b><span class="delta">&uarr; 8</span></div>
+<div class="hero-mock-kpi"><small>PR to PO</small><b>4.2d</b><span class="delta">&darr; from 15</span></div>
+<div class="hero-mock-kpi"><small>Compliance</small><b>98%</b><span class="delta">&uarr; 3%</span></div>
+</div>
+<div class="hero-mock-flow">
+<div class="hero-mock-fn" id="hf0">PR</div><span class="hero-mock-fa">&rarr;</span>
+<div class="hero-mock-fn" id="hf1">Approve</div><span class="hero-mock-fa">&rarr;</span>
+<div class="hero-mock-fn" id="hf2">RFQ</div><span class="hero-mock-fa">&rarr;</span>
+<div class="hero-mock-fn" id="hf3">PO</div><span class="hero-mock-fa">&rarr;</span>
+<div class="hero-mock-fn" id="hf4">GRN</div><span class="hero-mock-fa">&rarr;</span>
+<div class="hero-mock-fn" id="hf5">Match</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 
@@ -580,6 +630,71 @@ function submitForm() {
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+})();
+
+// Particle network for hero
+;(function() {
+  var cv = document.getElementById('heroCanvas');
+  if (!cv) return;
+  function resize() { cv.width = cv.offsetWidth; cv.height = cv.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  var ctx = cv.getContext('2d');
+  var dots = [];
+  for (var i = 0; i < 80; i++) {
+    dots.push({
+      x: Math.random() * cv.width,
+      y: Math.random() * cv.height,
+      r: Math.random() * 1.5 + 0.5,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
+      a: Math.random() * 0.35 + 0.05
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    dots.forEach(function(d) {
+      d.x += d.dx; d.y += d.dy;
+      if (d.x < 0 || d.x > cv.width) d.dx *= -1;
+      if (d.y < 0 || d.y > cv.height) d.dy *= -1;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(129,140,248,' + d.a + ')';
+      ctx.fill();
+    });
+    for (var i = 0; i < dots.length; i++) {
+      for (var j = i + 1; j < dots.length; j++) {
+        var dx = dots[i].x - dots[j].x;
+        var dy = dots[i].y - dots[j].y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.strokeStyle = 'rgba(129,140,248,' + (0.06 * (1 - dist / 100)) + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// Mockup pipeline glow
+;(function() {
+  var idx = 0;
+  setInterval(function() {
+    for (var i = 0; i < 6; i++) {
+      var el = document.getElementById('hf' + i);
+      if (el) {
+        if (i === idx) el.classList.add('glow');
+        else el.classList.remove('glow');
+      }
+    }
+    idx = (idx + 1) % 6;
+  }, 900);
 })();
 </script>
 </body>
