@@ -46,27 +46,29 @@ a{text-decoration:none;color:inherit}
 .hero-lines{text-align:center;margin-bottom:8px}
 .hero-line{font-family:'Rubik',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(2.6rem,8vw,76px);line-height:.94;letter-spacing:-3px;color:transparent;position:relative;display:block}
 @media(max-width:768px){.hero-line{letter-spacing:-2px}}
-.hero-line .hfill{position:absolute;left:50%;top:0;transform:translateX(-50%);white-space:nowrap;overflow:hidden;width:0}
-.hl-top .hfill{color:#fff;animation:hwipe .6s cubic-bezier(.65,0,.35,1) 1.8s forwards}
-.hl-mid .hfill{color:#818CF8;animation:hwipe .7s cubic-bezier(.65,0,.35,1) .3s forwards}
-.hl-bot .hfill{color:#fff;animation:hwipe .7s cubic-bezier(.65,0,.35,1) 1s forwards}
-@keyframes hwipe{to{width:100%}}
-.hero-contrast{font-family:'Rubik',sans-serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:400;color:transparent;letter-spacing:-0.5px;margin-bottom:14px;font-style:italic;text-align:center}
-.hero-contrast .hc-fill{color:rgba(255,255,255,.22);display:inline-block;opacity:0;animation:hfadeIn .5s ease 2.5s forwards}
-@keyframes hfadeIn{to{opacity:1}}
-.hero-tagline{font-size:12px;letter-spacing:5px;text-transform:uppercase;font-weight:600;margin-bottom:14px;color:transparent;text-align:center}
-.hero-tagline .ht-fill{color:#818CF8;display:inline-block;opacity:0;animation:hglowIn .8s ease 2.9s forwards}
-@keyframes hglowIn{0%{opacity:0;text-shadow:0 0 0 rgba(129,140,248,0)}100%{opacity:1;text-shadow:0 0 20px rgba(129,140,248,.5),0 0 40px rgba(129,140,248,.25),0 0 60px rgba(129,140,248,.1)}}
-.hero-sub{font-size:15px;color:rgba(255,255,255,.38);max-width:440px;margin:0 auto 30px;line-height:1.7;text-align:center;opacity:0;animation:hfadeIn .5s ease 3.2s forwards}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;opacity:0;animation:hfadeIn .5s ease 3.5s forwards}
+.hero-line .typed{color:#fff}
+.hero-line .typed.indigo{color:#818CF8}
+.hero-cursor{display:inline-block;width:3px;height:.82em;background:#818CF8;margin-left:2px;vertical-align:middle;animation:hcblink .6s step-end infinite}
+@keyframes hcblink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-contrast{font-family:'Rubik',sans-serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:400;color:rgba(255,255,255,.22);letter-spacing:-0.5px;margin-bottom:14px;font-style:italic;text-align:center;opacity:0;transition:opacity .5s ease}
+.hero-contrast.show{opacity:1}
+
+.hero-tagline{font-size:12px;letter-spacing:5px;text-transform:uppercase;font-weight:600;margin-bottom:14px;color:#818CF8;text-align:center;opacity:0;transition:opacity .8s ease;text-shadow:0 0 20px rgba(129,140,248,.5),0 0 40px rgba(129,140,248,.25)}
+.hero-tagline.show{opacity:1}
+
+.hero-sub{font-size:15px;color:rgba(255,255,255,.38);max-width:440px;margin:0 auto 30px;line-height:1.7;text-align:center;opacity:0;transition:opacity .5s ease}
+.hero-sub.show{opacity:1}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;opacity:0;transition:opacity .5s ease}
+.hero-btns.show{opacity:1}
 .hero-cta-primary{display:inline-flex;align-items:center;padding:15px 36px;background:#fff;color:#000;font-family:'Rubik',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:12px;cursor:pointer;transition:all .2s;box-shadow:0 0 30px rgba(255,255,255,.1)}
 .hero-cta-primary:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(255,255,255,.2)}
 .hero-cta-primary:active{transform:scale(.95)}
 .hero-cta-ghost{display:inline-flex;align-items:center;padding:15px 36px;background:transparent;color:rgba(255,255,255,.45);font-size:14px;font-weight:500;border:1px solid rgba(255,255,255,.1);border-radius:12px;cursor:pointer;transition:all .2s}
 .hero-cta-ghost:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25)}
 
+
 /* Product mockup */
-.hero-mockup{position:relative;z-index:2;width:90%;max-width:840px;margin:0 auto;border:1px solid rgba(255,255,255,.08);border-radius:12px 12px 0 0;background:rgba(15,15,25,.75);backdrop-filter:blur(16px);overflow:hidden;animation:mockFade 1.2s ease-out 3.8s both}
+.hero-mockup{position:relative;z-index:2;width:90%;max-width:840px;margin:0 auto;border:1px solid rgba(255,255,255,.08);border-radius:12px 12px 0 0;background:rgba(15,15,25,.75);backdrop-filter:blur(16px);overflow:hidden;opacity:0;transition:opacity 1s ease,transform 1s ease}
 @keyframes mockFade{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
 .hm-bar{height:30px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 10px;gap:5px;border-bottom:1px solid rgba(255,255,255,.06)}
 .hm-bar i{width:6px;height:6px;border-radius:50%}.hm-bar i:nth-child(1){background:#ff5f57}.hm-bar i:nth-child(2){background:#ffbd2e}.hm-bar i:nth-child(3){background:#28ca42}
@@ -129,19 +131,16 @@ a{text-decoration:none;color:inherit}
 .ti .td{width:6px;height:6px;border-radius:50%;background:var(--t4)}
 
 /* CHAOS GRID */
-.pain-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media(max-width:768px){.pain-cards{grid-template-columns:1fr}}
-.pc{border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;transition:border-color .3s}
-.pc:hover{border-color:rgba(129,140,248,.15)}
-.pc-top{background:rgba(15,15,18,.6);backdrop-filter:blur(8px);padding:22px}
-.pc-bot{background:rgba(74,222,128,.02);padding:14px 22px;border-top:1px solid var(--brd)}
-.pc-now{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t4);margin-bottom:6px}
-.pc-fix{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--grn);margin-bottom:4px}
-.pc-sol{font-size:13px;color:var(--grn);line-height:1.55;font-weight:500;opacity:.75}
-.cst{font-family:'Rubik',sans-serif;font-size:26px;font-weight:800;margin-bottom:4px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.4));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.pc-top h3{color:var(--t1);font-size:14px;font-weight:600;margin-bottom:6px}
-.pc-top p{font-size:13px;color:var(--t2);line-height:1.55}
+.chaos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border-radius:14px;overflow:hidden;border:1px solid var(--brd)}
+@media(max-width:768px){.chaos-grid{grid-template-columns:1fr}}
 .cc{background:var(--bg2);padding:32px;transition:background .3s}.cc:hover{background:var(--bg3)}
+.cc .cst{font-family:'Rubik',sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cc h3{color:var(--t1);font-size:15px;font-weight:600;margin-bottom:10px}
+.cc p{font-size:14px;color:var(--t2);line-height:1.65}
+
+.cc .cc-icon{font-size:22px;margin-bottom:10px;display:block}
+.cc .cc-fix{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;color:var(--ind);font-weight:500;opacity:.6}
+
 
 /* STICKY SCROLL */
 .sticky-sec{position:relative}
@@ -156,13 +155,14 @@ a{text-decoration:none;color:inherit}
 .sdot.active .sdot-circle{background:var(--ind);border-color:var(--ind);box-shadow:0 0 10px rgba(129,140,248,.5)}
 .sdot.active .sdot-label{color:var(--t1);font-weight:600}
 @media(max-width:768px){.sdots{flex-direction:row;flex-wrap:wrap;gap:6px}.sdot{padding:5px 10px;border:1px solid var(--brd);border-radius:8px}.sdot .sdot-circle{width:7px;height:7px}.sdot.active{border-color:var(--ind);background:rgba(129,140,248,.08)}}
-.sticky-right{flex:1;padding:0;height:calc(100vh - 80px);overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.sticky-right{flex:1;height:calc(100vh - 100px);overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:0}
 .sticky-right::-webkit-scrollbar{display:none}
 @media(max-width:768px){.sticky-right{height:auto;overflow:visible;scroll-snap-type:none;padding:0 0 48px}}
-.scard{min-height:calc(100vh - 100px);padding:40px 0 40px 0;border-bottom:1px solid var(--brd);display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start;scroll-snap-stop:always;opacity:1;transition:opacity .4s ease}
+.scard{min-height:calc(100vh - 120px);padding:32px 0;border-bottom:1px solid var(--brd);display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start;scroll-snap-stop:always;opacity:1;transition:opacity .4s ease}
+@media(max-width:768px){.scard{min-height:auto;scroll-snap-align:none;padding:32px 0}}
+.scard:first-child{padding-top:0}
 .scard:last-child{border-bottom:none}
 .scard.dimmed{opacity:.12}
-@media(max-width:768px){.scard{min-height:auto;scroll-snap-align:none;padding:32px 0}}
 .scard .snum{font-family:'JetBrains Mono',monospace;font-size:56px;font-weight:700;color:rgba(255,255,255,.04);line-height:1;margin-bottom:10px}
 .scard .stag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;display:inline-block;padding:4px 12px;border-radius:6px;margin-bottom:14px}
 .stag.purple{color:var(--ind);background:rgba(129,140,248,.08)}
@@ -203,7 +203,7 @@ a{text-decoration:none;color:inherit}
 .mc h3{color:var(--t1);font-size:14px;font-weight:600;margin-bottom:3px}.mc p{font-size:13px;color:var(--t2);line-height:1.5}
 
 /* COMPARE */
-.ctbl{border:1px solid var(--brd);border-radius:12px;overflow-x:auto}
+.ctbl{border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow-x:auto;backdrop-filter:blur(4px)}
 .ctbl table{width:100%;min-width:560px;border-collapse:collapse;font-size:13px}
 .ctbl th{padding:11px 14px;font-weight:500;color:var(--t3);border-bottom:1px solid var(--brd);text-align:center}
 .ctbl th:first-child{text-align:left}.ctbl th:last-child{color:var(--t1)}
@@ -250,7 +250,7 @@ a{text-decoration:none;color:inherit}
 .glg::before{content:'';position:absolute;top:30px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--ind),var(--grn));opacity:.15}
 @media(max-width:600px){.glg::before{display:none}}
 .glc{flex:1;text-align:center;padding:0 16px}
-.glc-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--ind);background:var(--bg);margin:20px auto 14px;position:relative;z-index:1}
+.glc-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--ind);background:rgba(9,9,11,.6);backdrop-filter:blur(4px);margin:20px auto 14px;position:relative;z-index:1}
 .glc:nth-child(2) .glc-dot{border-color:var(--blue)}
 .glc:nth-child(3) .glc-dot{border-color:var(--grn);background:var(--grn);box-shadow:0 0 10px rgba(74,222,128,.25)}
 .glc .dy{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--ind);margin-bottom:8px}
@@ -262,18 +262,19 @@ a{text-decoration:none;color:inherit}
 /* FOUNDER */
 .fq{font-size:17px;line-height:1.85;color:var(--t2);text-align:center;max-width:560px;margin:0 auto 28px;font-style:italic;position:relative}.fq::before{content:"\201C";position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:64px;color:var(--ind);opacity:.12;font-family:Georgia,serif}
 .fif{display:flex;align-items:center;justify-content:center;gap:10px}
-.fav{width:36px;height:36px;border-radius:50%;background:var(--bg2);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--t3)}
+.fav{width:36px;height:36px;border-radius:50%;background:rgba(15,15,18,.5);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--t3)}
 .fif .fn{color:var(--t1);font-size:13px;font-weight:600}
 .fif .fr{font-size:11px;color:var(--t3)}
 
 /* FAQ */
-.fqi{border-bottom:1px solid var(--brd)}
+.fqi{border-bottom:1px solid rgba(255,255,255,.05)}
 .fqb{width:100%;text-align:left;background:none;border:none;padding:18px 0;font-family:'Inter',system-ui;font-size:15px;font-weight:500;color:var(--t2);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:color .2s}
 .fqb:hover{color:var(--t1)}.fqb .ar{color:var(--t3);font-size:14px;transition:transform .3s;margin-left:14px}
 .fqi.open .fqb{color:var(--t1)}.fqi.open .fqb .ar{transform:rotate(180deg)}
 .fqa{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
 .fqi.open .fqa{max-height:220px;padding-bottom:18px}
 .fqa p{font-size:14px;color:var(--t2);line-height:1.75}
+
 
 /* CTA layout */
 .cta-wrap{display:flex;gap:48px;align-items:flex-start;max-width:880px;margin:0 auto}
@@ -284,6 +285,11 @@ a{text-decoration:none;color:inherit}
 .cta-perks{display:flex;flex-direction:column;gap:10px;margin-top:8px}
 .cta-perk{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)}
 .cta-perk .cpi{color:var(--grn);font-size:11px;width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* TICKER */
+.ticker{overflow:hidden;padding:18px 0;border-bottom:1px solid var(--brd);border-top:1px solid var(--brd);background:rgba(9,9,11,.5)}
+.ticker-track{display:flex;gap:32px;animation:tickscroll 30s linear infinite;width:max-content}
+.ticker-track span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t4);white-space:nowrap}
+@keyframes tickscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 /* FORM */
 .fb{border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(15,15,18,.5);backdrop-filter:blur(10px);padding:28px;max-width:420px;margin:0 auto;text-align:left}
 .fb h3{color:var(--t1);font-size:14px;font-weight:600;text-align:center;margin-bottom:20px}
@@ -323,14 +329,14 @@ a{text-decoration:none;color:inherit}
 <canvas id="heroCanvas"></canvas>
 <div class="hero-content">
 <div class="hero-lines">
-<span class="hero-line hl-top">BUILT BY<span class="hfill">BUILT BY</span></span>
-<span class="hero-line hl-mid">PROCUREMENT<span class="hfill">PROCUREMENT</span></span>
-<span class="hero-line hl-bot">PEOPLE.<span class="hfill">PEOPLE.</span></span>
+<div class="hero-line" id="hl1"></div>
+<div class="hero-line" id="hl2"></div>
+<div class="hero-line" id="hl3"></div>
 </div>
-<p class="hero-contrast"><span class="hc-fill">Not accountants. Not developers.</span></p>
-<div class="hero-tagline"><span class="ht-fill">PROCUREMENT REIMAGINED</span></div>
-<p class="hero-sub">One tool replaces your WhatsApp approvals, Excel trackers, and manual matching. For good.</p>
-<div class="hero-btns">
+<p class="hero-contrast" id="hContrast">Not accountants. Not developers.</p>
+<div class="hero-tagline" id="hTagline">PROCUREMENT REIMAGINED</div>
+<p class="hero-sub" id="hSub">One tool replaces your WhatsApp approvals, Excel trackers, and manual matching. For good.</p>
+<div class="hero-btns" id="hBtns">
 <button class="hero-cta-primary" onclick="goTo('sec-cta')">GET STARTED</button>
 <button class="hero-cta-ghost" onclick="goTo('sec-journey')">See the flow &rarr;</button>
 </div>
@@ -370,6 +376,8 @@ a{text-decoration:none;color:inherit}
 </section>
 
 <!-- TICKER -->
+
+<div class="ticker"><div class="ticker-track"><span>Construction</span><span>Manufacturing</span><span>EPC</span><span>Oil &amp; Gas</span><span>Real Estate</span><span>Infrastructure</span><span>Chemicals</span><span>Pharma</span><span>FMCG</span><span>Auto Components</span><span>Textiles</span><span>Mining</span><span>Construction</span><span>Manufacturing</span><span>EPC</span><span>Oil &amp; Gas</span><span>Real Estate</span><span>Infrastructure</span><span>Chemicals</span><span>Pharma</span><span>FMCG</span><span>Auto Components</span><span>Textiles</span><span>Mining</span></div></div>
 <div class="divider"></div>
 <div class="tw"><div class="tl">Built for teams in</div><div class="tk">
 <div class="ti"><span class="td"></span>Construction</div><div class="ti"><span class="td"></span>EPC</div><div class="ti"><span class="td"></span>Manufacturing</div><div class="ti"><span class="td"></span>Oil &amp; Gas</div><div class="ti"><span class="td"></span>Real Estate</div><div class="ti"><span class="td"></span>IT Infrastructure</div><div class="ti"><span class="td"></span>Energy</div><div class="ti"><span class="td"></span>Mining</div>
@@ -393,25 +401,17 @@ a{text-decoration:none;color:inherit}
 <!-- PAIN STATS -->
 <section class="sec" id="sec-problem"><div class="mx">
 <div style="text-align:center"><p class="lb">The problem</p><h2 class="st" style="text-align:center">You already know this is broken.</h2><p class="sd" style="margin:0 auto 48px;text-align:center;max-width:520px">Every mid-market procurement team deals with these six problems. We measured them.</p></div>
-<div class="pain-cards">
-<div class="pc"><div class="pc-top"><div class="pc-now">Today</div><div class="cst">$1.2M+</div><h3>Maverick spend per year</h3><p>Purchases outside policy. No enforcement. Nobody knows until audit.</p></div><div class="pc-bot"><div class="pc-fix">With ProDomino</div><p class="pc-sol">Every purchase routed through policy. Budget checked before approval.</p></div></div>
-<div class="pc"><div class="pc-top"><div class="pc-now">Today</div><div class="cst">15 days</div><h3>PR-to-PO cycle time</h3><p>Email approvals. Approvers forget. Quotes expire while waiting.</p></div><div class="pc-bot"><div class="pc-fix">With ProDomino</div><p class="pc-sol">Auto-routed with SLA. Escalation after 24hrs. Average: 4.2 days.</p></div></div>
-<div class="pc"><div class="pc-top"><div class="pc-now">Today</div><div class="cst">15%</div><h3>Invoice error rate</h3><p>Manual matching of PO, GRN, Invoice. Tax miscalculations. Disputes.</p></div><div class="pc-bot"><div class="pc-fix">With ProDomino</div><p class="pc-sol">Automatic three-way match. Tolerance rules. Errors caught before payment.</p></div></div>
-<div class="pc"><div class="pc-top"><div class="pc-now">Today</div><div class="cst">3 days</div><h3>To get spend data</h3><p>Finance reconciles spreadsheets. Data is stale when it arrives.</p></div><div class="pc-bot"><div class="pc-fix">With ProDomino</div><p class="pc-sol">Real-time dashboard. Spend by project, vendor, category. Always current.</p></div></div>
-<div class="pc"><div class="pc-top"><div class="pc-now">Today</div><div class="cst">45+ days</div><h3>Vendor payment delays</h3><p>MSME deadlines missed. Penalty interest. Vendor trust eroded.</p></div><div class="pc-bot"><div class="pc-fix">With ProDomino</div><p class="pc-sol">Countdown alerts at 30, 15, 7 days. Zero compliance violations.</p></div></div>
-<div class="pc"><div class="pc-top"><div class="pc-now">Today</div><div class="cst">6%</div><h3>Price hike from slow approvals</h3><p>PO approved after quote expires. Vendor re-quotes higher.</p></div><div class="pc-bot"><div class="pc-fix">With ProDomino</div><p class="pc-sol">Auto-escalation SLA. Rate contracts lock prices. No re-quoting.</p></div></div>
-</div>
-</div></section>
-
-<!-- FOUNDER -->
-<section class="sec"><div class="mx">
-<div style="text-align:center"><p class="lb">Origin</p></div>
-<p class="fq">"If you run procurement at a growing company, you know the frustration. Your team is sharp. Your processes make sense on paper. But the tools are either too expensive, too shallow, or too slow to set up. I have spent 13 years sitting in those rooms, hearing the same story. So I built the tool I kept wishing I could recommend. ProDomino handles the depth your company needs at a price it can actually afford. And it goes live in two weeks, not two years."</p>
-<div class="fif"><div class="fav">HM</div><div><div class="fn">Harshad A. Mohgaonkar</div><div class="fr">Founder - Enalsys Consulting - Pune</div></div></div>
-</div></section>
+<div class="chaos-grid">
+<div class="cc"><span class="cc-icon">&#128176;</span><div class="cst">$1.2M+</div><h3>Maverick spend per year</h3><p>Purchases outside policy because there is no system to enforce it. Nobody knows until audit.</p><div class="cc-fix">ProDomino enforces policy &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#9202;</span><div class="cst">15 days</div><h3>PR-to-PO cycle time</h3><p>Manual routing through email. Approvers forget. Reminders go unseen. Quotes expire while waiting.</p><div class="cc-fix">Down to 4.2 days &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#9888;</span><div class="cst">15%</div><h3>Invoice error rate</h3><p>Manual matching of PO, GRN, and Invoice in spreadsheets. Tax miscalculations. Payment disputes.</p><div class="cc-fix">Auto 3-way match &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#128202;</span><div class="cst">3 days</div><h3>To get spend data</h3><p>Finance reconciles spreadsheets from multiple departments. Data is always stale by the time it arrives.</p><div class="cc-fix">Real-time dashboard &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#128197;</span><div class="cst">45+ days</div><h3>Vendor payment delays</h3><p>MSME compliance deadlines missed. Penalty interest accumulates. Vendor relationships damaged.</p><div class="cc-fix">Countdown alerts &#8594;</div></div>
+<div class="cc"><span class="cc-icon">&#128200;</span><div class="cst">6%</div><h3>Price hike from slow approvals</h3><p>By the time the PO is approved, the vendor quote has expired. New quote is always higher.</p><div class="cc-fix">Auto-escalation SLA &#8594;</div></div>
+</div></div></section>
 <div class="divider"></div>
 
-<!-- JOURNEY -->
+<!-- STICKY SCROLL JOURNEY -->
 <div class="sticky-sec" id="sec-journey">
 <div class="sticky-wrap">
 <div class="sticky-left">
@@ -427,16 +427,68 @@ a{text-decoration:none;color:inherit}
 <div class="sdot" data-idx="5"><div class="sdot-circle"></div><div class="sdot-label">Match</div></div>
 <div class="sdot" data-idx="6"><div class="sdot-circle"></div><div class="sdot-label">Pay</div></div>
 <div class="sdot" data-idx="7"><div class="sdot-circle"></div><div class="sdot-label">Analyse</div></div>
-</div></div>
+
+</div>
+</div>
 <div class="sticky-right">
-<div class="scard" data-stage="0"><div class="snum">01</div><div class="stag purple">Identify</div><h3>Need identified. PR created.</h3><p>MRP calculates net need from project milestones, checks inventory, creates purchase request automatically.</p><div class="stags"><span>MRP Engine</span><span>Budget Check</span><span>Auto-PR</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/mrp-review</em></div><div class="smock-body"><div class="smock-hdr"><b>MRP Review</b><u>Run MRP</u></div><div class="smock-row"><span>TMT Steel 12mm</span><span>500 MT</span><span>120 MT</span><span class="pill pill-r">Urgent</span></div><div class="smock-row"><span>OPC Cement</span><span>800 Bags</span><span>200 Bags</span><span class="pill pill-a">PR Due</span></div><div class="smock-row"><span>MS Plates</span><span>200 Nos</span><span>200 Nos</span><span class="pill pill-g">OK</span></div></div></div></div>
-<div class="scard" data-stage="1"><div class="snum">02</div><div class="stag purple">Approve</div><h3>Routed. Reviewed. Approved.</h3><p>PR enters configurable approval chain. Auto-escalation. Full audit trail with timestamps.</p><div class="stags"><span>Delegation of Authority</span><span>Auto-Escalation</span><span>Audit Trail</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/pr/PR-2026-0412</em></div><div class="smock-body"><div class="smock-hdr"><b>PR-2026-0412</b><u class="a">Pending</u></div><div class="smock-row"><span>L1 — Project Manager</span><span class="pill pill-g">Approved</span></div><div class="smock-row"><span>L2 — Procurement Head</span><span class="pill pill-a">Awaiting</span></div><div class="smock-row"><span>L3 — CFO (>$25K)</span><span class="pill pill-b">Queued</span></div></div></div></div>
-<div class="scard" data-stage="2"><div class="snum">03</div><div class="stag blue">Source</div><h3>Vendors compared. Best price found.</h3><p>System checks rate contracts. If none, floats RFQ. Responses scored on price, quality, delivery.</p><div class="stags"><span>Rate Contracts</span><span>RFQ Portal</span><span>Reverse Auction</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/rfq/RFQ-0087</em></div><div class="smock-body"><div class="smock-hdr"><b>RFQ Evaluation</b><u class="g">Award</u></div><div class="smock-row"><span>Tata Steel</span><span>$620/MT</span><span class="pill pill-g">92</span></div><div class="smock-row"><span>JSW Steel</span><span>$598/MT</span><span class="pill pill-a">78</span></div><div class="smock-row"><span>Vizag Steel</span><span>$645/MT</span><span class="pill pill-a">74</span></div></div></div></div>
-<div class="scard" data-stage="3"><div class="snum">04</div><div class="stag blue">Order</div><h3>PO generated. Sent to vendor.</h3><p>One click converts approved PR into purchase order. Tax calculated automatically. PDF dispatched.</p><div class="stags"><span>Auto Tax Calc</span><span>PDF Generation</span><span>Vendor Notify</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/po/PO-2026-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>PO-2026-0298</b><u class="g">Issued</u></div><div class="smock-row"><span>Item</span><strong>TMT Steel 12mm — 380 MT</strong></div><div class="smock-row"><span>Subtotal</span><strong>$235,600</strong></div><div class="smock-row"><span>GST (18%)</span><strong>$42,408</strong></div><div class="smock-row"><span>Total</span><strong>$278,008</strong></div></div></div></div>
-<div class="scard" data-stage="4"><div class="snum">05</div><div class="stag green">Receive</div><h3>Goods arrive. GRN posted.</h3><p>Quantity verified against PO. Quality inspection recorded. Inventory updated across all stores.</p><div class="stags"><span>GRN vs PO</span><span>Quality Check</span><span>Multi-Store</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/grn/GRN-0156</em></div><div class="smock-body"><div class="smock-hdr"><b>GRN-0156</b><u class="g">Posted</u></div><div class="smock-row"><span>Ordered</span><strong>380 MT</strong></div><div class="smock-row"><span>Received</span><strong>380 MT</strong></div><div class="smock-row"><span>Quality</span><span class="pill pill-g">Passed</span></div><div class="smock-row"><span>Store</span><strong>Site A</strong></div></div></div></div>
-<div class="scard" data-stage="5"><div class="snum">06</div><div class="stag green">Match</div><h3>PO. GRN. Invoice. Matched.</h3><p>Three-way matching with configurable tolerance. Auto-clear or flag with line-level detail.</p><div class="stags"><span>3-Way Match</span><span>Tolerance Rules</span><span>Exceptions</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/invoices/INV-4821</em></div><div class="smock-body"><div class="smock-hdr"><b>3-Way Match</b><u class="g">Matched</u></div><div class="smock-row"><span>Qty</span><span>380</span><span>380</span><span class="pill pill-g">380 OK</span></div><div class="smock-row"><span>Price</span><span>$620</span><span>—</span><span class="pill pill-g">$620 OK</span></div></div></div></div>
-<div class="scard" data-stage="6"><div class="snum">07</div><div class="stag amber">Pay</div><h3>Tax deducted. Payment processed.</h3><p>Tax deductions by vendor type. Compliance deadlines tracked. Payment through same DoA engine.</p><div class="stags"><span>TDS</span><span>MSME Compliance</span><span>Payment Approval</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/payments/PAY-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>Payment — Tata Steel</b><u class="a">Processing</u></div><div class="smock-row"><span>Invoice</span><strong>$278,008</strong></div><div class="smock-row"><span>TDS (1%)</span><strong>-$2,780</strong></div><div class="smock-row"><span>Net Payable</span><strong>$275,228</strong></div><div class="smock-row"><span>MSME Deadline</span><span class="pill pill-a">12 days</span></div></div></div></div>
-<div class="scard" data-stage="7"><div class="snum">08</div><div class="stag green">Analyse</div><h3>Every transaction becomes insight.</h3><p>Spend by category, project, vendor. Anomaly detection. Weekly CXO digest automatically.</p><div class="stags"><span>Analytics</span><span>Budget Tracking</span><span>Anomaly Alerts</span><span>CXO Digest</span></div><div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/analytics</em></div><div class="smock-body"><div class="smock-hdr"><b>Procurement Analytics</b><u>Export</u></div><div class="smock-kpis"><div class="smock-kpi"><small>Spend</small><strong>$2.4M</strong></div><div class="smock-kpi"><small>Savings</small><strong>$184K</strong></div><div class="smock-kpi"><small>Compliance</small><strong>98%</strong></div></div><div class="smock-row"><span>Alert</span><span class="pill pill-r">Split PO — Vendor #412</span></div><div class="smock-row"><span>Alert</span><span class="pill pill-a">Maverick $8.2K</span></div></div></div></div>
+<div class="scard" data-stage="0"><div class="snum">01</div><div class="stag purple">Identify</div><h3>Need identified. PR created.</h3><p>MRP calculates net need from project milestones, checks inventory, creates purchase request automatically.</p><div class="stags"><span>MRP Engine</span><span>Budget Check</span><span>Auto-PR</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/mrp-review</em></div><div class="smock-body"><div class="smock-hdr"><b>MRP Review — Project Alpha</b><u>Run MRP</u></div>
+<div class="smock-row"><span>TMT Steel 12mm</span><span>500 MT</span><span>120 MT</span><span class="pill pill-r">Urgent</span></div>
+<div class="smock-row"><span>OPC Cement</span><span>800 Bags</span><span>200 Bags</span><span class="pill pill-a">PR Due</span></div>
+<div class="smock-row"><span>MS Plates</span><span>200 Nos</span><span>200 Nos</span><span class="pill pill-g">OK</span></div>
+</div></div></div>
+
+<div class="scard" data-stage="1"><div class="snum">02</div><div class="stag purple">Approve</div><h3>Routed. Reviewed. Approved.</h3><p>PR enters configurable approval chain. Auto-escalation. Full audit trail with timestamps.</p><div class="stags"><span>Delegation of Authority</span><span>Auto-Escalation</span><span>Audit Trail</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/pr/PR-2026-0412</em></div><div class="smock-body"><div class="smock-hdr"><b>PR-2026-0412 — TMT Steel</b><u class="a">Pending</u></div>
+<div class="smock-row"><span>L1 — Project Manager</span><span class="pill pill-g">Approved</span></div>
+<div class="smock-row"><span>L2 — Procurement Head</span><span class="pill pill-a">Awaiting</span></div>
+<div class="smock-row"><span>L3 — CFO (>$25K)</span><span class="pill pill-b">Queued</span></div>
+</div></div></div>
+
+<div class="scard" data-stage="2"><div class="snum">03</div><div class="stag blue">Source</div><h3>Vendors compared. Best price found.</h3><p>System checks rate contracts. If none, floats RFQ. Responses scored on price, quality, delivery.</p><div class="stags"><span>Rate Contracts</span><span>RFQ Portal</span><span>Reverse Auction</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/rfq/RFQ-0087</em></div><div class="smock-body"><div class="smock-hdr"><b>RFQ Evaluation — TMT Steel</b><u class="g">Award</u></div>
+<div class="smock-row"><span>Tata Steel</span><span>$620/MT</span><span class="pill pill-g">92</span></div>
+<div class="smock-row"><span>JSW Steel</span><span>$598/MT</span><span class="pill pill-a">78</span></div>
+<div class="smock-row"><span>Vizag Steel</span><span>$645/MT</span><span class="pill pill-a">74</span></div>
+</div></div></div>
+
+<div class="scard" data-stage="3"><div class="snum">04</div><div class="stag blue">Order</div><h3>PO generated. Sent to vendor.</h3><p>One click converts approved PR into purchase order. Tax calculated automatically. PDF dispatched.</p><div class="stags"><span>Auto Tax Calc</span><span>PDF Generation</span><span>Vendor Notify</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/po/PO-2026-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>PO-2026-0298 — Tata Steel</b><u class="g">Issued</u></div>
+<div class="smock-row"><span>Item</span><strong>TMT Steel 12mm — 380 MT</strong></div>
+<div class="smock-row"><span>Subtotal</span><strong>$235,600</strong></div>
+<div class="smock-row"><span>GST (18%)</span><strong>$42,408</strong></div>
+<div class="smock-row"><span>Total</span><strong>$278,008</strong></div>
+</div></div></div>
+
+<div class="scard" data-stage="4"><div class="snum">05</div><div class="stag green">Receive</div><h3>Goods arrive. GRN posted.</h3><p>Quantity verified against PO. Quality inspection recorded. Inventory updated across all stores.</p><div class="stags"><span>GRN vs PO</span><span>Quality Check</span><span>Multi-Store</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/grn/GRN-0156</em></div><div class="smock-body"><div class="smock-hdr"><b>GRN-0156 — Receiving</b><u class="g">Posted</u></div>
+<div class="smock-row"><span>Ordered</span><strong>380 MT</strong></div>
+<div class="smock-row"><span>Received</span><strong>380 MT</strong></div>
+<div class="smock-row"><span>Quality</span><span class="pill pill-g">Passed</span></div>
+<div class="smock-row"><span>Store</span><strong>Site A — Main</strong></div>
+</div></div></div>
+
+<div class="scard" data-stage="5"><div class="snum">06</div><div class="stag green">Match</div><h3>PO. GRN. Invoice. Matched.</h3><p>Three-way matching with configurable tolerance. Auto-clear or flag with line-level detail.</p><div class="stags"><span>3-Way Match</span><span>Tolerance Rules</span><span>Exceptions</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/invoices/INV-4821</em></div><div class="smock-body"><div class="smock-hdr"><b>3-Way Match — INV-4821</b><u class="g">Matched</u></div>
+<div class="smock-row"><span>Quantity</span><span>PO: 380</span><span>GRN: 380</span><span class="pill pill-g">380 OK</span></div>
+<div class="smock-row"><span>Unit Price</span><span>PO: $620</span><span class="pill pill-g">$620 OK</span></div>
+<div class="smock-row"><span>GST</span><span>PO: 18%</span><span class="pill pill-g">18% OK</span></div>
+</div></div></div>
+
+<div class="scard" data-stage="6"><div class="snum">07</div><div class="stag amber">Pay</div><h3>Tax deducted. Payment processed.</h3><p>Tax deductions by vendor type. Compliance deadlines tracked. Payment through same DoA engine.</p><div class="stags"><span>TDS</span><span>MSME Compliance</span><span>Payment Approval</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/payments/PAY-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>Payment — Tata Steel</b><u class="a">Processing</u></div>
+<div class="smock-row"><span>Invoice</span><strong>$278,008</strong></div>
+<div class="smock-row"><span>TDS (1%)</span><strong>-$2,780</strong></div>
+<div class="smock-row"><span>Net Payable</span><strong>$275,228</strong></div>
+<div class="smock-row"><span>MSME Deadline</span><span class="pill pill-a">12 days left</span></div>
+</div></div></div>
+
+<div class="scard" data-stage="7"><div class="snum">08</div><div class="stag green">Analyse</div><h3>Every transaction becomes insight.</h3><p>Spend by category, project, vendor. Anomaly detection. Weekly CXO digest automatically.</p><div class="stags"><span>Analytics</span><span>Budget Tracking</span><span>Anomaly Alerts</span><span>CXO Digest</span></div>
+<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/analytics</em></div><div class="smock-body"><div class="smock-hdr"><b>Procurement Analytics</b><u>Export</u></div>
+<div class="smock-kpis"><div class="smock-kpi"><small>Spend</small><strong>$2.4M</strong></div><div class="smock-kpi"><small>Savings</small><strong>$184K</strong></div><div class="smock-kpi"><small>Compliance</small><strong>98%</strong></div></div>
+<div class="smock-row"><span>Alert</span><span class="pill pill-r">Split PO — Vendor #412</span></div><div class="smock-row"><span>Alert</span><span class="pill pill-a">Maverick $8.2K</span></div>
+</div></div></div>
+
 </div></div></div>
 <div class="divider"></div>
 
@@ -471,6 +523,56 @@ a{text-decoration:none;color:inherit}
 </tbody></table></div></div></section>
 <div class="divider"></div>
 
+<!-- COMPLIANCE -->
+<section class="sec"><div class="mx">
+<p class="lb">Compliance</p><h2 class="st">Country-specific. Not bolted on.</h2><p class="sd">Built into core logic. Not plugins. Not config screens.</p>
+<div class="flag-grid" style="margin-bottom:14px">
+<div class="flag-card is-live" onclick="showCountry('fd-in')"><span class="ff">&#127470;&#127475;</span><div class="fcn">India</div><span class="fcs live">Live</span><div class="fc-tap">Details</div></div>
+<div class="flag-card" onclick="showCountry('fd-us')"><span class="ff">&#127482;&#127480;</span><div class="fcn">United States</div><span class="fcs soon">2026</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-uk')"><span class="ff">&#127468;&#127463;</span><div class="fcn">United Kingdom</div><span class="fcs soon">2026</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-ae')"><span class="ff">&#127462;&#127466;</span><div class="fcn">UAE</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-sg')"><span class="ff">&#127480;&#127468;</span><div class="fcn">Singapore</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
+<div class="flag-card" onclick="showCountry('fd-eu')"><span class="ff">&#127466;&#127482;</span><div class="fcn">European Union</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
+</div>
+<div class="fd-panel" id="fd-in"><h4>&#127470;&#127475; India — Live Now</h4><p>Full compliance pack built into core logic. Every transaction respects Indian tax law automatically. Not bolted on, not a plugin.</p><div class="fd-tags"><span class="fd-tag">GST (CGST/SGST/IGST)</span><span class="fd-tag">GSTIN Validation</span><span class="fd-tag">HSN/SAC Codes</span><span class="fd-tag">TDS Section 194C</span><span class="fd-tag">MSME 45-day Rule</span><span class="fd-tag">UOM/GST UQC</span><span class="fd-tag">INR Formatting</span><span class="fd-tag">e-Invoice Ready</span></div></div>
+<div class="fd-panel" id="fd-us"><h4>&#127482;&#127480; United States — Planned 2026</h4><p>US compliance for mid-market companies with multi-state operations. Sales tax automation, 1099 vendor tracking, and federal procurement basics.</p><div class="fd-tags"><span class="fd-tag">Sales Tax (state-level)</span><span class="fd-tag">1099 Tracking</span><span class="fd-tag">W-9 Collection</span><span class="fd-tag">ACH Payments</span><span class="fd-tag">USD Formatting</span><span class="fd-tag">FAR Compliance</span></div></div>
+<div class="fd-panel" id="fd-uk"><h4>&#127468;&#127463; United Kingdom — Planned 2026</h4><p>UK compliance for post-Brexit VAT, Making Tax Digital, and standard payment terms. CIS deductions for construction.</p><div class="fd-tags"><span class="fd-tag">VAT (Standard/Reduced/Zero)</span><span class="fd-tag">Making Tax Digital</span><span class="fd-tag">CIS Deductions</span><span class="fd-tag">GBP Formatting</span><span class="fd-tag">30-day Terms</span><span class="fd-tag">Companies House</span></div></div>
+<div class="fd-panel" id="fd-ae"><h4>&#127462;&#127466; UAE — Planned 2027</h4><p>UAE compliance for VAT, free zone regulations, and customs duties. Supporting mainland and free zone operations.</p><div class="fd-tags"><span class="fd-tag">VAT 5%</span><span class="fd-tag">Free Zone Rules</span><span class="fd-tag">TRN Validation</span><span class="fd-tag">AED/USD Dual</span><span class="fd-tag">Customs Duty</span><span class="fd-tag">WPS Payments</span></div></div>
+<div class="fd-panel" id="fd-sg"><h4>&#127480;&#127468; Singapore — Planned 2027</h4><p>Singapore compliance for GST, IRAS reporting, and cross-border ASEAN procurement.</p><div class="fd-tags"><span class="fd-tag">GST 9%</span><span class="fd-tag">IRAS Reporting</span><span class="fd-tag">UEN Validation</span><span class="fd-tag">SGD Formatting</span><span class="fd-tag">ASEAN Trade</span><span class="fd-tag">Peppol e-Invoice</span></div></div>
+<div class="fd-panel" id="fd-eu"><h4>&#127466;&#127482; European Union — Planned 2027</h4><p>EU compliance across member states. VAT reverse charge, GDPR data handling, e-invoicing. Starting with Germany, France, Netherlands.</p><div class="fd-tags"><span class="fd-tag">VAT (per state)</span><span class="fd-tag">Reverse Charge</span><span class="fd-tag">GDPR Handling</span><span class="fd-tag">e-Invoice EN 16931</span><span class="fd-tag">EUR Formatting</span><span class="fd-tag">VIES Validation</span></div></div>
+<div class="cpbox"><div class="cphead"><span style="font-size:18px">&#127470;&#127475;</span><span class="cn2">India Pack</span><span class="cl">Live</span></div>
+<div class="cpi"><span class="ck">&#10003;</span><div><strong>GST auto-calculation</strong> <span>— CGST / SGST / IGST from state codes</span></div></div>
+<div class="cpi"><span class="ck">&#10003;</span><div><strong>GSTIN validation</strong> <span>— Check-digit rejection</span></div></div>
+<div class="cpi"><span class="ck">&#10003;</span><div><strong>HSN/SAC enforcement</strong> <span>— Valid rates per code</span></div></div>
+<div class="cpi"><span class="ck">&#10003;</span><div><strong>TDS deduction</strong> <span>— Section 194C auto by vendor type</span></div></div>
+<div class="cpi"><span class="ck">&#10003;</span><div><strong>MSME 45-day rule</strong> <span>— Countdown alerts at 30, 15, 7 days</span></div></div>
+<div class="cpi"><span class="ck">&#10003;</span><div><strong>UOM / GST UQC</strong> <span>— Mapped to approved Unit Quantity Codes</span></div></div>
+</div></div></section>
+<div class="divider"></div>
+
+<!-- GO-LIVE -->
+<section class="sec"><div class="mx">
+<div style="text-align:center"><p class="lb">Setup</p><h2 class="st" style="text-align:center">Live in under two weeks.</h2></div>
+<div class="glg">
+<div class="glc"><div class="glc-dot"></div><div class="dy">Day 1-3</div><h3>Configure</h3><p>Import data. Set rules, budgets, tax rates.</p></div>
+<div class="glc"><div class="glc-dot"></div><div class="dy">Day 4-7</div><h3>Train</h3><p>Founder-led onboarding. Real transactions.</p></div>
+<div class="glc"><div class="glc-dot"></div><div class="dy">Day 8-14</div><h3>Go live</h3><p>Real matching. Real dashboards.</p></div>
+</div></div></section>
+<div class="divider"></div>
+
+<!-- FOUNDER -->
+<section class="sec"><div class="mx">
+<div style="text-align:center"><p class="lb">Origin</p></div>
+<p class="fq">"I spent 13 years helping mid-market companies set up procurement. I kept recommending processes they couldn't implement because the tools didn't exist. Last year I stopped recommending and started building."</p>
+<div class="fif"><div class="fav">HM</div><div><div class="fn">Harshad A. Mohgaonkar</div><div class="fr">Founder - Enalsys Consulting - Pune</div></div></div>
+</div></section>
+
+<!-- FOUNDER -->
+<section class="sec"><div class="mx">
+<div style="text-align:center"><p class="lb">Origin</p></div>
+<p class="fq">"If you run procurement at a growing company, you know the frustration. Your team is sharp. Your processes make sense on paper. But the tools are either too expensive, too shallow, or too slow to set up. I have spent 13 years sitting in those rooms, hearing the same story. So I built the tool I kept wishing I could recommend. ProDomino handles the depth your company needs at a price it can actually afford. And it goes live in two weeks, not two years."</p>
+<div class="fif"><div class="fav">HM</div><div><div class="fn">Harshad A. Mohgaonkar</div><div class="fr">Founder - Enalsys Consulting - Pune</div></div></div>
+</div></section>
 <div class="divider"></div>
 
 <!-- FAQ -->
@@ -562,23 +664,27 @@ function updateActive(idx) {
 
 // Use scroll position to determine active card
 function checkCards() {
-  var ctr=document.querySelector('.sticky-right');
-  var bestIdx=0;
-  var bestDist=99999;
-  allCards.forEach(function(card,i){
-    var rect=card.getBoundingClientRect();
-    var cR=ctr?ctr.getBoundingClientRect():{top:0,bottom:window.innerHeight,height:window.innerHeight};
-    var cardMid=rect.top-cR.top+rect.height*0.3;
-    var viewMid=cR.height*0.35;
-    var dist=Math.abs(cardMid-viewMid);
-    if(rect.top<cR.bottom&&rect.bottom>cR.top){if(dist<bestDist){bestDist=dist;bestIdx=i;}}
+  var bestIdx = 0;
+  var bestDist = 99999;
+  var viewMid = window.innerHeight * 0.35;
+  allCards.forEach(function(card, i) {
+    var rect = card.getBoundingClientRect();
+    var cardMid = rect.top + rect.height * 0.3;
+    var dist = Math.abs(cardMid - viewMid);
+    if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.1) {
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestIdx = i;
+      }
+    }
   });
   updateActive(bestIdx);
 }
 
 window.addEventListener('scroll', checkCards);
-var snapC=document.querySelector('.sticky-right');
-if(snapC)snapC.addEventListener('scroll',checkCards);
+var snapEl=document.querySelector('.sticky-right');
+if(snapEl)snapEl.addEventListener('scroll',checkCards);
+// Initial check
 setTimeout(checkCards, 100);
 
 // Click dot to scroll to card
@@ -586,7 +692,8 @@ allDots.forEach(function(dot, i) {
   dot.addEventListener('click', function() {
     var idx = parseInt(dot.getAttribute('data-idx'));
     if (allCards[idx]) {
-      allCards[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var y = allCards[idx].getBoundingClientRect().top + window.pageYOffset - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   });
 });
@@ -673,6 +780,35 @@ function showCountry(id){
   var all=document.querySelectorAll('.fd-panel');
   all.forEach(function(p){if(p.id===id)p.classList.toggle('open');else p.classList.remove('open')});
 }
+
+// Typing effect
+;(function(){
+  var speed=55;var cur=null;
+  function typeIt(id,text,cls,cb){
+    var el=document.getElementById(id);if(!el)return;
+    el.innerHTML='';
+    var sp=document.createElement('span');sp.className='typed'+cls;el.appendChild(sp);
+    if(cur)cur.remove();
+    cur=document.createElement('span');cur.className='hero-cursor';el.appendChild(cur);
+    var i=0;
+    function nxt(){if(i<text.length){sp.textContent+=text[i];i++;setTimeout(nxt,speed+Math.random()*25)}else{if(cb)setTimeout(cb,250)}}
+    nxt();
+  }
+  setTimeout(function(){
+    typeIt('hl1','BUILT BY','',function(){
+      typeIt('hl2','PROCUREMENT',' indigo',function(){
+        typeIt('hl3','PEOPLE.','',function(){
+          if(cur){cur.style.animation='hcblink .6s step-end 3';setTimeout(function(){if(cur)cur.style.opacity='0'},1800)}
+          setTimeout(function(){var e=document.getElementById('hContrast');if(e)e.classList.add('show')},400);
+          setTimeout(function(){var e=document.getElementById('hTagline');if(e)e.classList.add('show')},900);
+          setTimeout(function(){var e=document.getElementById('hSub');if(e)e.classList.add('show')},1200);
+          setTimeout(function(){var e=document.getElementById('hBtns');if(e)e.classList.add('show')},1500);
+          setTimeout(function(){var m=document.querySelector('.hero-mockup');if(m){m.style.opacity='1';m.style.transform='translateY(0)'}},1800);
+        });
+      });
+    });
+  },400);
+})();
 </script>
 </body>
 </html>
