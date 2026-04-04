@@ -1,814 +1,1501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ProDomino — Source. Procure. Match. Pay.</title>
-<link rel="icon" type="image/svg+xml" href="prodomino_favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#09090B;--bg2:#0F0F12;--bg3:#141418;--brd:rgba(255,255,255,0.06);--brd2:rgba(255,255,255,0.10);--t1:#FAFAFA;--t2:#A1A1AA;--t3:#52525B;--t4:#3F3F46;--grn:#4ADE80;--amb:#FBBF24;--ind:#818CF8;--blue:#3B82F6}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t2);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-.mx{max-width:1080px;margin:0 auto;padding:0 24px}
-.sec{padding:100px 0}
-.divider{border-top:1px solid var(--brd);opacity:.4}
-.lb{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ind);margin-bottom:14px;opacity:.6}
-.st{color:var(--t1);font-family:'Rubik',sans-serif;font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:700;letter-spacing:-.03em;line-height:1.12;margin-bottom:18px}
-.sd{font-size:16px;color:var(--t2);max-width:500px;line-height:1.75;margin-bottom:48px}
-@media(max-width:768px){.sec{padding:64px 0}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProDomino — Source. Procure. Match. Pay.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ind: #818CF8;
+            --bg: #09090B;
+            --bg2: #0F0F12;
+            --bg3: #141418;
+            --brd: rgba(255,255,255,0.06);
+            --brd2: rgba(255,255,255,0.10);
+            --t1: #FAFAFA;
+            --t2: #A1A1AA;
+            --t3: #52525B;
+            --t4: #3F3F46;
+            --grn: #4ADE80;
+            --amb: #FBBF24;
+            --blue: #3B82F6;
+            --pink: #EC4899;
+        }
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .4s;background:rgba(9,9,11,.3);backdrop-filter:blur(12px)}
-.nav{background:rgba(9,9,11,.4);backdrop-filter:blur(16px)}
-.nav.sc{background:rgba(9,9,11,.65);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.08)}
-.nav-in{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
-.nav-logo{color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
-.nav-logo svg{width:24px;height:24px}
-.nav-lk{display:flex;align-items:center;gap:28px}
-.nav-lk a{font-size:13px;color:rgba(255,255,255,.5);transition:color .2s;cursor:pointer}
-.nav-lk a:hover{color:#fff}
-.nav-cta{background:var(--ind)!important;color:#fff!important;font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;cursor:pointer;transition:all .2s}.nav-cta:hover{box-shadow:0 0 14px rgba(129,140,248,.3)}
-.mob-btn{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer}
-.mob-menu{display:none;background:rgba(9,9,11,.96);border-top:1px solid var(--brd);padding:20px 24px;flex-direction:column;gap:16px}
-.mob-menu.open{display:flex}
-.mob-menu a{color:rgba(255,255,255,.6);font-size:14px;cursor:pointer}
-@media(max-width:768px){.nav-lk{display:none}.mob-btn{display:block}}
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+        body {
+            background-color: var(--bg);
+            color: var(--t2);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-/* HERO */
-.hero{position:relative;min-height:100vh;background:#000;overflow:hidden;display:flex;flex-direction:column;align-items:center}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-.hero-content{position:relative;z-index:2;text-align:center;padding:140px 24px 0;width:100%;max-width:1080px}
-@media(max-width:768px){.hero-content{padding-top:110px}}
-.hero-lines{text-align:center;margin-bottom:8px}
-.hero-line{font-family:'Rubik',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(2.6rem,8vw,76px);line-height:.94;letter-spacing:-3px;color:transparent;position:relative;display:block}
-@media(max-width:768px){.hero-line{letter-spacing:-2px}}
-.hero-line .typed{color:#fff}
-.hero-line .typed.indigo{color:#818CF8}
-.hero-cursor{display:inline-block;width:3px;height:.82em;background:#818CF8;margin-left:2px;vertical-align:middle;animation:hcblink .6s step-end infinite}
-@keyframes hcblink{0%,100%{opacity:1}50%{opacity:0}}
-.hero-contrast{font-family:'Rubik',sans-serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:400;color:rgba(255,255,255,.22);letter-spacing:-0.5px;margin-bottom:14px;font-style:italic;text-align:center;opacity:0;transition:opacity .5s ease}
-.hero-contrast.show{opacity:1}
+        h1, h2, h3, h4, .st { font-family: 'Rubik', sans-serif; color: var(--t1); font-weight: 700; letter-spacing: -0.02em; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .mx { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .sec { padding: 100px 0; border-bottom: 1px solid var(--brd); position: relative; }
+        .lb { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--ind); margin-bottom: 12px; display: block; }
+        .st { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; margin-bottom: 20px; }
+        .sd { font-size: 17px; color: var(--t2); max-width: 600px; margin-bottom: 48px; }
 
-.hero-tagline{font-size:12px;letter-spacing:5px;text-transform:uppercase;font-weight:600;margin-bottom:14px;color:#818CF8;text-align:center;opacity:0;transition:opacity .8s ease;text-shadow:0 0 20px rgba(129,140,248,.5),0 0 40px rgba(129,140,248,.25)}
-.hero-tagline.show{opacity:1}
+        .glass {
+            background: rgba(15, 15, 18, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--brd);
+        }
 
-.hero-sub{font-size:15px;color:rgba(255,255,255,.38);max-width:440px;margin:0 auto 30px;line-height:1.7;text-align:center;opacity:0;transition:opacity .5s ease}
-.hero-sub.show{opacity:1}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;opacity:0;transition:opacity .5s ease}
-.hero-btns.show{opacity:1}
-.hero-cta-primary{display:inline-flex;align-items:center;padding:15px 36px;background:#fff;color:#000;font-family:'Rubik',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:12px;cursor:pointer;transition:all .2s;box-shadow:0 0 30px rgba(255,255,255,.1)}
-.hero-cta-primary:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(255,255,255,.2)}
-.hero-cta-primary:active{transform:scale(.95)}
-.hero-cta-ghost{display:inline-flex;align-items:center;padding:15px 36px;background:transparent;color:rgba(255,255,255,.45);font-size:14px;font-weight:500;border:1px solid rgba(255,255,255,.1);border-radius:12px;cursor:pointer;transition:all .2s}
-.hero-cta-ghost:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25)}
+        .btn-ind {
+            background: var(--ind);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-align: center;
+            display: inline-block;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            -webkit-text-fill-color: #ffffff;
+        }
+        .btn-ind:hover { box-shadow: 0 0 20px rgba(129, 140, 248, 0.4); transform: translateY(-1px); }
 
+        .pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .p-purp { background: rgba(129, 140, 248, 0.1); color: var(--ind); }
+        .p-blue { background: rgba(59, 130, 246, 0.1); color: var(--blue); }
+        .p-grn { background: rgba(74, 222, 128, 0.1); color: var(--grn); }
+        .p-amb { background: rgba(251, 191, 36, 0.1); color: var(--amb); }
 
-/* Product mockup */
-.hero-mockup{position:relative;z-index:2;width:90%;max-width:840px;margin:0 auto;border:1px solid rgba(255,255,255,.08);border-radius:12px 12px 0 0;background:rgba(15,15,25,.75);backdrop-filter:blur(16px);overflow:hidden;opacity:0;transition:opacity 1s ease,transform 1s ease}
-@keyframes mockFade{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
-.hm-bar{height:30px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 10px;gap:5px;border-bottom:1px solid rgba(255,255,255,.06)}
-.hm-bar i{width:6px;height:6px;border-radius:50%}.hm-bar i:nth-child(1){background:#ff5f57}.hm-bar i:nth-child(2){background:#ffbd2e}.hm-bar i:nth-child(3){background:#28ca42}
-.hm-bar em{font-style:normal;margin-left:8px;font-size:9px;color:rgba(255,255,255,.18);font-family:'JetBrains Mono',monospace}
-.hm-body{display:flex;min-height:160px}
-.hm-side{width:140px;background:rgba(255,255,255,.02);border-right:1px solid rgba(255,255,255,.04);padding:10px 8px}
-.hm-side .hm-logo{display:flex;align-items:center;gap:4px;margin-bottom:10px}.hm-side .hm-logo svg{width:12px;height:12px}.hm-side .hm-logo span{font-size:9px;color:rgba(255,255,255,.4);font-weight:600}
-.hm-ni{padding:4px 6px;font-size:7px;color:rgba(255,255,255,.2);border-radius:3px;margin-bottom:1px;display:flex;align-items:center;gap:4px}
-.hm-ni::before{content:'';width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.4}
-.hm-ni.on{background:rgba(129,140,248,.08);color:rgba(129,140,248,.7)}
-.hm-main{flex:1;padding:10px 14px}
-.hm-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
-.hm-kpi{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:5px;padding:6px}
-.hm-kpi small{display:block;font-size:6px;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.4px}
-.hm-kpi b{font-size:14px;color:#fff;font-weight:700}
-.hm-kpi .dt{font-size:6px;color:#4ade80}
-.hm-flow{display:flex;align-items:center;gap:2px;padding:6px;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.03);border-radius:5px}
-.hm-fn{flex:1;text-align:center;padding:3px;border-radius:3px;font-size:6px;color:rgba(129,140,248,.35);border:1px solid rgba(129,140,248,.08);transition:all .4s}
-.hm-fn.glow{border-color:rgba(249,115,22,.5);color:rgba(249,115,22,.8);background:rgba(249,115,22,.05);box-shadow:0 0 6px rgba(249,115,22,.12)}
-.hm-fa{font-size:7px;color:rgba(255,255,255,.08)}
+        @media (max-width: 768px) {
+            .sec { padding: 64px 0; }
+            .st { font-size: 2.2rem; }
+        }
 
-/* Pipeline animation */
-.pipeline{position:absolute;right:0;bottom:60px;width:48%;height:38%;z-index:1;overflow:hidden;opacity:.55;pointer-events:none}
-@media(max-width:900px){.pipeline{display:none}}
-.pipe-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.2),transparent);top:50%;left:0;right:0}
-.pipe-node{position:absolute;width:60px;height:60px;border-radius:14px;border:1.5px solid rgba(129,140,248,.2);background:rgba(15,15,18,.85);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(129,140,248,.5);text-align:center;line-height:1.2;transition:all .4s ease;z-index:2}
-.pipe-node.glow{border-color:rgba(251,146,60,.7);color:rgba(251,146,60,.9);box-shadow:0 0 20px rgba(251,146,60,.3),0 0 40px rgba(251,146,60,.1);background:rgba(251,146,60,.06)}
-.pipe-doc{position:absolute;width:22px;height:28px;border-radius:4px;top:calc(50% - 14px);z-index:3;animation:docFlow 10s ease-in-out infinite;background:linear-gradient(135deg,rgba(251,146,60,.4),rgba(249,115,22,.6));border:1.5px solid rgba(251,146,60,.7);box-shadow:0 0 14px rgba(251,146,60,.4),0 0 28px rgba(251,146,60,.15)}
-.pipe-doc:nth-child(9){animation-delay:-3s}
-.pipe-doc:nth-child(10){animation-delay:-5.5s}
-.pipe-doc:nth-child(11){animation-delay:-8s}
-.pipe-doc::before{content:'';position:absolute;inset:-6px;border-radius:8px;background:radial-gradient(circle,rgba(251,146,60,.12),transparent 70%);z-index:-1}
-.pipe-doc::after{content:'';position:absolute;top:5px;left:4px;right:4px;height:2px;background:rgba(255,255,255,.5);border-radius:1px;box-shadow:0 4px 0 rgba(255,255,255,.3),0 8px 0 rgba(255,255,255,.2)}
-@keyframes docFlow{0%{left:-30px;opacity:0;transform:scale(.8)}6%{opacity:1;transform:scale(1)}94%{opacity:1;transform:scale(1)}100%{left:calc(100% + 30px);opacity:0;transform:scale(.8)}}
+        /* Nav & Mobile Menu */
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 64px; transition: all 0.3s; }
+        .nav.sc { background: rgba(9, 9, 11, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--brd); }
+        .nav-in { height: 64px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #fff; font-size: 18px; text-decoration: none; cursor: pointer; }
+        .logo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+        .logo-c { width: 10px; height: 10px; border-radius: 2px; border: 1.5px solid var(--ind); }
+        .logo-c:nth-child(1) { background: #1E1B4B; }
+        .logo-c:nth-child(2) { background: #312E81; }
+        .logo-c:nth-child(3) { background: #4338CA; }
+        .logo-c:nth-child(4) { background: #4F46E5; }
+        
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--t2); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; cursor: pointer; }
+        .nav-links a:hover { color: var(--t1); }
+        .nav-cta { padding: 8px 20px; font-size: 13px; }
 
+        .mob-toggle { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
+        .mob-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 999; padding: 40px 24px; flex-direction: column; gap: 24px; }
+        .mob-menu.open { display: flex; }
+        .mob-menu a { font-size: 20px; font-weight: 600; color: var(--t1); text-decoration: none; }
 
-/* AI AGENTS */
-.ai-cats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-@media(max-width:768px){.ai-cats{grid-template-columns:1fr}}
-.ai-cat{border:1px solid rgba(255,255,255,.06);border-radius:12px;background:rgba(15,15,18,.4);backdrop-filter:blur(6px);overflow:hidden;transition:all .3s}
-.ai-cat:hover{border-color:rgba(255,255,255,.1)}
-.ai-cat-hd{display:flex;gap:14px;align-items:flex-start;padding:20px 20px 14px}
-.ai-ci{flex-shrink:0;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Rubik',sans-serif;font-size:18px;font-weight:800;color:#fff}
-.ai-c1{background:linear-gradient(135deg,rgba(129,140,248,.35),rgba(129,140,248,.1));border:1px solid rgba(129,140,248,.25)}
-.ai-c2{background:linear-gradient(135deg,rgba(251,191,36,.35),rgba(251,191,36,.1));border:1px solid rgba(251,191,36,.25)}
-.ai-c3{background:linear-gradient(135deg,rgba(74,222,128,.35),rgba(74,222,128,.1));border:1px solid rgba(74,222,128,.25)}
-.ai-c4{background:linear-gradient(135deg,rgba(236,72,153,.35),rgba(236,72,153,.1));border:1px solid rgba(236,72,153,.25)}
-.ai-cat-hd h3{color:var(--t1);font-size:16px;font-weight:700;margin-bottom:2px}
-.ai-cs{font-size:12px;color:var(--t2);line-height:1.5;font-style:italic}
-.ai-cb{padding:0 20px 16px;display:flex;flex-direction:column;gap:8px}
-.ai-h{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t2);line-height:1.55}
-.ai-d{flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--ind);margin-top:7px;opacity:.4}
-.ai-ct{padding:10px 20px;border-top:1px solid rgba(255,255,255,.04);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);letter-spacing:1px}
-/* TICKER */
-.tw{padding:32px 0;overflow:hidden}
-.tl{text-align:center;font-size:12px;color:var(--t4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;font-family:'JetBrains Mono',monospace}
-.tk{display:flex;width:max-content;animation:tksc 30s linear infinite}
-@keyframes tksc{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.ti{flex-shrink:0;padding:0 32px;display:flex;align-items:center;gap:8px;color:var(--t4);font-size:14px;font-weight:500;white-space:nowrap}
-.ti .td{width:6px;height:6px;border-radius:50%;background:var(--t4)}
+        .mob-cta-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; padding: 16px 24px; background: rgba(9, 9, 11, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--brd); z-index: 1000; }
+        .mob-cta-bar .btn-ind { width: 100%; }
 
-/* CHAOS GRID */
-.chaos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border-radius:14px;overflow:hidden;border:1px solid var(--brd)}
-@media(max-width:768px){.chaos-grid{grid-template-columns:1fr}}
-.cc{background:var(--bg2);padding:32px;transition:background .3s}.cc:hover{background:var(--bg3)}
-.cc .cst{font-family:'Rubik',sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.cc h3{color:var(--t1);font-size:15px;font-weight:600;margin-bottom:10px}
-.cc p{font-size:14px;color:var(--t2);line-height:1.65}
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mob-toggle { display: block; }
+            .mob-cta-bar { display: block; }
+        }
 
-.cc .cc-icon{font-size:22px;margin-bottom:10px;display:block}
-.cc .cc-fix{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;color:var(--ind);font-weight:500;opacity:.6}
+        /* Hero */
+        .hero { position: relative; background: #000; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding-top: 80px; }
+        .hero-canvas { position: absolute; inset: 0; z-index: 1; }
+        .hero-in { position: relative; z-index: 2; text-align: center; width: 100%; max-width: 900px; padding: 0 24px; }
+        .hero-typing { min-height: 240px; margin-bottom: 20px; }
+        .hero-line { font-family: 'Rubik', sans-serif; font-weight: 800; font-size: clamp(2.6rem, 8vw, 76px); line-height: 0.94; letter-spacing: -3px; text-transform: uppercase; color: #fff; display: block; }
+        .hero-line.ind { color: var(--ind); }
+        .cursor { display: inline-block; width: 4px; height: 0.8em; background: var(--ind); margin-left: 4px; vertical-align: middle; animation: blink 0.8s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .hero-fade { opacity: 0; transform: translateY(10px); transition: all 0.8s ease; pointer-events: none; }
+        .hero-fade.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        
+        .hero-contrast { font-size: 20px; color: rgba(255,255,255,0.22); font-style: italic; margin-bottom: 12px; }
+        .hero-tag { font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 5px; color: var(--ind); text-shadow: 0 0 20px rgba(129, 140, 248, 0.4); margin-bottom: 16px; }
+        .hero-sub { font-size: 18px; color: var(--t2); max-width: 500px; margin: 0 auto 32px; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; margin-bottom: 60px; }
+        .hero-btns .btn-ind { padding: 16px 40px; font-size: 15px; letter-spacing: 1px; }
+        .btn-ghost { background: transparent; border: 1px solid var(--brd2); color: var(--t2); padding: 16px 40px; border-radius: 100px; text-decoration: none; transition: all 0.2s; font-weight: 500; font-size: 15px; }
+        .btn-ghost:hover { border-color: var(--t2); color: var(--t1); }
 
 
-/* STICKY SCROLL */
-.sticky-sec{position:relative}
-.sticky-wrap{display:flex;max-width:1080px;margin:0 auto;padding:0 24px}
-@media(max-width:768px){.sticky-wrap{flex-direction:column}}
-.sticky-left{width:300px;flex-shrink:0;position:sticky;top:80px;align-self:flex-start;height:calc(100vh - 120px);display:flex;flex-direction:column;justify-content:center;padding:0 36px 0 0}
-@media(max-width:768px){.sticky-left{position:relative;width:100%;padding:48px 0 24px;top:auto}}
-.sdots{display:flex;flex-direction:column;gap:8px}
-.sdot{display:flex;align-items:center;gap:12px;padding:8px 0;cursor:pointer;transition:all .3s}
-.sdot .sdot-circle{width:10px;height:10px;border-radius:50%;border:2px solid var(--t4);transition:all .3s;flex-shrink:0}
-.sdot .sdot-label{font-size:14px;color:var(--t4);transition:all .3s;font-weight:500}
-.sdot.active .sdot-circle{background:var(--ind);border-color:var(--ind);box-shadow:0 0 10px rgba(129,140,248,.5)}
-.sdot.active .sdot-label{color:var(--t1);font-weight:600}
-@media(max-width:768px){.sdots{flex-direction:row;flex-wrap:wrap;gap:6px}.sdot{padding:5px 10px;border:1px solid var(--brd);border-radius:8px}.sdot .sdot-circle{width:7px;height:7px}.sdot.active{border-color:var(--ind);background:rgba(129,140,248,.08)}}
-.sticky-right{flex:1;height:calc(100vh - 100px);overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:0}
-.sticky-right::-webkit-scrollbar{display:none}
-@media(max-width:768px){.sticky-right{height:auto;overflow:visible;scroll-snap-type:none;padding:0 0 48px}}
-.scard{min-height:calc(100vh - 120px);padding:32px 0;border-bottom:1px solid var(--brd);display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start;scroll-snap-stop:always;opacity:1;transition:opacity .4s ease}
-@media(max-width:768px){.scard{min-height:auto;scroll-snap-align:none;padding:32px 0}}
-.scard:first-child{padding-top:0}
-.scard:last-child{border-bottom:none}
-.scard.dimmed{opacity:.12}
-.scard .snum{font-family:'JetBrains Mono',monospace;font-size:56px;font-weight:700;color:rgba(255,255,255,.04);line-height:1;margin-bottom:10px}
-.scard .stag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;display:inline-block;padding:4px 12px;border-radius:6px;margin-bottom:14px}
-.stag.purple{color:var(--ind);background:rgba(129,140,248,.08)}
-.stag.blue{color:var(--blue);background:rgba(59,130,246,.08)}
-.stag.green{color:var(--grn);background:rgba(74,222,128,.08)}
-.stag.amber{color:var(--amb);background:rgba(251,191,36,.08)}
-.scard h3{color:var(--t1);font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
-.scard p{font-size:15px;color:var(--t2);line-height:1.75;max-width:480px;margin-bottom:16px}
-.scard .stags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.scard .stags span{font-size:11px;font-weight:500;padding:5px 12px;border-radius:6px;border:1px solid var(--brd);color:var(--t2);background:var(--bg2)}
 
-/* Mini mockups */
-.smock{margin-top:16px;border:1px solid var(--brd2);border-radius:8px;overflow:hidden}
-.smock-bar{background:#0A1018;padding:5px 10px;display:flex;align-items:center;gap:4px;border-bottom:1px solid rgba(255,255,255,.06)}
-.smock-bar i{width:6px;height:6px;border-radius:50%;display:inline-block}
-.smock-bar i.r{background:#FF5F57}.smock-bar i.y{background:#FFBD2E}.smock-bar i.g{background:#28CA42}
-.smock-bar em{margin-left:8px;font-style:normal;font-size:8px;color:var(--t4);font-family:'JetBrains Mono',monospace}
-.smock-body{background:#F8FAFC;padding:12px 14px}
-.smock-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.smock-hdr b{font-size:10px;font-weight:700;color:#1E293B}
-.smock-hdr u{text-decoration:none;font-size:7px;font-weight:600;padding:3px 8px;border-radius:4px;color:#fff;background:#3B82F6}
-.smock-hdr u.g{background:#16A34A}.smock-hdr u.a{background:#F59E0B}
-.smock-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #F1F5F9;font-size:9px;color:#475569}
-.smock-row:last-child{border-bottom:none}
-.smock-row strong{font-weight:600;color:#1E293B}
-.pill{font-size:7px;padding:2px 6px;border-radius:3px;font-weight:600}
-.pill-g{background:#DCFCE7;color:#16A34A}.pill-a{background:#FEF3C7;color:#D97706}.pill-r{background:#FEE2E2;color:#DC2626}.pill-b{background:#DBEAFE;color:#2563EB}
-.smock-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:8px}
-.smock-kpi{background:#fff;border:1px solid #E2E8F0;border-radius:4px;padding:6px}
-.smock-kpi small{font-size:6px;color:#94A3B8;text-transform:uppercase;letter-spacing:.4px;display:block}
-.smock-kpi strong{font-size:12px;font-weight:700;color:#1E293B}
+        /* Ticker */
+        .marquee { overflow: hidden; padding: 24px 0; border-bottom: 1px solid var(--brd); background: rgba(9, 9, 11, 0.5); }
+        .m-track { display: flex; width: max-content; gap: 40px; animation: tickscroll 30s linear infinite; }
+        .m-track span { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--t4); white-space: nowrap; }
+        @keyframes tickscroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* MODULES */
-.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--brd);border-radius:12px;overflow:hidden;border:1px solid var(--brd)}
-@media(max-width:768px){.mgrid{grid-template-columns:1fr}}
-.mc{background:rgba(15,15,18,.5);padding:22px;display:flex;gap:14px;align-items:flex-start;transition:all .3s;backdrop-filter:blur(4px)}.mc:hover{background:rgba(20,20,24,.7)}
-.mbg{flex-shrink:0;width:38px;height:38px;border-radius:8px;border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--t3)}
-.mc h3{color:var(--t1);font-size:14px;font-weight:600;margin-bottom:3px}.mc p{font-size:13px;color:var(--t2);line-height:1.5}
+        /* AI Agents */
+        .ai-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 768px) { .ai-grid { grid-template-columns: 1fr; } }
+        .ai-card { padding: 32px; border-radius: 16px; transition: all 0.3s; }
+        .ai-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .ai-head { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
+        .ai-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: #fff; flex-shrink: 0; }
+        .ai-info h3 { font-size: 20px; margin-bottom: 4px; }
+        .ai-info p { font-size: 13px; color: var(--t3); font-style: italic; }
+        .ai-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+        .ai-item { display: flex; gap: 10px; font-size: 14px; color: var(--t2); line-height: 1.5; }
+        .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ind); margin-top: 8px; opacity: 0.4; flex-shrink: 0; }
+        .ai-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--t4); border-top: 1px solid rgba(255,255,255,0.04); padding-top: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .ai-indigo { background: linear-gradient(135deg, rgba(129, 140, 248, 0.1), transparent); border-color: rgba(129, 140, 248, 0.2); }
+        .ai-indigo .ai-icon { background: rgba(129, 140, 248, 0.2); border: 1px solid rgba(129, 140, 248, 0.3); color: var(--ind); }
+        .ai-amber { background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), transparent); border-color: rgba(251, 191, 36, 0.2); }
+        .ai-amber .ai-icon { background: rgba(251, 191, 36, 0.2); border: 1px solid rgba(251, 191, 36, 0.3); color: var(--amb); }
+        .ai-green { background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), transparent); border-color: rgba(74, 222, 128, 0.2); }
+        .ai-green .ai-icon { background: rgba(74, 222, 128, 0.2); border: 1px solid rgba(74, 222, 128, 0.3); color: var(--grn); }
+        .ai-pink { background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), transparent); border-color: rgba(236, 72, 153, 0.2); }
+        .ai-pink .ai-icon { background: rgba(236, 72, 153, 0.2); border: 1px solid rgba(236, 72, 153, 0.3); color: var(--pink); }
 
-/* COMPARE */
-.ctbl{border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow-x:auto;backdrop-filter:blur(4px)}
-.ctbl table{width:100%;min-width:560px;border-collapse:collapse;font-size:13px}
-.ctbl th{padding:11px 14px;font-weight:500;color:var(--t3);border-bottom:1px solid var(--brd);text-align:center}
-.ctbl th:first-child{text-align:left}.ctbl th:last-child{color:var(--t1)}
-.ctbl td{padding:10px 14px;border-bottom:1px solid var(--brd);text-align:center;color:var(--t3)}
-.ctbl td:first-child{text-align:left;color:var(--t2);font-weight:500}
-.ctbl td:last-child{color:var(--grn);font-weight:600;background:rgba(74,222,128,.02)}
-.ctbl tr:last-child td{border-bottom:none}
+        /* Problem Section */
+        .prob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 20px; }
+        @media (max-width: 900px) { .prob-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .prob-grid { grid-template-columns: 1fr; } }
+        .prob-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--brd); display: grid; grid-template-rows: subgrid; grid-row: span 2; margin-bottom: 20px; }
+        .prob-top { padding: 24px; background: var(--bg2); }
+        .prob-top .mono { font-size: 10px; color: var(--t4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        .prob-stat { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 6px; opacity: 0.8; }
+        .prob-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+        .prob-card p { font-size: 13px; color: var(--t3); line-height: 1.5; opacity: 0.7; }
+        .prob-bot { padding: 24px; background: rgba(74, 222, 128, 0.08); border-top: 1px solid rgba(74, 222, 128, 0.15); flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+        .prob-bot .mono { font-size: 10px; color: var(--grn); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
+        .prob-sol { font-size: 15px; color: var(--grn); font-weight: 600; line-height: 1.5; text-wrap: balance; }
 
-/* FLAG CARDS */
-.flag-grid{display:flex;gap:12px;margin-bottom:36px;overflow-x:auto;padding-bottom:4px}
-.flag-card{min-width:110px;flex:1}
-@media(max-width:768px){.flag-grid{flex-wrap:wrap}.flag-card{min-width:calc(50% - 6px);flex:none}}
-.flag-card{border:1px solid rgba(255,255,255,.06);border-radius:12px;background:rgba(15,15,18,.4);backdrop-filter:blur(6px);padding:16px 12px;text-align:center;transition:all .3s;cursor:pointer}
-.flag-card:hover{border-color:var(--brd2);background:var(--bg3);transform:translateY(-2px)}
-.flag-card .fc-tap{font-size:9px;color:var(--t4);margin-top:5px;transition:color .2s}
-.flag-card:hover .fc-tap{color:var(--t2)}
-.fd-panel{display:none;padding:20px;border:1px solid var(--brd);border-radius:12px;background:var(--bg2);margin-bottom:20px;animation:fdOpen .3s ease}
-.fd-panel.open{display:block}
-@keyframes fdOpen{0%{opacity:0;transform:translateY(-6px)}100%{opacity:1;transform:translateY(0)}}
-.fd-panel h4{color:var(--t1);font-size:15px;font-weight:600;margin-bottom:8px}
-.fd-panel p{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:12px}
-.fd-tags{display:flex;flex-wrap:wrap;gap:6px}
-.fd-tag{font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--brd);color:var(--t2);background:var(--bg3)}
-.flag-card .ff{font-size:28px;margin-bottom:8px;display:block}
-.flag-card .fcn{color:var(--t1);font-size:14px;font-weight:600;margin-bottom:4px}
-.flag-card .fcs{font-size:11px;font-weight:500;display:inline-block;padding:3px 10px;border-radius:100px}
-.flag-card .fcs.live{background:rgba(74,222,128,.1);color:var(--grn)}
-.flag-card .fcs.soon{background:rgba(129,140,248,.08);color:var(--ind)}
-.flag-card.is-live{border-color:rgba(74,222,128,.3);box-shadow:0 0 16px rgba(74,222,128,.06)}
+        /* Pipeline & Journey */
+        .journey-sec { position: relative; padding-top: 0; }
+        .pipe-wrap { position: sticky; top: 64px; z-index: 50; padding: 12px 0; border-bottom: 1px solid var(--brd); transition: background 0.3s; background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); }
+        .pipe-bar { display: flex; align-items: center; justify-content: center; position: relative; width: 100%; padding-bottom: 16px; }
+        .pipe { display: flex; align-items: center; justify-content: center; gap: 0; width: 100%; max-width: 1000px; position: relative; }
+        .pipe::before { content: ''; position: absolute; top: 16px; left: 16px; right: 16px; height: 2px; background: rgba(129,140,248,.1); z-index: 0; border-radius: 2px; }
+        
+        .pn { display: flex; flex-direction: column; align-items: center; cursor: pointer; position: relative; z-index: 2; flex-shrink: 0; }
+        .pn .pd { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(129,140,248,.3); background: #09090B; display: flex; align-items: center; justify-content: center; transition: all .4s; }
+        .pn .pi { width: 6px; height: 6px; border-radius: 50%; background: rgba(129,140,248,.15); transition: all .4s; }
+        .pn .pl { position: absolute; top: 40px; font-family: 'JetBrains Mono', monospace; font-size: 8px; color: rgba(255,255,255,.15); letter-spacing: 0.5px; text-transform: uppercase; font-weight: 500; transition: all .4s; white-space: nowrap; }
+        
+        .pn.active .pd { border-color: rgba(129,140,248,.9); box-shadow: 0 0 15px rgba(129,140,248,.4); border-width: 2px; }
+        .pn.active .pi { background: #818CF8; transform: scale(1.4); }
+        .pn.active .pl { color: rgba(255,255,255,.95); font-weight: 600; transform: translateY(2px); }
+        .pn.done .pd { border-color: rgba(129,140,248,.5); }
+        .pn.done .pi { background: rgba(129,140,248,.4); }
+        .pn.done .pl { color: rgba(255,255,255,.4); }
+        
+        .pc { flex: 1; height: 2px; background: transparent; position: relative; overflow: hidden; z-index: 1; min-width: 20px; }
+        .pc .pf { height: 100%; width: 0; background: linear-gradient(90deg, rgba(129,140,248,.3), rgba(129,140,248,.8)); transition: width .3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 8px rgba(129,140,248,.4); }
+        .pc.lit .pf { width: 100%; }
+        
+        .j-card { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px 0 20px; border-bottom: 1px solid var(--brd); width: 100%; max-width: 600px; margin: 0 auto; scroll-snap-align: start; scroll-margin-top: 100px; }
+        .j-card:last-child { border-bottom: none; }
+        .j-step { font-family: 'JetBrains Mono', monospace; font-size: 50px; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px; text-align: center; position: relative; z-index: 0; }
+        .j-tag { display: block; width: 100%; background: #0f172a; padding: 8px 14px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.25em; color: var(--ind); margin-bottom: 16px; position: relative; z-index: 1; border: 1px solid rgba(129, 140, 248, 0.1); text-align: center; }
+        .j-card h3 { font-size: 24px; margin-bottom: 8px; max-width: 100%; text-align: center; }
+        .j-card p { font-size: 13px; color: var(--t2); max-width: 100%; line-height: 1.5; margin-bottom: 16px; text-align: center; }
+        .j-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center !important; }
+        .j-chip { padding: 4px 8px; border-radius: 6px; border: 1px solid var(--brd); font-size: 10px; color: var(--t3); background: rgba(255,255,255,0.02); }
+        
+        .j-mock { border: 1px solid var(--brd2); border-radius: 8px; overflow: hidden; background: #fff; max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); max-height: 200px; overflow-y: auto; }
+        .jm-bar { background: #F1F5F9; padding: 8px 12px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #E2E8F0; }
+        .jm-dot { width: 6px; height: 6px; border-radius: 50%; background: #CBD5E1; }
+        .jm-url { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #94A3B8; }
+        .jm-body { padding: 16px; color: #1E293B; }
+        .jm-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .jm-head b { font-size: 11px; }
+        .jm-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #F1F5F9; font-size: 10px; }
+        .jm-st { font-size: 8px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+        .s-purp { background: #EEF2FF; color: #4F46E5; }
+        .s-grn { background: #F0FDF4; color: #16A34A; }
+        .s-amb { background: #FFFBEB; color: #D97706; }
+        .s-red { background: #FEF2F2; color: #DC2626; }
+        .s-blue { background: #EFF6FF; color: #2563EB; }
 
-/* COMPLIANCE */
-.cpbox{border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(15,15,18,.5);backdrop-filter:blur(8px);padding:28px;max-width:600px}
-.cphead{display:flex;align-items:center;gap:10px;margin-bottom:20px}
-.cphead .cn2{color:var(--t1);font-size:14px;font-weight:600}
-.cphead .cl{font-size:10px;font-weight:500;padding:3px 8px;border-radius:100px;background:rgba(74,222,128,.1);color:var(--grn)}
-.cpi{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:13px}
-.cpi .ck{color:var(--grn);flex-shrink:0;margin-top:2px}
-.cpi strong{color:var(--t1);font-weight:500}
-.cpi span{color:var(--t2)}
+        /* Modules */
+        .mod-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 768px) { .mod-grid { grid-template-columns: 1fr; } }
+        .mod-card { padding: 24px; border-radius: 12px; display: flex; gap: 16px; align-items: flex-start; transition: all 0.3s; }
+        .mod-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-3px); background: rgba(255,255,255,0.02); }
+        .mod-icon { width: 44px; height: 44px; border-radius: 8px; border: 1px solid var(--brd); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--t3); flex-shrink: 0; background: var(--bg2); }
+        .mod-info h3 { font-size: 16px; margin-bottom: 4px; }
+        .mod-info p { font-size: 14px; color: var(--t2); line-height: 1.5; }
 
-/* GO-LIVE */
-.glg{display:flex;gap:0;max-width:800px;margin:0 auto;position:relative}
-@media(max-width:600px){.glg{flex-direction:column}}
-.glg::before{content:'';position:absolute;top:30px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--ind),var(--grn));opacity:.15}
-@media(max-width:600px){.glg::before{display:none}}
-.glc{flex:1;text-align:center;padding:0 16px}
-.glc-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--ind);background:rgba(9,9,11,.6);backdrop-filter:blur(4px);margin:20px auto 14px;position:relative;z-index:1}
-.glc:nth-child(2) .glc-dot{border-color:var(--blue)}
-.glc:nth-child(3) .glc-dot{border-color:var(--grn);background:var(--grn);box-shadow:0 0 10px rgba(74,222,128,.25)}
-.glc .dy{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--ind);margin-bottom:8px}
-.glc:nth-child(2) .dy{color:var(--blue)}
-.glc:nth-child(3) .dy{color:var(--grn)}
-.glc h3{color:var(--t1);font-size:16px;font-weight:600;margin-bottom:6px}
-.glc p{font-size:13px;color:var(--t2);line-height:1.6}
+        /* Compare */
+        .comp-wrap { overflow-x: auto; border-radius: 16px; }
+        .comp-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 700px; }
+        .comp-table th, .comp-table td { padding: 16px 20px; text-align: center; font-size: 13px; }
+        .comp-table th { color: var(--t3); font-weight: 500; padding-bottom: 20px; border-bottom: none; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .comp-table td { border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--t3); }
+        .comp-table td:first-child, .comp-table th:first-child { text-align: left; color: var(--t1); font-weight: 600; padding-left: 8px; font-size: 14px; width: 200px; }
+        .comp-table th:first-child { color: var(--t3); font-weight: 500; font-size: 12px; text-transform: uppercase; }
 
-/* FOUNDER */
-.fq{font-size:17px;line-height:1.85;color:var(--t2);text-align:center;max-width:560px;margin:0 auto 28px;font-style:italic;position:relative}.fq::before{content:"\201C";position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:64px;color:var(--ind);opacity:.12;font-family:Georgia,serif}
-.fif{display:flex;align-items:center;justify-content:center;gap:10px}
-.fav{width:36px;height:36px;border-radius:50%;background:rgba(15,15,18,.5);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--t3)}
-.fif .fn{color:var(--t1);font-size:13px;font-weight:600}
-.fif .fr{font-size:11px;color:var(--t3)}
+        /* ProDomino focused column */
+        .comp-table .best { background: rgba(129, 140, 248, 0.06); color: var(--t1); font-weight: 600; position: relative; }
+        .comp-table th.best { color: #fff; font-weight: 800; font-size: 15px; text-transform: none; letter-spacing: -0.02em; background: var(--ind); padding: 20px; border-radius: 12px 12px 0 0; box-shadow: 0 -8px 30px rgba(129, 140, 248, 0.25); }
+        .comp-table td.best { border-left: 1px solid rgba(129, 140, 248, 0.15); border-right: 1px solid rgba(129, 140, 248, 0.15); border-bottom: 1px solid rgba(129, 140, 248, 0.08); }
+        .comp-table tr:last-child td.best { border-bottom: 1px solid rgba(129, 140, 248, 0.15); border-radius: 0 0 12px 12px; }
 
-/* FAQ */
-.fqi{border-bottom:1px solid rgba(255,255,255,.05)}
-.fqb{width:100%;text-align:left;background:none;border:none;padding:18px 0;font-family:'Inter',system-ui;font-size:15px;font-weight:500;color:var(--t2);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:color .2s}
-.fqb:hover{color:var(--t1)}.fqb .ar{color:var(--t3);font-size:14px;transition:transform .3s;margin-left:14px}
-.fqi.open .fqb{color:var(--t1)}.fqi.open .fqb .ar{transform:rotate(180deg)}
-.fqa{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
-.fqi.open .fqa{max-height:220px;padding-bottom:18px}
-.fqa p{font-size:14px;color:var(--t2);line-height:1.75}
+        .comp-table .check { color: var(--grn); font-weight: 800; font-size: 16px; }
+        .comp-table .cross { color: rgba(239, 68, 68, 0.5); font-weight: 800; font-size: 18px; }
+        .comp-table .best.check { color: var(--grn); font-weight: 800; font-size: 16px; text-shadow: 0 0 12px rgba(74, 222, 128, 0.3); }
+        .comp-table .partial { color: var(--amb); font-size: 12px; font-weight: 500; }
+        .comp-table tr:last-child td { border-bottom: none; }
+        .comp-table tr:last-child td.best { border-bottom: 1px solid rgba(129, 140, 248, 0.15); }
+
+        /* Compliance */
+        .flag-row { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; justify-content: center; padding-bottom: 10px; }
+        .flag-card { width: 160px; padding: 20px 10px; text-align: center; border-radius: 12px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--brd); }
+        .flag-card:hover { border-color: rgba(255,255,255,0.1); background: var(--bg3); transform: translateY(-2px); }
+        .flag-card i { display: block; margin: 0 auto 12px; width: 48px; height: 32px; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s; }
+        .flag-card i img { width: 100%; height: 100%; object-fit: cover; }
+        .flag-card::after { content: attr(data-name); display: block; font-size: 14px; color: #fff; margin-bottom: 4px; font-weight: 700; opacity: 1; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        .flag-card span { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; opacity: 0.8; }
+        .f-live { background: rgba(74, 222, 128, 0.1); color: var(--grn); }
+        .f-soon { background: rgba(129, 140, 248, 0.1); color: var(--ind); }
+        .f-soon { background: rgba(129, 140, 248, 0.1); color: var(--ind); }
+        .flag-card.c-active { border-color: var(--ind); background: rgba(129, 140, 248, 0.12); box-shadow: 0 0 25px rgba(129, 140, 248, 0.2); border-width: 2px; }
+        .flag-card.c-active i { transform: scale(1.1); transition: transform 0.3s; }
+        
+        .f-panel { display: none; padding: 32px; border-radius: 16px; margin-bottom: 40px; animation: slideDown 0.4s ease; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .f-panel.p-active { display: block; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Reveal Animations */
+        .reveal { opacity: 0; transition: opacity 0.8s cubic-bezier(0.21, 0.45, 0.32, 0.9); }
+        .reveal-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.21, 0.45, 0.32, 0.9); }
+        .reveal.active { opacity: 1; }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+        /* Staggered Delays for Grid Elements */
+        .reveal-grid > *:nth-child(2) { transition-delay: 0.1s; }
+        .reveal-grid > *:nth-child(3) { transition-delay: 0.2s; }
+        .reveal-grid > *:nth-child(4) { transition-delay: 0.3s; }
+        .reveal-grid > *:nth-child(5) { transition-delay: 0.4s; }
+        .reveal-grid > *:nth-child(6) { transition-delay: 0.5s; }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* P1: Progress Bar */
+        .prog-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--ind); width: 0%; z-index: 2000; transition: width 0.1s ease-out; box-shadow: 0 0 10px rgba(129, 140, 248, 0.5); }
+
+        /* P1: Active Nav */
+        .nav-a { position: relative; }
+        .nav-a.active { color: var(--t1); }
+        .nav-a.active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background: var(--ind); transform: scaleX(1); transition: transform 0.3s; }
+        .nav-a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background: var(--ind); transform: scaleX(0); transition: transform 0.3s; }
+
+        /* P1: 3D Tilt */
+        .tilt-card { perspective: 1000px; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
+
+        /* P1: Section Glows */
+        .glow-ind::before { content: ''; position: absolute; top: 50%; left: 50%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(129, 140, 248, 0.04) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none; }
+        .glow-grn::before { content: ''; position: absolute; top: 50%; left: 50%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(74, 222, 128, 0.03) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none; }
+        .glow-amb::before { content: ''; position: absolute; top: 50%; left: 50%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(251, 191, 36, 0.02) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none; }
 
 
-/* CTA layout */
-.cta-wrap{display:flex;gap:48px;align-items:flex-start;max-width:880px;margin:0 auto}
-@media(max-width:768px){.cta-wrap{flex-direction:column;gap:28px}}
-.cta-left{flex:1;padding-top:4px}
-.cta-right{width:400px;flex-shrink:0}
-@media(max-width:768px){.cta-right{width:100%}}
-.cta-perks{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.cta-perk{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)}
-.cta-perk .cpi{color:var(--grn);font-size:11px;width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-/* TICKER */
-.ticker{overflow:hidden;padding:18px 0;border-bottom:1px solid var(--brd);border-top:1px solid var(--brd);background:rgba(9,9,11,.5)}
-.ticker-track{display:flex;gap:32px;animation:tickscroll 30s linear infinite;width:max-content}
-.ticker-track span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t4);white-space:nowrap}
-@keyframes tickscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-/* FORM */
-.fb{border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(15,15,18,.5);backdrop-filter:blur(10px);padding:28px;max-width:420px;margin:0 auto;text-align:left}
-.fb h3{color:var(--t1);font-size:14px;font-weight:600;text-align:center;margin-bottom:20px}
-.fg{margin-bottom:12px}
-.fg label{display:block;font-size:11px;font-weight:500;color:var(--t3);margin-bottom:5px}
-.fg input,.fg select{width:100%;background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--t1);outline:none}
-.fg input::placeholder{color:var(--t4)}
-.fg select{-webkit-appearance:none;color:var(--t3)}
-.fbt{width:100%;margin-top:8px;background:var(--ind);color:#fff;font-size:14px;font-weight:600;padding:13px;border:none;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(129,140,248,.2)}.fbt:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(129,140,248,.3)}
-.fok{display:none;text-align:center;padding:20px 0}.fok.show{display:block}
-.fok .fchk{color:var(--grn);font-size:24px;margin-bottom:10px}
-.fok h4{color:var(--t1);font-size:14px;font-weight:600;margin-bottom:3px}
-.fok p{font-size:12px;color:var(--t3)}
-.ffields.hidden{display:none}
 
-/* FOOTER */
-.footer{border-top:1px solid var(--brd);padding:28px 0}
-.footer-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.footer-in a{font-size:12px;color:var(--t3)}.footer-in a:hover{color:var(--t1)}
-.footer-in span{font-size:11px;color:var(--t4)}
-.flc{display:none;position:fixed;bottom:0;left:0;right:0;z-index:40;padding:10px 16px;background:rgba(9,9,11,.96);backdrop-filter:blur(20px);border-top:1px solid var(--brd)}
-.flc a{display:block;width:100%;text-align:center;background:var(--ind);color:#fff;font-weight:600;padding:13px;border-radius:10px;font-size:14px;cursor:pointer}
-@media(max-width:768px){.flc{display:block}body{padding-bottom:60px}}
-</style>
+        /* P2: Shimmer */
+        .shimmer { position: relative; overflow: hidden; }
+        .shimmer::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: skewX(-20deg); animation: shimmer 3s infinite; }
+        @keyframes shimmer { 0% { left: -100%; } 100% { left: 200%; } }
+
+        /* P2: Card Spotlight */
+        .spotlight-card { position: relative; }
+        .spotlight-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.06) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; border-radius: inherit; }
+        .spotlight-card:hover::after { opacity: 1; }
+
+        /* P2: Magnetic Pull */
+        .magnetic { display: inline-block; transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+
+        /* P3: 3D Pipeline & Textures */
+        .pipe-wrap { perspective: 1200px; transform-style: preserve-3d; }
+        .node-box { transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; }
+        
+        .grain { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; mix-blend-mode: overlay; border-radius: inherit; z-index: 1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); transition: background-position 0.2s; }
+        
+        .ambient-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.4; }
+        .f-panel h4 { font-size: 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+        .f-panel h4 img { width: 32px; height: 22px; border-radius: 2px; }
+        .f-panel p { font-size: 14px; color: var(--t2); margin-bottom: 20px; line-height: 1.6; }
+        .f-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .f-tag { font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--brd); color: var(--t3); background: rgba(255,255,255,0.02); }
+
+        .check-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 800px; }
+        @media (max-width: 600px) { .check-list { grid-template-columns: 1fr; } }
+        .check-item { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--t2); }
+        .check-item b { color: var(--t1); font-weight: 600; }
+        .check-icon { color: var(--grn); font-weight: 800; }
+
+        /* Timeline */
+        .tl-row { display: flex; align-items: flex-start; justify-content: space-between; position: relative; max-width: 900px; margin: 60px auto 0; }
+        .tl-line { position: absolute; top: 11px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--ind), var(--blue), var(--grn)); opacity: 0.2; }
+        .tl-step { flex: 1; text-align: center; padding: 0 20px; position: relative; z-index: 2; }
+        .tl-dot { width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--bg); background: var(--ind); margin: 0 auto 20px; box-shadow: 0 0 15px rgba(129, 140, 248, 0.4); position: relative; }
+        .tl-dot::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; background: var(--ind); opacity: 0.15; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(2); opacity: 0; } }
+        .tl-step:nth-child(3) .tl-dot { background: var(--blue); }
+        .tl-step:nth-child(4) .tl-dot { background: var(--grn); }
+        
+        .tl-step h3 { font-size: 16px; margin-bottom: 8px; }
+        .tl-step p { font-size: 13px; color: var(--t3); line-height: 1.5; }
+        .tl-days { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ind); margin-bottom: 8px; display: block; font-weight: 600; }
+        @media (max-width: 600px) { .tl-row { flex-direction: column; gap: 40px; text-align: left; } .tl-line { display: none; } .tl-step { text-align: left; padding: 0; } .tl-dot { margin: 0 0 16px 0; } }
+
+        /* Founder */
+        .founder-card { padding: 48px; border-radius: 20px; border-left: 4px solid var(--ind); max-width: 800px; margin: 0 auto; position: relative; }
+        .quote { font-size: 18px; line-height: 1.8; color: var(--t2); font-style: italic; margin-bottom: 32px; position: relative; z-index: 2; }
+        .quote::before { content: '"'; position: absolute; top: -20px; left: -10px; font-size: 100px; color: var(--ind); opacity: 0.1; font-family: serif; }
+        .founder-info { display: flex; align-items: center; gap: 16px; }
+        .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--ind); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; }
+        .f-name { font-weight: 600; color: var(--t1); font-size: 15px; }
+        .f-title { font-size: 13px; color: var(--t4); }
+
+        /* FAQ */
+        .faq-wrap { max-width: 700px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--brd); }
+        .faq-btn { width: 100%; padding: 24px 0; background: none; border: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; color: var(--t2); font-size: 16px; font-weight: 500; transition: color 0.3s; }
+        .faq-btn:hover { color: var(--t1); }
+        .faq-ans { max-height: 0; overflow: hidden; transition: all 0.4s ease; padding-bottom: 0; }
+        .faq-item.open .faq-ans { max-height: 200px; padding-bottom: 24px; }
+        .faq-ans p { font-size: 14px; color: var(--t3); line-height: 1.6; }
+        .faq-icon { font-size: 12px; transition: transform 0.3s; color: var(--t4); }
+        .faq-item.open .faq-icon { transform: rotate(180deg); color: var(--ind); }
+
+        /* CTA & Form */
+        .cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-start; }
+        @media (max-width: 800px) { .cta-grid { grid-template-columns: 1fr; gap: 40px; } }
+        .perks { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .perk { display: flex; gap: 12px; font-size: 15px; color: var(--t2); }
+        .perk-done { color: var(--grn); font-weight: 800; }
+        
+        .form-box { padding: 32px; border-radius: 16px; width: 100%; }
+        .fg { margin-bottom: 16px; }
+        .fg label { display: block; font-size: 11px; font-weight: 600; color: var(--t4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .fg input, .fg select { width: 100%; background: var(--bg); border: 1px solid var(--brd); padding: 12px 16px; border-radius: 8px; color: var(--t1); outline: none; font-family: inherit; font-size: 14px; }
+        .fg input:focus { border-color: var(--ind); }
+        .fbt { width: 100%; margin-top: 10px; padding: 14px; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .success-msg { display: none; text-align: center; padding: 40px 0; }
+        .success-msg b { font-size: 24px; color: var(--grn); display: block; margin-bottom: 8px; }
+
+        /* Footer */
+        .footer { padding: 40px 0; border-top: 1px solid var(--brd); }
+        .footer-in { display: flex; justify-content: space-between; align-items: center; }
+        .f-brand { font-size: 13px; color: var(--t4); }
+        .f-links { display: flex; gap: 24px; }
+        .f-links a { color: var(--t3); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .f-links a:hover { color: var(--t1); }
+        @media (max-width: 600px) { .footer-in { flex-direction: column; gap: 20px; text-align: center; } }
+    </style>
 </head>
 <body>
+    <canvas class="ambient-canvas" id="ambientCanvas"></canvas>
 
-<!-- NAV -->
-<nav class="nav" id="mainNav"><div class="nav-in">
-<a class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="14" r="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="14" r="8" fill="#312E81" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="34" r="8" fill="#4338CA" stroke="#818CF8" stroke-width="1.6"/><circle cx="16" cy="34" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.6"/></svg>ProDomino</a>
-<div class="nav-lk"><a onclick="goTo('sec-journey')">The Flow</a><a onclick="goTo('sec-modules')">Modules</a><a onclick="goTo('sec-compare')">Compare</a><a onclick="goTo('sec-faq')">FAQ</a><a class="nav-cta" onclick="goTo('sec-cta')">Book a demo</a></div>
-<button class="mob-btn" onclick="document.getElementById('mobMenu').classList.toggle('open')">&#9776;</button>
-</div><div class="mob-menu" id="mobMenu"><a onclick="goTo('sec-journey');closeMob()">The Flow</a><a onclick="goTo('sec-modules');closeMob()">Modules</a><a onclick="goTo('sec-compare');closeMob()">Compare</a><a onclick="goTo('sec-faq');closeMob()">FAQ</a><a class="nav-cta" style="text-align:center;display:block" onclick="goTo('sec-cta');closeMob()">Book a demo</a></div></nav>
+    <div class="prog-bar" id="progBar"></div>
+    <!-- NAV -->
+    <nav class="nav" id="mainNav">
+        <div class="mx nav-in">
+            <a class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+                <div class="logo-grid">
+                    <div class="logo-c"></div><div class="logo-c"></div>
+                    <div class="logo-c"></div><div class="logo-c"></div>
+                </div>
+                ProDomino
+            </a>
+            <div class="nav-links">
+                <a onclick="goTo('sec-journey')">The Flow</a>
+                <a onclick="goTo('sec-modules')">Modules</a>
+                <a onclick="goTo('sec-compare')">Compare</a>
+                <a onclick="goTo('sec-faq')">FAQ</a>
+                <a onclick="goTo('sec-cta')" class="btn-ind nav-cta">Book a demo</a>
+            </div>
+            <button class="mob-toggle" onclick="document.getElementById('mobMenu').classList.toggle('open')">☰</button>
+        </div>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-<canvas id="heroCanvas"></canvas>
-<div class="hero-content">
-<div class="hero-lines">
-<div class="hero-line" id="hl1"></div>
-<div class="hero-line" id="hl2"></div>
-<div class="hero-line" id="hl3"></div>
-</div>
-<p class="hero-contrast" id="hContrast">Not accountants. Not developers.</p>
-<div class="hero-tagline" id="hTagline">PROCUREMENT REIMAGINED</div>
-<p class="hero-sub" id="hSub">One tool replaces your WhatsApp approvals, Excel trackers, and manual matching. For good.</p>
-<div class="hero-btns" id="hBtns">
-<button class="hero-cta-primary" onclick="goTo('sec-cta')">GET STARTED</button>
-<button class="hero-cta-ghost" onclick="goTo('sec-journey')">See the flow &rarr;</button>
-</div>
-</div>
-<div class="hero-mockup">
-<div class="hm-bar"><i></i><i></i><i></i><em>app.prodomino.in/dashboard</em></div>
-<div class="hm-body">
-<div class="hm-side">
-<div class="hm-logo"><svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="14" r="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="14" r="8" fill="#312E81" stroke="#818CF8" stroke-width="1.6"/><circle cx="32" cy="34" r="8" fill="#4338CA" stroke="#818CF8" stroke-width="1.6"/><circle cx="16" cy="34" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.6"/></svg><span>ProDomino</span></div>
-<div class="hm-ni on">Dashboard</div>
-<div class="hm-ni">Purchase Requests</div>
-<div class="hm-ni">Purchase Orders</div>
-<div class="hm-ni">Vendors</div>
-<div class="hm-ni">GRN &amp; Stores</div>
-<div class="hm-ni">RFQ Management</div>
-<div class="hm-ni">Projects &amp; MRP</div>
-<div class="hm-ni">Analytics</div>
-</div>
-<div class="hm-main">
-<div class="hm-kpis">
-<div class="hm-kpi"><small>Total spend</small><b>$2.4M</b><span class="dt">&uarr; 12%</span></div>
-<div class="hm-kpi"><small>POs issued</small><b>147</b><span class="dt">&uarr; 8</span></div>
-<div class="hm-kpi"><small>PR to PO</small><b>4.2d</b><span class="dt">&darr; from 15</span></div>
-<div class="hm-kpi"><small>Compliance</small><b>98%</b><span class="dt">&uarr; 3%</span></div>
-</div>
-<div class="hm-flow">
-<div class="hm-fn" id="hf0">PR</div><span class="hm-fa">&rarr;</span>
-<div class="hm-fn" id="hf1">Approve</div><span class="hm-fa">&rarr;</span>
-<div class="hm-fn" id="hf2">RFQ</div><span class="hm-fa">&rarr;</span>
-<div class="hm-fn" id="hf3">PO</div><span class="hm-fa">&rarr;</span>
-<div class="hm-fn" id="hf4">GRN</div><span class="hm-fa">&rarr;</span>
-<div class="hm-fn" id="hf5">Match</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+    <div class="mob-menu" id="mobMenu">
+        <a onclick="goTo('sec-journey');closeMob()">The Flow</a>
+        <a onclick="goTo('sec-modules');closeMob()">Modules</a>
+        <a onclick="goTo('sec-compare');closeMob()">Compare</a>
+        <a onclick="goTo('sec-faq');closeMob()">FAQ</a>
+        <a onclick="goTo('sec-cta');closeMob()" class="btn-ind">Book a demo</a>
+    </div>
 
-<!-- TICKER -->
+    <div class="mob-cta-bar">
+        <a onclick="goTo('sec-cta')" class="btn-ind">Book a Demo</a>
+    </div>
+    
+    <main>
+        <!-- Section 1: Hero -->
+        <section class="hero">
+            <canvas class="hero-canvas" id="heroCanvas"></canvas>
+            <div class="hero-in">
+                <div class="hero-typing" id="heroTyping">
+                    <span class="hero-line" id="line1"></span>
+                    <span class="hero-line ind" id="line2"></span>
+                    <span class="hero-line" id="line3"></span>
+                </div>
+                <div class="hero-fade" id="heroFade">
+                    <p class="hero-contrast">Not accountants. Not developers.</p>
+                    <div class="hero-tag">PROCUREMENT REIMAGINED</div>
+                    <p class="hero-sub">One tool replaces your WhatsApp approvals, Excel trackers, and manual matching. For good.</p>
+                    <div class="hero-btns">
+                        <button class="btn-ind shimmer magnetic" onclick="goTo('sec-cta')">GET STARTED</button>
+                        <a onclick="goTo('sec-journey')" class="btn-ghost magnetic">See the flow &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section 2: Ticker -->
+        <div class="marquee">
+            <div class="m-track">
+                <span>Construction</span><span>Manufacturing</span><span>EPC</span><span>Oil & Gas</span><span>Real Estate</span><span>Infrastructure</span><span>Chemicals</span><span>Pharma</span><span>FMCG</span><span>Auto Components</span><span>Textiles</span><span>Mining</span>
+                <span>Construction</span><span>Manufacturing</span><span>EPC</span><span>Oil & Gas</span><span>Real Estate</span><span>Infrastructure</span><span>Chemicals</span><span>Pharma</span><span>FMCG</span><span>Auto Components</span><span>Textiles</span><span>Mining</span>
+            </div>
+        </div>
 
-<div class="ticker"><div class="ticker-track"><span>Construction</span><span>Manufacturing</span><span>EPC</span><span>Oil &amp; Gas</span><span>Real Estate</span><span>Infrastructure</span><span>Chemicals</span><span>Pharma</span><span>FMCG</span><span>Auto Components</span><span>Textiles</span><span>Mining</span><span>Construction</span><span>Manufacturing</span><span>EPC</span><span>Oil &amp; Gas</span><span>Real Estate</span><span>Infrastructure</span><span>Chemicals</span><span>Pharma</span><span>FMCG</span><span>Auto Components</span><span>Textiles</span><span>Mining</span></div></div>
-<div class="divider"></div>
-<div class="tw"><div class="tl">Built for teams in</div><div class="tk">
-<div class="ti"><span class="td"></span>Construction</div><div class="ti"><span class="td"></span>EPC</div><div class="ti"><span class="td"></span>Manufacturing</div><div class="ti"><span class="td"></span>Oil &amp; Gas</div><div class="ti"><span class="td"></span>Real Estate</div><div class="ti"><span class="td"></span>IT Infrastructure</div><div class="ti"><span class="td"></span>Energy</div><div class="ti"><span class="td"></span>Mining</div>
-<div class="ti"><span class="td"></span>Construction</div><div class="ti"><span class="td"></span>EPC</div><div class="ti"><span class="td"></span>Manufacturing</div><div class="ti"><span class="td"></span>Oil &amp; Gas</div><div class="ti"><span class="td"></span>Real Estate</div><div class="ti"><span class="td"></span>IT Infrastructure</div><div class="ti"><span class="td"></span>Energy</div><div class="ti"><span class="td"></span>Mining</div>
-</div></div>
-<div class="divider"></div>
-<!-- AI AGENTS -->
-<section class="sec" id="sec-agents"><div class="mx">
-<div style="text-align:center"><p class="lb">Intelligence</p><h2 class="st" style="text-align:center">12 AI agents. Four missions.</h2><p class="sd" style="margin:0 auto 40px;text-align:center;max-width:520px">Not a chatbot bolted onto a dashboard. Specialised agents embedded into every stage of your procurement.</p></div>
-<div class="ai-cats">
-<div class="ai-cat"><div class="ai-cat-hd"><div class="ai-ci ai-c1">A</div><div><h3>Automation</h3><p class="ai-cs">Agents that do the work so your team does not have to.</p></div></div><div class="ai-cb"><div class="ai-h"><span class="ai-d"></span>Auto-fills purchase requests from history and rate contracts</div><div class="ai-h"><span class="ai-d"></span>Generates weekly board-ready procurement reports</div><div class="ai-h"><span class="ai-d"></span>Routes approvals and escalates when SLAs breach</div></div><div class="ai-ct">3 agents</div></div>
-<div class="ai-cat"><div class="ai-cat-hd"><div class="ai-ci ai-c2">I</div><div><h3>Intelligence</h3><p class="ai-cs">Agents that surface what your data is trying to tell you.</p></div></div><div class="ai-cb"><div class="ai-h"><span class="ai-d"></span>Detects split POs, maverick spend, and unusual patterns</div><div class="ai-h"><span class="ai-d"></span>Estimates should-cost based on market and historical data</div><div class="ai-h"><span class="ai-d"></span>Calculates total cost of ownership beyond unit price</div></div><div class="ai-ct">4 agents</div></div>
-<div class="ai-cat"><div class="ai-cat-hd"><div class="ai-ci ai-c3">C</div><div><h3>Compliance</h3><p class="ai-cs">Agents that catch what auditors catch. Before they do.</p></div></div><div class="ai-cb"><div class="ai-h"><span class="ai-d"></span>Matches invoices against POs and GRNs with tolerance rules</div><div class="ai-h"><span class="ai-d"></span>Monitors vendor GSTIN, MSME status, and document expiry</div><div class="ai-h"><span class="ai-d"></span>Tracks payment deadlines and flags compliance risks</div></div><div class="ai-ct">3 agents</div></div>
-<div class="ai-cat"><div class="ai-cat-hd"><div class="ai-ci ai-c4">P</div><div><h3>Prediction</h3><p class="ai-cs">Agents that tell you what is coming before it arrives.</p></div></div><div class="ai-cb"><div class="ai-h"><span class="ai-d"></span>Forecasts material demand from project schedules</div><div class="ai-h"><span class="ai-d"></span>Alerts before rate contracts expire so you renegotiate in time</div><div class="ai-h"><span class="ai-d"></span>Runs what-if scenarios when milestones shift</div></div><div class="ai-ct">2 agents</div></div>
-</div>
-</div></section>
-<div class="divider"></div>
+        <!-- Section 3: AI Agents -->
+        <section class="sec glow-ind" id="sec-agents">
+            <div class="mx">
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <span class="lb reveal-up">Intelligence</span>
+                    <h2 class="st reveal-up reveal-delay-1">12 AI agents. Four missions.</h2>
+                    <p class="sd reveal-up reveal-delay-2" style="margin: 0 auto;">Not a chatbot bolted onto a dashboard. Specialised agents embedded into every stage of your procurement.</p>
+                </div>
 
+                <div class="ai-grid reveal-grid">
+                    <div class="ai-card glass ai-indigo tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="ai-head">
+                            <div class="ai-icon">A</div>
+                            <div class="ai-info">
+                                <h3>Automation</h3>
+                                <p>Agents that do the work so your team does not have to.</p>
+                            </div>
+                        </div>
+                        <div class="ai-list">
+                            <div class="ai-item"><span class="ai-dot"></span>Auto-fill PRs from history and rate contracts</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Generates weekly board-ready procurement reports</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Routes approvals and escalates when SLAs breach</div>
+                        </div>
+                        <div class="ai-count">3 Agents</div>
+                    </div>
 
+                    <div class="ai-card glass ai-amber tilt-card spotlight-card reveal-up">
+                        <div class="ai-head">
+                            <div class="ai-icon">I</div>
+                            <div class="ai-info">
+                                <h3>Intelligence</h3>
+                                <p>Agents that surface what your data is trying to tell you.</p>
+                            </div>
+                        </div>
+                        <div class="ai-list">
+                            <div class="ai-item"><span class="ai-dot"></span>Detects split POs, maverick spend, and unusual patterns</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Estimates should-cost based on market and historical data</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Calculates total cost of ownership beyond unit price</div>
+                        </div>
+                        <div class="ai-count">4 Agents</div>
+                    </div>
 
-<!-- PAIN STATS -->
-<section class="sec" id="sec-problem"><div class="mx">
-<div style="text-align:center"><p class="lb">The problem</p><h2 class="st" style="text-align:center">You already know this is broken.</h2><p class="sd" style="margin:0 auto 48px;text-align:center;max-width:520px">Every mid-market procurement team deals with these six problems. We measured them.</p></div>
-<div class="chaos-grid">
-<div class="cc"><span class="cc-icon">&#128176;</span><div class="cst">$1.2M+</div><h3>Maverick spend per year</h3><p>Purchases outside policy because there is no system to enforce it. Nobody knows until audit.</p><div class="cc-fix">ProDomino enforces policy &#8594;</div></div>
-<div class="cc"><span class="cc-icon">&#9202;</span><div class="cst">15 days</div><h3>PR-to-PO cycle time</h3><p>Manual routing through email. Approvers forget. Reminders go unseen. Quotes expire while waiting.</p><div class="cc-fix">Down to 4.2 days &#8594;</div></div>
-<div class="cc"><span class="cc-icon">&#9888;</span><div class="cst">15%</div><h3>Invoice error rate</h3><p>Manual matching of PO, GRN, and Invoice in spreadsheets. Tax miscalculations. Payment disputes.</p><div class="cc-fix">Auto 3-way match &#8594;</div></div>
-<div class="cc"><span class="cc-icon">&#128202;</span><div class="cst">3 days</div><h3>To get spend data</h3><p>Finance reconciles spreadsheets from multiple departments. Data is always stale by the time it arrives.</p><div class="cc-fix">Real-time dashboard &#8594;</div></div>
-<div class="cc"><span class="cc-icon">&#128197;</span><div class="cst">45+ days</div><h3>Vendor payment delays</h3><p>MSME compliance deadlines missed. Penalty interest accumulates. Vendor relationships damaged.</p><div class="cc-fix">Countdown alerts &#8594;</div></div>
-<div class="cc"><span class="cc-icon">&#128200;</span><div class="cst">6%</div><h3>Price hike from slow approvals</h3><p>By the time the PO is approved, the vendor quote has expired. New quote is always higher.</p><div class="cc-fix">Auto-escalation SLA &#8594;</div></div>
-</div></div></section>
-<div class="divider"></div>
+                    <div class="ai-card glass ai-green tilt-card spotlight-card reveal-up">
+                        <div class="ai-head">
+                            <div class="ai-icon">C</div>
+                            <div class="ai-info">
+                                <h3>Compliance</h3>
+                                <p>Agents that catch what auditors catch. Before they do.</p>
+                            </div>
+                        </div>
+                        <div class="ai-list">
+                            <div class="ai-item"><span class="ai-dot"></span>Matches invoices against POs and GRNs with tolerance rules</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Monitors vendor GSTIN, MSME status, and document expiry</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Tracks payment deadlines and flags compliance risks</div>
+                        </div>
+                        <div class="ai-count">3 Agents</div>
+                    </div>
 
-<!-- STICKY SCROLL JOURNEY -->
-<div class="sticky-sec" id="sec-journey">
-<div class="sticky-wrap">
-<div class="sticky-left">
-<p class="lb">The flow</p>
-<h2 class="st">One cycle.<br>Eight stages.</h2>
-<p style="font-size:14px;color:var(--t2);margin-bottom:28px;max-width:280px;line-height:1.7">Every stage feeds the next. No handoffs. No data lost.</p>
-<div class="sdots" id="sdots">
-<div class="sdot active" data-idx="0"><div class="sdot-circle"></div><div class="sdot-label">Identify</div></div>
-<div class="sdot" data-idx="1"><div class="sdot-circle"></div><div class="sdot-label">Approve</div></div>
-<div class="sdot" data-idx="2"><div class="sdot-circle"></div><div class="sdot-label">Source</div></div>
-<div class="sdot" data-idx="3"><div class="sdot-circle"></div><div class="sdot-label">Order</div></div>
-<div class="sdot" data-idx="4"><div class="sdot-circle"></div><div class="sdot-label">Receive</div></div>
-<div class="sdot" data-idx="5"><div class="sdot-circle"></div><div class="sdot-label">Match</div></div>
-<div class="sdot" data-idx="6"><div class="sdot-circle"></div><div class="sdot-label">Pay</div></div>
-<div class="sdot" data-idx="7"><div class="sdot-circle"></div><div class="sdot-label">Analyse</div></div>
+                    <div class="ai-card glass ai-pink tilt-card spotlight-card reveal-up">
+                        <div class="ai-head">
+                            <div class="ai-icon">P</div>
+                            <div class="ai-info">
+                                <h3>Prediction</h3>
+                                <p>Agents that tell you what is coming before it arrives.</p>
+                            </div>
+                        </div>
+                        <div class="ai-list">
+                            <div class="ai-item"><span class="ai-dot"></span>Forecasts material demand from project schedules</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Alerts before rate contracts expire so you renegotiate in time</div>
+                            <div class="ai-item"><span class="ai-dot"></span>Runs what-if scenarios when milestones shift</div>
+                        </div>
+                        <div class="ai-count">2 Agents</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section 4: Problem -->
+        <section class="sec glow-ind" id="sec-problem">
+            <div class="mx">
+                <div style="text-align: center; margin-bottom: 60px; display: flex; flex-direction: column; align-items: center;">
+                    <span class="lb reveal-up">The Problem</span>
+                    <h2 class="st reveal-up reveal-delay-1">You already know this is broken.</h2>
+                    <p class="sd reveal-up reveal-delay-2" style="margin: 0 auto;">Every mid-market procurement team deals with these six problems. We measured them.</p>
+                </div>
 
-</div>
-</div>
-<div class="sticky-right">
-<div class="scard" data-stage="0"><div class="snum">01</div><div class="stag purple">Identify</div><h3>Need identified. PR created.</h3><p>MRP calculates net need from project milestones, checks inventory, creates purchase request automatically.</p><div class="stags"><span>MRP Engine</span><span>Budget Check</span><span>Auto-PR</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/mrp-review</em></div><div class="smock-body"><div class="smock-hdr"><b>MRP Review — Project Alpha</b><u>Run MRP</u></div>
-<div class="smock-row"><span>TMT Steel 12mm</span><span>500 MT</span><span>120 MT</span><span class="pill pill-r">Urgent</span></div>
-<div class="smock-row"><span>OPC Cement</span><span>800 Bags</span><span>200 Bags</span><span class="pill pill-a">PR Due</span></div>
-<div class="smock-row"><span>MS Plates</span><span>200 Nos</span><span>200 Nos</span><span class="pill pill-g">OK</span></div>
-</div></div></div>
+                <div class="prob-grid reveal-grid">
+                    <div class="prob-card tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="prob-top">
+                            <span class="mono">Today</span>
+                            <div class="prob-stat">$1.2M+</div>
+                            <h3>Maverick spend per year</h3>
+                            <p>Purchases outside policy because there is no system to enforce it. Nobody knows until audit.</p>
+                        </div>
+                        <div class="prob-bot">
+                            <span class="mono">With ProDomino</span>
+                            <div class="prob-sol">Automated policy enforcement on every purchase request before it moves forward.</div>
+                        </div>
+                    </div>
 
-<div class="scard" data-stage="1"><div class="snum">02</div><div class="stag purple">Approve</div><h3>Routed. Reviewed. Approved.</h3><p>PR enters configurable approval chain. Auto-escalation. Full audit trail with timestamps.</p><div class="stags"><span>Delegation of Authority</span><span>Auto-Escalation</span><span>Audit Trail</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/pr/PR-2026-0412</em></div><div class="smock-body"><div class="smock-hdr"><b>PR-2026-0412 — TMT Steel</b><u class="a">Pending</u></div>
-<div class="smock-row"><span>L1 — Project Manager</span><span class="pill pill-g">Approved</span></div>
-<div class="smock-row"><span>L2 — Procurement Head</span><span class="pill pill-a">Awaiting</span></div>
-<div class="smock-row"><span>L3 — CFO (>$25K)</span><span class="pill pill-b">Queued</span></div>
-</div></div></div>
+                    <div class="prob-card tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="prob-top">
+                            <span class="mono">Today</span>
+                            <div class="prob-stat">15 days</div>
+                            <h3>PR-to-PO cycle time</h3>
+                            <p>Manual routing through email. Approvers forget. Reminders go unseen. Quotes expire while waiting.</p>
+                        </div>
+                        <div class="prob-bot">
+                            <span class="mono">With ProDomino</span>
+                            <div class="prob-sol">Down to 4.2 days with SLA-driven routing and auto-escalation on breach.</div>
+                        </div>
+                    </div>
 
-<div class="scard" data-stage="2"><div class="snum">03</div><div class="stag blue">Source</div><h3>Vendors compared. Best price found.</h3><p>System checks rate contracts. If none, floats RFQ. Responses scored on price, quality, delivery.</p><div class="stags"><span>Rate Contracts</span><span>RFQ Portal</span><span>Reverse Auction</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/rfq/RFQ-0087</em></div><div class="smock-body"><div class="smock-hdr"><b>RFQ Evaluation — TMT Steel</b><u class="g">Award</u></div>
-<div class="smock-row"><span>Tata Steel</span><span>$620/MT</span><span class="pill pill-g">92</span></div>
-<div class="smock-row"><span>JSW Steel</span><span>$598/MT</span><span class="pill pill-a">78</span></div>
-<div class="smock-row"><span>Vizag Steel</span><span>$645/MT</span><span class="pill pill-a">74</span></div>
-</div></div></div>
+                    <div class="prob-card tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="prob-top">
+                            <span class="mono">Today</span>
+                            <div class="prob-stat">15%</div>
+                            <h3>Invoice error rate</h3>
+                            <p>Manual matching of PO, GRN, and Invoice in spreadsheets. Tax miscalculations. Payment disputes.</p>
+                        </div>
+                        <div class="prob-bot">
+                            <span class="mono">With ProDomino</span>
+                            <div class="prob-sol">Automated 3-way match with tax tolerance rules. Disputes surface before payment.</div>
+                        </div>
+                    </div>
 
-<div class="scard" data-stage="3"><div class="snum">04</div><div class="stag blue">Order</div><h3>PO generated. Sent to vendor.</h3><p>One click converts approved PR into purchase order. Tax calculated automatically. PDF dispatched.</p><div class="stags"><span>Auto Tax Calc</span><span>PDF Generation</span><span>Vendor Notify</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/po/PO-2026-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>PO-2026-0298 — Tata Steel</b><u class="g">Issued</u></div>
-<div class="smock-row"><span>Item</span><strong>TMT Steel 12mm — 380 MT</strong></div>
-<div class="smock-row"><span>Subtotal</span><strong>$235,600</strong></div>
-<div class="smock-row"><span>GST (18%)</span><strong>$42,408</strong></div>
-<div class="smock-row"><span>Total</span><strong>$278,008</strong></div>
-</div></div></div>
+                    <div class="prob-card tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="prob-top">
+                            <span class="mono">Today</span>
+                            <div class="prob-stat">3 days</div>
+                            <h3>To get spend data</h3>
+                            <p>Finance reconciles spreadsheets from multiple departments. Data is always stale before it arrives.</p>
+                        </div>
+                        <div class="prob-bot">
+                            <span class="mono">With ProDomino</span>
+                            <div class="prob-sol">Real-time spend dashboard. Every rupee visible the moment it is committed.</div>
+                        </div>
+                    </div>
 
-<div class="scard" data-stage="4"><div class="snum">05</div><div class="stag green">Receive</div><h3>Goods arrive. GRN posted.</h3><p>Quantity verified against PO. Quality inspection recorded. Inventory updated across all stores.</p><div class="stags"><span>GRN vs PO</span><span>Quality Check</span><span>Multi-Store</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/grn/GRN-0156</em></div><div class="smock-body"><div class="smock-hdr"><b>GRN-0156 — Receiving</b><u class="g">Posted</u></div>
-<div class="smock-row"><span>Ordered</span><strong>380 MT</strong></div>
-<div class="smock-row"><span>Received</span><strong>380 MT</strong></div>
-<div class="smock-row"><span>Quality</span><span class="pill pill-g">Passed</span></div>
-<div class="smock-row"><span>Store</span><strong>Site A — Main</strong></div>
-</div></div></div>
+                    <div class="prob-card tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="prob-top">
+                            <span class="mono">Today</span>
+                            <div class="prob-stat">45+ days</div>
+                            <h3>Vendor payment delays</h3>
+                            <p>MSME compliance deadlines missed. Penalty interest builds up quietly. Vendor relationships damaged.</p>
+                        </div>
+                        <div class="prob-bot">
+                            <span class="mono">With ProDomino</span>
+                            <div class="prob-sol">Payment countdown alerts before deadlines. Zero missed MSME compliance dates.</div>
+                        </div>
+                    </div>
 
-<div class="scard" data-stage="5"><div class="snum">06</div><div class="stag green">Match</div><h3>PO. GRN. Invoice. Matched.</h3><p>Three-way matching with configurable tolerance. Auto-clear or flag with line-level detail.</p><div class="stags"><span>3-Way Match</span><span>Tolerance Rules</span><span>Exceptions</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/invoices/INV-4821</em></div><div class="smock-body"><div class="smock-hdr"><b>3-Way Match — INV-4821</b><u class="g">Matched</u></div>
-<div class="smock-row"><span>Quantity</span><span>PO: 380</span><span>GRN: 380</span><span class="pill pill-g">380 OK</span></div>
-<div class="smock-row"><span>Unit Price</span><span>PO: $620</span><span class="pill pill-g">$620 OK</span></div>
-<div class="smock-row"><span>GST</span><span>PO: 18%</span><span class="pill pill-g">18% OK</span></div>
-</div></div></div>
+                    <div class="prob-card tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="prob-top">
+                            <span class="mono">Today</span>
+                            <div class="prob-stat">6%</div>
+                            <h3>Price hike on re-quotes</h3>
+                            <p>By the time the PO is approved, the vendor quote has expired. New quote is always higher.</p>
+                        </div>
+                        <div class="prob-bot">
+                            <span class="mono">With ProDomino</span>
+                            <div class="prob-sol">Auto-escalation SLA ensures POs are approved before quote validity lapses.</div>
+                        </div>
+                    </div>
+                </div>
 
-<div class="scard" data-stage="6"><div class="snum">07</div><div class="stag amber">Pay</div><h3>Tax deducted. Payment processed.</h3><p>Tax deductions by vendor type. Compliance deadlines tracked. Payment through same DoA engine.</p><div class="stags"><span>TDS</span><span>MSME Compliance</span><span>Payment Approval</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/payments/PAY-0298</em></div><div class="smock-body"><div class="smock-hdr"><b>Payment — Tata Steel</b><u class="a">Processing</u></div>
-<div class="smock-row"><span>Invoice</span><strong>$278,008</strong></div>
-<div class="smock-row"><span>TDS (1%)</span><strong>-$2,780</strong></div>
-<div class="smock-row"><span>Net Payable</span><strong>$275,228</strong></div>
-<div class="smock-row"><span>MSME Deadline</span><span class="pill pill-a">12 days left</span></div>
-</div></div></div>
+            </div>
+        </section>
+        <!-- Section 5: The Flow -->
+        <section class="journey-sec" id="sec-journey">
+            <div class="mx" style="padding-top: 100px; margin-bottom: 60px; text-align: center;">
+                <span class="lb reveal-up" style="margin: 0 auto 12px; display: inline-block;">The Flow</span>
+                <h2 class="st reveal-up reveal-delay-1" style="font-size: clamp(2.5rem, 6vw, 4rem); margin: 0 auto 16px;">One cycle.<br>Eight stages.</h2>
+                <p class="sd reveal-up reveal-delay-2" style="margin-bottom: 0; margin: 0 auto;">Every stage feeds the next. No handoffs. No data lost.</p>
+            </div>
+            <div class="pipe-wrap glass">
+                <div class="mx">
+                    <div class="pipe-bar">
+                        <div class="pipe" id="pipeA">
+                            <div class="pn active" id="pnA0" onclick="goTo('j-0')"><div class="pd"><div class="pi"></div></div><div class="pl">PR</div></div>
+                            <div class="pc" id="pcA0"><div class="pf"></div></div>
+                            <div class="pn" id="pnA1" onclick="goTo('j-1')"><div class="pd"><div class="pi"></div></div><div class="pl">Approve</div></div>
+                            <div class="pc" id="pcA1"><div class="pf"></div></div>
+                            <div class="pn" id="pnA2" onclick="goTo('j-2')"><div class="pd"><div class="pi"></div></div><div class="pl">Source</div></div>
+                            <div class="pc" id="pcA2"><div class="pf"></div></div>
+                            <div class="pn" id="pnA3" onclick="goTo('j-3')"><div class="pd"><div class="pi"></div></div><div class="pl">Order</div></div>
+                            <div class="pc" id="pcA3"><div class="pf"></div></div>
+                            <div class="pn" id="pnA4" onclick="goTo('j-4')"><div class="pd"><div class="pi"></div></div><div class="pl">Receive</div></div>
+                            <div class="pc" id="pcA4"><div class="pf"></div></div>
+                            <div class="pn" id="pnA5" onclick="goTo('j-5')"><div class="pd"><div class="pi"></div></div><div class="pl">Match</div></div>
+                            <div class="pc" id="pcA5"><div class="pf"></div></div>
+                            <div class="pn" id="pnA6" onclick="goTo('j-6')"><div class="pd"><div class="pi"></div></div><div class="pl">Pay</div></div>
+                            <div class="pc" id="pcA6"><div class="pf"></div></div>
+                            <div class="pn" id="pnA7" onclick="goTo('j-7')"><div class="pd"><div class="pi"></div></div><div class="pl">Analyse</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<div class="scard" data-stage="7"><div class="snum">08</div><div class="stag green">Analyse</div><h3>Every transaction becomes insight.</h3><p>Spend by category, project, vendor. Anomaly detection. Weekly CXO digest automatically.</p><div class="stags"><span>Analytics</span><span>Budget Tracking</span><span>Anomaly Alerts</span><span>CXO Digest</span></div>
-<div class="smock"><div class="smock-bar"><i class="r"></i><i class="y"></i><i class="g"></i><em>prodomino.in/analytics</em></div><div class="smock-body"><div class="smock-hdr"><b>Procurement Analytics</b><u>Export</u></div>
-<div class="smock-kpis"><div class="smock-kpi"><small>Spend</small><strong>$2.4M</strong></div><div class="smock-kpi"><small>Savings</small><strong>$184K</strong></div><div class="smock-kpi"><small>Compliance</small><strong>98%</strong></div></div>
-<div class="smock-row"><span>Alert</span><span class="pill pill-r">Split PO — Vendor #412</span></div><div class="smock-row"><span>Alert</span><span class="pill pill-a">Maverick $8.2K</span></div>
-</div></div></div>
+            <div class="mx">
+                <div class="j-card" id="j-0">
+                    <div class="j-step">01</div>
+                    <span class="j-tag">PR</span>
+                    <h3>Need identified. PR created.</h3>
+                    <p>MRP calculates net need from project milestones, checks inventory, and creates purchase requests automatically.</p>
+                    <div class="j-chips"><span class="j-chip">PR Engine</span><span class="j-chip">Budget Check</span><span class="j-chip">Auto-PR</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/pr/PR-MATCH</div></div><div class="jm-body"><div class="jm-head"><b>Purchase Request — PR-0412</b></div><div class="jm-row"><span>TMT Steel 12mm</span><span>380 MT</span><span class="jm-st s-grn">In Budget</span></div><div class="jm-row"><span>Project Name</span><span>Project Alpha</span></div><div class="jm-row"><span>Priority</span><span class="jm-st s-red">Urgent</span></div></div></div>
+                </div>
 
-</div></div></div>
-<div class="divider"></div>
+                <div class="j-card" id="j-1">
+                    <div class="j-step">02</div>
+                    <span class="j-tag">Approve</span>
+                    <h3>Routed. Reviewed. Approved.</h3>
+                    <p>PR enters configurable approval chain. Auto-escalation and full audit trail with timestamps.</p>
+                    <div class="j-chips"><span class="j-chip">Delegation of Authority</span><span class="j-chip">Auto-Escalation</span><span class="j-chip">Audit Trail</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/pr/PR-2026-0412</div></div><div class="jm-body"><div class="jm-head"><b>Approval Chain — PR-0412</b></div><div class="jm-row"><span>L1 — Project Manager</span><span class="jm-st s-grn">Approved</span></div><div class="jm-row"><span>L2 — Procurement Head</span><span class="jm-st s-amb">Awaiting</span></div><div class="jm-row"><span>L3 — CFO (>$25K)</span><span class="jm-st s-purp">Queued</span></div></div></div>
+                </div>
 
-<!-- MODULES -->
-<section class="sec" id="sec-modules"><div class="mx">
-<p class="lb">Modules</p><h2 class="st">Ten modules. One platform.</h2><p class="sd">Every module connects. Data flows, never gets stuck.</p>
-<div class="mgrid">
-<div class="mc"><div class="mbg">VM</div><div><h3>Vendor Management</h3><p>Tax validation, compliance, scoring.</p></div></div>
-<div class="mc"><div class="mbg">PR</div><div><h3>Purchase Requests</h3><p>Approvals, audit trail, versioning.</p></div></div>
-<div class="mc"><div class="mbg">PO</div><div><h3>Purchase Orders</h3><p>3-way matching, tax auto-calc.</p></div></div>
-<div class="mc"><div class="mbg">GR</div><div><h3>GRN + Stores</h3><p>Multi-store inventory, inspection.</p></div></div>
-<div class="mc"><div class="mbg">IN</div><div><h3>Invoices</h3><p>Tax deduction, compliance alerts.</p></div></div>
-<div class="mc"><div class="mbg">RQ</div><div><h3>RFQ + Auction</h3><p>Portal, reverse auction, scoring.</p></div></div>
-<div class="mc"><div class="mbg">MP</div><div><h3>Multi-Project MRP</h3><p>BOM-to-PR, cross-store inventory.</p></div></div>
-<div class="mc"><div class="mbg">AN</div><div><h3>Analytics + CXO</h3><p>Spend intelligence, anomalies.</p></div></div>
-<div class="mc"><div class="mbg">MD</div><div><h3>7 Master Data</h3><p>UOM, Categories, Items, Pricing.</p></div></div>
-<div class="mc"><div class="mbg">AD</div><div><h3>Admin + DoA</h3><p>Roles, permissions, thresholds.</p></div></div>
-</div></div></section>
-<div class="divider"></div>
+                <div class="j-card" id="j-2">
+                    <div class="j-step">03</div>
+                    <span class="j-tag">Source</span>
+                    <h3>Vendors compared. Best price found.</h3>
+                    <p>System checks rate contracts. If none, floats RFQ. Responses scored on price, quality, and delivery.</p>
+                    <div class="j-chips"><span class="j-chip">Rate Contracts</span><span class="j-chip">RFQ Portal</span><span class="j-chip">Reverse Auction</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/rfq/RFQ-0087</div></div><div class="jm-body"><div class="jm-head"><b>RFQ Evaluation — TMT Steel</b></div><div class="jm-row"><span>Tata Steel</span><span>$620/MT</span><span class="jm-st s-grn">Score: 92</span></div><div class="jm-row"><span>JSW Steel</span><span>$598/MT</span><span class="jm-st s-amb">Score: 78</span></div><div class="jm-row"><span>Vizag Steel</span><span>$645/MT</span><span class="jm-st s-amb">Score: 74</span></div></div></div>
+                </div>
 
-<!-- COMPARE -->
-<section class="sec" id="sec-compare"><div class="mx">
-<div style="text-align:center"><p class="lb">Compare</p><h2 class="st" style="text-align:center">Enterprise depth. Mid-market pricing.</h2></div>
-<div class="ctbl"><table><thead><tr><th style="text-align:left">Feature</th><th>SAP Ariba</th><th>Tally/Zoho</th><th>Procurify</th><th>ProDomino</th></tr></thead><tbody>
-<tr><td>Multi-level approvals</td><td style="color:var(--grn)">&#10003;</td><td style="color:var(--t4)">—</td><td style="color:var(--grn)">&#10003;</td><td>&#10003; Built-in</td></tr>
-<tr><td>Three-way matching</td><td style="color:var(--grn)">&#10003;</td><td style="color:var(--t4)">—</td><td>Basic</td><td>&#10003; Auto</td></tr>
-<tr><td>Multi-project MRP</td><td style="color:var(--t4)">—</td><td style="color:var(--t4)">—</td><td style="color:var(--t4)">—</td><td>&#10003; Unique</td></tr>
-<tr><td>Country tax engine</td><td>Add-on</td><td>Partial</td><td style="color:var(--t4)">—</td><td>&#10003; Native</td></tr>
-<tr><td>RFQ + reverse auction</td><td style="color:var(--grn)">&#10003;</td><td style="color:var(--t4)">—</td><td style="color:var(--t4)">—</td><td>&#10003; Built-in</td></tr>
-<tr><td>Setup time</td><td>12-18 mo</td><td>1 day</td><td>2-4 wks</td><td>&#10003; &lt; 2 weeks</td></tr>
-<tr><td>Annual cost</td><td>$60K+</td><td>$200</td><td>$7K+</td><td>&#10003; Talk to us</td></tr>
-</tbody></table></div></div></section>
-<div class="divider"></div>
+                <div class="j-card" id="j-3">
+                    <div class="j-step">04</div>
+                    <span class="j-tag">Order</span>
+                    <h3>PO generated. Sent to vendor.</h3>
+                    <p>One click converts approved PR into purchase order. Tax calculated automatically. PDF dispatched.</p>
+                    <div class="j-chips"><span class="j-chip">Auto Tax Calc</span><span class="j-chip">PDF Generation</span><span class="j-chip">Vendor Notify</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/po/PO-2026-0298</div></div><div class="jm-body"><div class="jm-head"><b>PO-0298 — Tata Steel</b></div><div class="jm-row"><span>Subtotal (380 MT)</span><span>$235,600</span></div><div class="jm-row"><span>GST (18%)</span><span>$42,408</span></div><div class="jm-row"><span>Total Payable</span><span class="jm-st s-blue">$278,008</span></div></div></div>
+                </div>
 
-<!-- COMPLIANCE -->
-<section class="sec"><div class="mx">
-<p class="lb">Compliance</p><h2 class="st">Country-specific. Not bolted on.</h2><p class="sd">Built into core logic. Not plugins. Not config screens.</p>
-<div class="flag-grid" style="margin-bottom:14px">
-<div class="flag-card is-live" onclick="showCountry('fd-in')"><span class="ff">&#127470;&#127475;</span><div class="fcn">India</div><span class="fcs live">Live</span><div class="fc-tap">Details</div></div>
-<div class="flag-card" onclick="showCountry('fd-us')"><span class="ff">&#127482;&#127480;</span><div class="fcn">United States</div><span class="fcs soon">2026</span><div class="fc-tap">Plan</div></div>
-<div class="flag-card" onclick="showCountry('fd-uk')"><span class="ff">&#127468;&#127463;</span><div class="fcn">United Kingdom</div><span class="fcs soon">2026</span><div class="fc-tap">Plan</div></div>
-<div class="flag-card" onclick="showCountry('fd-ae')"><span class="ff">&#127462;&#127466;</span><div class="fcn">UAE</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
-<div class="flag-card" onclick="showCountry('fd-sg')"><span class="ff">&#127480;&#127468;</span><div class="fcn">Singapore</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
-<div class="flag-card" onclick="showCountry('fd-eu')"><span class="ff">&#127466;&#127482;</span><div class="fcn">European Union</div><span class="fcs soon">2027</span><div class="fc-tap">Plan</div></div>
-</div>
-<div class="fd-panel" id="fd-in"><h4>&#127470;&#127475; India — Live Now</h4><p>Full compliance pack built into core logic. Every transaction respects Indian tax law automatically. Not bolted on, not a plugin.</p><div class="fd-tags"><span class="fd-tag">GST (CGST/SGST/IGST)</span><span class="fd-tag">GSTIN Validation</span><span class="fd-tag">HSN/SAC Codes</span><span class="fd-tag">TDS Section 194C</span><span class="fd-tag">MSME 45-day Rule</span><span class="fd-tag">UOM/GST UQC</span><span class="fd-tag">INR Formatting</span><span class="fd-tag">e-Invoice Ready</span></div></div>
-<div class="fd-panel" id="fd-us"><h4>&#127482;&#127480; United States — Planned 2026</h4><p>US compliance for mid-market companies with multi-state operations. Sales tax automation, 1099 vendor tracking, and federal procurement basics.</p><div class="fd-tags"><span class="fd-tag">Sales Tax (state-level)</span><span class="fd-tag">1099 Tracking</span><span class="fd-tag">W-9 Collection</span><span class="fd-tag">ACH Payments</span><span class="fd-tag">USD Formatting</span><span class="fd-tag">FAR Compliance</span></div></div>
-<div class="fd-panel" id="fd-uk"><h4>&#127468;&#127463; United Kingdom — Planned 2026</h4><p>UK compliance for post-Brexit VAT, Making Tax Digital, and standard payment terms. CIS deductions for construction.</p><div class="fd-tags"><span class="fd-tag">VAT (Standard/Reduced/Zero)</span><span class="fd-tag">Making Tax Digital</span><span class="fd-tag">CIS Deductions</span><span class="fd-tag">GBP Formatting</span><span class="fd-tag">30-day Terms</span><span class="fd-tag">Companies House</span></div></div>
-<div class="fd-panel" id="fd-ae"><h4>&#127462;&#127466; UAE — Planned 2027</h4><p>UAE compliance for VAT, free zone regulations, and customs duties. Supporting mainland and free zone operations.</p><div class="fd-tags"><span class="fd-tag">VAT 5%</span><span class="fd-tag">Free Zone Rules</span><span class="fd-tag">TRN Validation</span><span class="fd-tag">AED/USD Dual</span><span class="fd-tag">Customs Duty</span><span class="fd-tag">WPS Payments</span></div></div>
-<div class="fd-panel" id="fd-sg"><h4>&#127480;&#127468; Singapore — Planned 2027</h4><p>Singapore compliance for GST, IRAS reporting, and cross-border ASEAN procurement.</p><div class="fd-tags"><span class="fd-tag">GST 9%</span><span class="fd-tag">IRAS Reporting</span><span class="fd-tag">UEN Validation</span><span class="fd-tag">SGD Formatting</span><span class="fd-tag">ASEAN Trade</span><span class="fd-tag">Peppol e-Invoice</span></div></div>
-<div class="fd-panel" id="fd-eu"><h4>&#127466;&#127482; European Union — Planned 2027</h4><p>EU compliance across member states. VAT reverse charge, GDPR data handling, e-invoicing. Starting with Germany, France, Netherlands.</p><div class="fd-tags"><span class="fd-tag">VAT (per state)</span><span class="fd-tag">Reverse Charge</span><span class="fd-tag">GDPR Handling</span><span class="fd-tag">e-Invoice EN 16931</span><span class="fd-tag">EUR Formatting</span><span class="fd-tag">VIES Validation</span></div></div>
-<div class="cpbox"><div class="cphead"><span style="font-size:18px">&#127470;&#127475;</span><span class="cn2">India Pack</span><span class="cl">Live</span></div>
-<div class="cpi"><span class="ck">&#10003;</span><div><strong>GST auto-calculation</strong> <span>— CGST / SGST / IGST from state codes</span></div></div>
-<div class="cpi"><span class="ck">&#10003;</span><div><strong>GSTIN validation</strong> <span>— Check-digit rejection</span></div></div>
-<div class="cpi"><span class="ck">&#10003;</span><div><strong>HSN/SAC enforcement</strong> <span>— Valid rates per code</span></div></div>
-<div class="cpi"><span class="ck">&#10003;</span><div><strong>TDS deduction</strong> <span>— Section 194C auto by vendor type</span></div></div>
-<div class="cpi"><span class="ck">&#10003;</span><div><strong>MSME 45-day rule</strong> <span>— Countdown alerts at 30, 15, 7 days</span></div></div>
-<div class="cpi"><span class="ck">&#10003;</span><div><strong>UOM / GST UQC</strong> <span>— Mapped to approved Unit Quantity Codes</span></div></div>
-</div></div></section>
-<div class="divider"></div>
+                <div class="j-card" id="j-4">
+                    <div class="j-step">05</div>
+                    <span class="j-tag">Receive</span>
+                    <h3>Goods arrive. GRN posted.</h3>
+                    <p>Quantity verified against PO. Quality inspection recorded. Inventory updated across all stores.</p>
+                    <div class="j-chips"><span class="j-chip">GRN vs PO</span><span class="j-chip">Quality Check</span><span class="j-chip">Multi-Store</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/grn/GRN-0156</div></div><div class="jm-body"><div class="jm-head"><b>GRN-0156 — Received</b></div><div class="jm-row"><span>Ordered Qty</span><span>380 MT</span></div><div class="jm-row"><span>Received Qty</span><span>380 MT</span></div><div class="jm-row"><span>Quality Check</span><span class="jm-st s-grn">Passed</span></div></div></div>
+                </div>
 
-<!-- GO-LIVE -->
-<section class="sec"><div class="mx">
-<div style="text-align:center"><p class="lb">Setup</p><h2 class="st" style="text-align:center">Live in under two weeks.</h2></div>
-<div class="glg">
-<div class="glc"><div class="glc-dot"></div><div class="dy">Day 1-3</div><h3>Configure</h3><p>Import data. Set rules, budgets, tax rates.</p></div>
-<div class="glc"><div class="glc-dot"></div><div class="dy">Day 4-7</div><h3>Train</h3><p>Founder-led onboarding. Real transactions.</p></div>
-<div class="glc"><div class="glc-dot"></div><div class="dy">Day 8-14</div><h3>Go live</h3><p>Real matching. Real dashboards.</p></div>
-</div></div></section>
-<div class="divider"></div>
+                <div class="j-card reveal-up" id="j-5">
+                    <div class="j-step">06</div>
+                    <span class="j-tag">Match</span>
+                    <h3>PO. GRN. Invoice. Matched.</h3>
+                    <p>Three-way matching with configurable tolerance. Auto-clear or flag with line-level detail.</p>
+                    <div class="j-chips"><span class="j-chip">3-Way Match</span><span class="j-chip">Tolerance Rules</span><span class="j-chip">Exceptions</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/invoices/INV-4821</div></div><div class="jm-body"><div class="jm-head"><b>3-Way Match — INV-4821</b></div><div class="jm-row"><span>Invoice</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row"><span>PO</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row"><span>GRN</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row" style="border-bottom: none;"><span style="color: #818CF8; font-weight: 600;">4-way match</span><span class="jm-st s-purp">On the way</span></div></div></div>
+                </div>
 
-<!-- FOUNDER -->
-<section class="sec"><div class="mx">
-<div style="text-align:center"><p class="lb">Origin</p></div>
-<p class="fq">"I spent 13 years helping mid-market companies set up procurement. I kept recommending processes they couldn't implement because the tools didn't exist. Last year I stopped recommending and started building."</p>
-<div class="fif"><div class="fav">HM</div><div><div class="fn">Harshad A. Mohgaonkar</div><div class="fr">Founder - Enalsys Consulting - Pune</div></div></div>
-</div></section>
+                <div class="j-card" id="j-6">
+                    <div class="j-step">07</div>
+                    <span class="j-tag">Pay</span>
+                    <h3>Tax deducted. Payment processed.</h3>
+                    <p>Tax deductions by vendor type. Compliance deadlines tracked. Payment through same DoA engine.</p>
+                    <div class="j-chips"><span class="j-chip">TDS / TCS</span><span class="j-chip">MSME Rules</span><span class="j-chip">Payment DoA</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/payments/PAY-0298</div></div><div class="jm-body"><div class="jm-head"><b>Payment — Tata Steel</b></div><div class="jm-row"><span>Invoice Total</span><span>$278,008</span></div><div class="jm-row"><span>TDS (1%)</span><span>-$2,780</span></div><div class="jm-row"><span>MSME Deadline</span><span class="jm-st s-amb">12 days left</span></div></div></div>
+                </div>
 
-<!-- FOUNDER -->
-<section class="sec"><div class="mx">
-<div style="text-align:center"><p class="lb">Origin</p></div>
-<p class="fq">"If you run procurement at a growing company, you know the frustration. Your team is sharp. Your processes make sense on paper. But the tools are either too expensive, too shallow, or too slow to set up. I have spent 13 years sitting in those rooms, hearing the same story. So I built the tool I kept wishing I could recommend. ProDomino handles the depth your company needs at a price it can actually afford. And it goes live in two weeks, not two years."</p>
-<div class="fif"><div class="fav">HM</div><div><div class="fn">Harshad A. Mohgaonkar</div><div class="fr">Founder - Enalsys Consulting - Pune</div></div></div>
-</div></section>
-<div class="divider"></div>
+                <div class="j-card" id="j-7">
+                    <div class="j-step">08</div>
+                    <span class="j-tag">Analyse</span>
+                    <h3>Every transaction becomes insight.</h3>
+                    <p>Spend by category, project, and vendor. Anomaly detection and weekly CXO digests automatically.</p>
+                    <div class="j-chips"><span class="j-chip">Analytics</span><span class="j-chip">Anomaly Alerts</span><span class="j-chip">CXO Digest</span></div>
+                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/analytics</div></div><div class="jm-body"><div class="jm-head"><b>Insights</b></div><div class="jm-row"><span>Spend Savings</span><span class="jm-st s-grn">$184K</span></div><div class="jm-row"><span>Split PO Alert</span><span class="jm-st s-red">Detected</span></div><div class="jm-row"><span>Maverick Spend</span><span class="jm-st s-amb">$8.2K</span></div></div></div>
+                </div>
+            </div>
+        </section>
+        <!-- Section 6: Modules -->
+        <section class="sec glow-ind" id="sec-modules">
+            <div class="mx">
+                <div style="text-align: center; margin-bottom: 60px; display: flex; flex-direction: column; align-items: center;">
+                    <span class="lb reveal-up">Modules</span>
+                    <h2 class="st reveal-up reveal-delay-1">Ten modules. One platform.</h2>
+                    <p class="sd reveal-up reveal-delay-2" style="margin: 0 auto;">Every module connects. Data flows, never gets stuck.</p>
+                </div>
 
-<!-- FAQ -->
-<section class="sec" id="sec-faq"><div class="mx" style="max-width:600px">
-<div style="text-align:center"><p class="lb">FAQ</p><h2 class="st" style="text-align:center">Common questions</h2></div>
-<div class="fqi"><button class="fqb" onclick="toggleFaq(this)">How is it different from enterprise tools?<span class="ar">&#9662;</span></button><div class="fqa"><p>Enterprise tools cost $60K+/year with year-long rollouts. ProDomino delivers the same depth at a fraction of the cost, live in under 2 weeks, with multi-project MRP no competitor offers.</p></div></div>
-<div class="fqi"><button class="fqb" onclick="toggleFaq(this)">Country-specific compliance?<span class="ar">&#9662;</span></button><div class="fqa"><p>Yes. Built into core logic. India pack live. US, UK, UAE, Singapore, EU on the roadmap.</p></div></div>
-<div class="fqi"><button class="fqb" onclick="toggleFaq(this)">How fast can we go live?<span class="ar">&#9662;</span></button><div class="fqa"><p>Under two weeks. Import data, configure, founder-led onboarding, go live. No consultants needed.</p></div></div>
-<div class="fqi"><button class="fqb" onclick="toggleFaq(this)">What industries?<span class="ar">&#9662;</span></button><div class="fqa"><p>Mid-market ($6M-$250M) in construction, EPC, manufacturing, oil and gas, real estate.</p></div></div>
-<div class="fqi"><button class="fqb" onclick="toggleFaq(this)">Integrations?<span class="ar">&#9662;</span></button><div class="fqa"><p>V1: Excel import/export. V2: REST APIs with Tally, QuickBooks, Xero, SAP Business One.</p></div></div>
-<div class="fqi"><button class="fqb" onclick="toggleFaq(this)">Early access programme?<span class="ar">&#9662;</span></button><div class="fqa"><p>10 companies at early pricing. All modules, founder-led onboarding, priority support, roadmap input.</p></div></div>
-</div></section>
-<div class="divider"></div>
+                <div class="mod-grid reveal-grid">
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="mod-icon">VM</div>
+                        <div class="mod-info"><h3>Vendor Management</h3><p>Tax validation, compliance, scoring.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="mod-icon">PR</div>
+                        <div class="mod-info"><h3>Purchase Requests</h3><p>Approvals, audit trail, versioning.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="mod-icon">PO</div>
+                        <div class="mod-info"><h3>Purchase Orders</h3><p>3-way matching, tax auto-calc.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up"><div class="grain"></div>
+                        <div class="mod-icon">GR</div>
+                        <div class="mod-info"><h3>GRN + Stores</h3><p>Multi-store inventory, inspection.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up">
+                        <div class="mod-icon">IN</div>
+                        <div class="mod-info"><h3>Invoices</h3><p>Tax deduction, compliance alerts.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up">
+                        <div class="mod-icon">RQ</div>
+                        <div class="mod-info"><h3>RFQ Management</h3><p>Vendor quotes, evaluation, auction.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up">
+                        <div class="mod-icon">MP</div>
+                        <div class="mod-info"><h3>Projects + MRP</h3><p>Milestones, BOM, demand forecast.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card spotlight-card reveal-up">
+                        <div class="mod-icon">AN</div>
+                        <div class="mod-info"><h3>Analytics + CXO</h3><p>Spend intelligence, anomaly detection.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card reveal-up">
+                        <div class="mod-icon">MD</div>
+                        <div class="mod-info"><h3>Master Data</h3><p>Items, vendors, rates, budgets.</p></div>
+                    </div>
+                    <div class="mod-card glass tilt-card reveal-up">
+                        <div class="mod-icon">AD</div>
+                        <div class="mod-info"><h3>Admin + DoA</h3><p>Roles, approvals, audit log.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- CTA -->
-<section class="sec" id="sec-cta" style="padding:64px 0"><div class="mx">
-<div class="cta-wrap">
-<div class="cta-left">
-<p class="lb">Early access</p>
-<h2 class="st">10 companies. Real feedback.<br>Fraction of eventual pricing.</h2>
-<p style="font-size:15px;color:var(--t2);margin-bottom:20px;line-height:1.7">You get the product early. We get the feedback that shapes it.</p>
-<div class="cta-perks">
-<div class="cta-perk"><span class="cpi">&#10003;</span>All modules included from day one</div>
-<div class="cta-perk"><span class="cpi">&#10003;</span>Founder-led onboarding (not a chatbot)</div>
-<div class="cta-perk"><span class="cpi">&#10003;</span>Priority support and direct Slack access</div>
-<div class="cta-perk"><span class="cpi">&#10003;</span>Shape the roadmap with your feedback</div>
-<div class="cta-perk"><span class="cpi">&#10003;</span>Lock in early pricing forever</div>
-</div>
-</div>
-<div class="cta-right">
-<div class="fb">
-<h3>Book a 15-minute demo</h3>
-<div id="formFields" class="ffields">
-<div class="fg"><label>Your name *</label><input type="text" id="inp-name" placeholder="e.g. Rajesh Mehta"></div>
-<div class="fg"><label>Work email *</label><input type="email" id="inp-email" placeholder="e.g. rajesh@company.com"></div>
-<div class="fg"><label>Phone *</label><input type="tel" id="inp-phone" placeholder="e.g. +91 98765 43210"></div>
-<div class="fg"><label>Company *</label><input type="text" id="inp-company" placeholder="e.g. BuildTech Pvt Ltd"></div>
-<div class="fg"><label>Role</label><select id="inp-role"><option value="">Select role</option><option>CFO / Finance Head</option><option>Procurement Head</option><option>COO / Operations</option><option>Project Manager</option><option>MD / CEO</option><option>Other</option></select></div>
-<button class="fbt" onclick="submitForm()">Request demo</button>
-</div>
-<div id="formSuccess" class="fok"><div class="fchk">&#10003;</div><h4>Request received</h4><p>I will reach out within 24 hours.</p></div>
-</div>
-<p style="font-size:11px;color:var(--t4);margin-top:16px">Or email harshad.am@enalsys.com</p>
-</div></div></div></section>
+        <!-- Section 7: Compare -->
+        <section class="sec" id="sec-compare">
+            <div class="mx">
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <span class="lb reveal-up">Compare</span>
+                    <h2 class="st reveal-up reveal-delay-1">Built for procurement teams who have <br> outgrown spreadsheets.</h2>
+                </div>
 
-<!-- FOOTER -->
-<footer class="footer"><div class="mx"><div class="footer-in">
-<span style="color:var(--t3);font-size:12px">ProDomino - Enalsys Consulting</span>
-<span>&#169; 2026</span>
-<div style="display:flex;gap:16px"><a href="mailto:harshad.am@enalsys.com">Email</a><a href="https://www.linkedin.com/in/harshadmohgaonkar/" target="_blank">LinkedIn</a></div>
-</div></div></footer>
-<div class="flc"><a onclick="goTo('sec-cta')">Book a demo</a></div>
+                <div class="comp-wrap">
+                    <table class="comp-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="best">ProDomino</th>
+                                <th>SAP Ariba</th>
+                                <th>Tally / Zoho</th>
+                                <th>Procurify</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="reveal-up"><td>Multi-level approvals</td><td class="best check">N-level DoA</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td></tr>
+                            <tr class="reveal-up"><td>Auto 3-way matching</td><td class="best check">PO · GRN · Invoice</td><td class="check">✓</td><td class="cross">✗</td><td class="partial">Partial</td></tr>
+                            <tr class="reveal-up"><td>Multi-project MRP</td><td class="best check">Built-in</td><td class="check">✓</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                            <tr class="reveal-up"><td>Indian tax (GST/TDS)</td><td class="best check">Native</td><td class="partial">Partial</td><td class="check">✓</td><td class="cross">✗</td></tr>
+                            <tr class="reveal-up"><td>RFQ + reverse auction</td><td class="best check">✓</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td></tr>
+                            <tr class="reveal-up"><td>Setup time</td><td class="best" style="font-weight: 700; color: var(--grn);">Under 2 weeks</td><td>12-18 months</td><td>1-2 weeks</td><td>4-8 weeks</td></tr>
+                            <tr class="reveal-up"><td>Cost (mid-market)</td><td class="best" style="font-weight: 700; color: var(--grn);">Honest pricing</td><td>$60K+/yr</td><td>₹15K/yr</td><td>$30K/yr</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <!-- Section 8: Compliance -->
+        <section class="sec" id="sec-compliance">
+            <div class="mx">
+                <div style="text-align: center; margin-bottom: 60px; display: flex; flex-direction: column; align-items: center;">
+                    <span class="lb reveal-up">Compliance</span>
+                    <h2 class="st reveal-up reveal-delay-1">Country-specific. Not bolted on.</h2>
+                    <p class="sd reveal-up reveal-delay-2" style="margin: 0 auto;">Built into core logic. Not plugins. Not config screens.</p>
+                </div>
 
-<script>
-// ═══ NAVIGATION ═══
-function goTo(id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  var y = el.getBoundingClientRect().top + window.pageYOffset - 70;
-  window.scrollTo({ top: y, behavior: 'smooth' });
-}
+                <div class="flag-row">
+                    <div class="flag-card glass c-active tilt-card spotlight-card" data-name="India" onclick="showCountry('fd-in', this)"><i><img src="https://flagcdn.com/w80/in.png" alt="India"></i><span class="f-live">Live</span><div class="grain"></div></div>
+                    <div class="flag-card glass tilt-card spotlight-card" data-name="United States" onclick="showCountry('fd-us', this)"><i><img src="https://flagcdn.com/w80/us.png" alt="US"></i><span class="f-soon">2026</span><div class="grain"></div></div>
+                    <div class="flag-card glass tilt-card spotlight-card" data-name="United Kingdom" onclick="showCountry('fd-uk', this)"><i><img src="https://flagcdn.com/w80/gb.png" alt="UK"></i><span class="f-soon">2026</span><div class="grain"></div></div>
+                    <div class="flag-card glass tilt-card spotlight-card" data-name="UAE" onclick="showCountry('fd-ae', this)"><i><img src="https://flagcdn.com/w80/ae.png" alt="UAE"></i><span class="f-soon">2027</span><div class="grain"></div></div>
+                    <div class="flag-card glass tilt-card spotlight-card" data-name="Singapore" onclick="showCountry('fd-sg', this)"><i><img src="https://flagcdn.com/w80/sg.png" alt="Singapore"></i><span class="f-soon">2027</span><div class="grain"></div></div>
+                    <div class="flag-card glass tilt-card spotlight-card" data-name="European Union" onclick="showCountry('fd-eu', this)"><i><img src="https://flagcdn.com/w80/eu.png" alt="EU"></i><span class="f-soon">2027</span><div class="grain"></div></div>
+                </div>
 
-function closeMob() {
-  document.getElementById('mobMenu').classList.remove('open');
-}
+                <div class="f-panel glass p-active" id="fd-in">
+                    <h4><img src="https://flagcdn.com/w40/in.png"> India — Live Now</h4>
+                    <p>Full compliance pack built into core logic. Every transaction respects Indian tax law automatically. Not bolted on, not a plugin.</p>
+                    <div class="f-tags">
+                        <span class="f-tag">GST (CGST/SGST/IGST)</span>
+                        <span class="f-tag">GSTIN Validation</span>
+                        <span class="f-tag">HSN/SAC Codes</span>
+                        <span class="f-tag">TDS Section 194C</span>
+                        <span class="f-tag">MSME 45-day Rule</span>
+                        <span class="f-tag">UOM/GST UQC</span>
+                        <span class="f-tag">INR Formatting</span>
+                        <span class="f-tag">e-Invoice Ready</span>
+                    </div>
+                    <div class="check-list" style="margin-top: 32px;">
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>GST auto-calculation</b> — CGST / SGST / IGST from state codes</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>GSTIN validation</b> — Check-digit rejection automated</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>HSN/SAC enforcement</b> — Valid rates verified per code</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>MSME 45-day rule</b> — Countdown alerts at 30, 15, 7 days</span></div>
+                    </div>
+                </div>
 
-// Nav background on scroll
-window.addEventListener('scroll', function() {
-  document.getElementById('mainNav').classList.toggle('sc', window.scrollY > 30);
-});
+                <div class="f-panel glass" id="fd-us">
+                    <h4><img src="https://flagcdn.com/w40/us.png"> United States — 2026</h4>
+                    <p>US compliance for mid-market companies with multi-state operations. Sales tax automation, 1099 vendor tracking, and federal procurement basics.</p>
+                    <div class="f-tags">
+                        <span class="f-tag">Sales Tax</span>
+                        <span class="f-tag">1099 Tracking</span>
+                        <span class="f-tag">W-9 Collection</span>
+                        <span class="f-tag">ACH Payments</span>
+                        <span class="f-tag">Federal Procurement</span>
+                    </div>
+                    <div class="check-list" style="margin-top: 32px;">
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>Multi-state Nexus</b> — Automated sales tax mapping</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>1099-NEC/MISC</b> — Automated vendor classification</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>W-9 Vault</b> — Digital collection and expiration alerts</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>SOC 2 Ready</b> — Audit trails compliant with US standards</span></div>
+                    </div>
+                </div>
 
-// ═══ STICKY SCROLL — Zoho style dot sync ═══
-var allCards = document.querySelectorAll('.scard');
-var allDots = document.querySelectorAll('.sdot');
-var lastActiveIdx = 0;
+                <div class="f-panel glass" id="fd-uk">
+                    <h4><img src="https://flagcdn.com/w40/gb.png"> United Kingdom — 2026</h4>
+                    <p>UK compliance for post-Brexit VAT, Making Tax Digital (MTD), and standard payment terms. CIS deductions for project-based construction accounting.</p>
+                    <div class="f-tags">
+                        <span class="f-tag">VAT (Standard/Zero)</span>
+                        <span class="f-tag">Making Tax Digital</span>
+                        <span class="f-tag">CIS Deductions</span>
+                        <span class="f-tag">UK GDPR</span>
+                        <span class="f-tag">Prompt Payment Code</span>
+                    </div>
+                    <div class="check-list" style="margin-top: 32px;">
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>MTD Ready</b> — Digital record keeping as per HMRC</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>CIS Automation</b> — Subcontractor verification and deduction</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>VAT Return</b> — Automatic classification of input/output tax</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>PPC Metrics</b> — Tracking 30-day payment compliance</span></div>
+                    </div>
+                </div>
 
-function updateActive(idx) {
-  if (idx === lastActiveIdx) return;
-  lastActiveIdx = idx;
-  allCards.forEach(function(c, i) {
-    if (i === idx) c.classList.remove('dimmed');
-    else c.classList.add('dimmed');
-  });
-  allDots.forEach(function(d, i) {
-    if (i === idx) d.classList.add('active');
-    else d.classList.remove('active');
-  });
-}
+                <div class="f-panel glass" id="fd-ae">
+                    <h4><img src="https://flagcdn.com/w40/ae.png"> UAE — 2027</h4>
+                    <p>UAE Federal Tax Authority (FTA) compliance. Ready for the upcoming mandatory e-Invoicing (Tahaneel) and ICV (In-Country Value) certificate tracking.</p>
+                    <div class="f-tags">
+                        <span class="f-tag">UAE VAT (5%)</span>
+                        <span class="f-tag">e-Invoicing (Tahaneel)</span>
+                        <span class="f-tag">ICV Scoring</span>
+                        <span class="f-tag">Corporate Tax</span>
+                        <span class="f-tag">Arabic/English POs</span>
+                    </div>
+                    <div class="check-list" style="margin-top: 32px;">
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>Tax Invoice Ready</b> — FTA compliant bilingual formatting</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>Tahaneel Prep</b> — Pre-mapped for XML e-Invoicing</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>ICV Certificate Vault</b> — Track vendor ICV score impact</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>Reverse Charge</b> — Automated for foreign services</span></div>
+                    </div>
+                </div>
 
-// Use scroll position to determine active card
-function checkCards() {
-  var bestIdx = 0;
-  var bestDist = 99999;
-  var viewMid = window.innerHeight * 0.35;
-  allCards.forEach(function(card, i) {
-    var rect = card.getBoundingClientRect();
-    var cardMid = rect.top + rect.height * 0.3;
-    var dist = Math.abs(cardMid - viewMid);
-    if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.1) {
-      if (dist < bestDist) {
-        bestDist = dist;
-        bestIdx = i;
-      }
-    }
-  });
-  updateActive(bestIdx);
-}
+                <div class="f-panel glass" id="fd-sg">
+                    <h4><img src="https://flagcdn.com/w40/sg.png"> Singapore — 2027</h4>
+                    <p>IRAS GST compliance for Singapore-based firms. Full support for InvoiceNow (Peppol Network) and automated CPF/Levy tracking for procurement staff.</p>
+                    <div class="f-tags">
+                        <span class="f-tag">GST (9%)</span>
+                        <span class="f-tag">InvoiceNow / Peppol</span>
+                        <span class="f-tag">CPF Automated Match</span>
+                        <span class="f-tag">PDPA Compliance</span>
+                        <span class="f-tag">Corppass Integration</span>
+                    </div>
+                    <div class="check-list" style="margin-top: 32px;">
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>GST F5 Ready</b> — Automated tax return categorization</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>Peppol Ready</b> — Directly receive and process digital invoices</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>IRAS Auditor Export</b> — Single-click compliance reports</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>PDPA Vault</b> — Encrypted PII handling for vendor staff</span></div>
+                    </div>
+                </div>
 
-window.addEventListener('scroll', checkCards);
-var snapEl=document.querySelector('.sticky-right');
-if(snapEl)snapEl.addEventListener('scroll',checkCards);
-// Initial check
-setTimeout(checkCards, 100);
+                <div class="f-panel glass" id="fd-eu">
+                    <h4><img src="https://flagcdn.com/w40/eu.png"> European Union — 2027</h4>
+                    <p>Cross-border EU compliance focusing on ViDA (VAT in the Digital Age) and mandatory e-Invoicing standards (EN-16931). ESG and CSRD reporting readiness.</p>
+                    <div class="f-tags">
+                        <span class="f-tag">ViDA Readiness</span>
+                        <span class="f-tag">GDPR</span>
+                        <span class="f-tag">Peppol (Cross-border)</span>
+                        <span class="f-tag">CSRD Tracking</span>
+                        <span class="f-tag">Intrastat Reporting</span>
+                    </div>
+                    <div class="check-list" style="margin-top: 32px;">
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>ViDA Compliant</b> — Real-time transaction reporting ready</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>EN-16931 e-Invoicing</b> — Unified European standard support</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>CSRD Metrics</b> — Procurement data for carbon accounting</span></div>
+                        <div class="check-item"><span class="check-icon">✓</span><span><b>OSS Ready</b> — One-Stop Shop VAT mapping for EU services</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-// Click dot to scroll to card
-allDots.forEach(function(dot, i) {
-  dot.addEventListener('click', function() {
-    var idx = parseInt(dot.getAttribute('data-idx'));
-    if (allCards[idx]) {
-      var y = allCards[idx].getBoundingClientRect().top + window.pageYOffset - 100;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  });
-});
+        <!-- Section 9: Go-Live -->
+        <section class="sec" id="sec-timeline">
+            <div class="mx">
+                <div style="text-align: center;">
+                    <span class="lb">Setup</span>
+                    <h2 class="st">Live in under two weeks.</h2>
+                </div>
 
-// ═══ FAQ ═══
-function toggleFaq(btn) {
-  var item = btn.parentElement;
-  document.querySelectorAll('.fqi').forEach(function(el) {
-    if (el !== item) el.classList.remove('open');
-  });
-  item.classList.toggle('open');
-}
+                <div class="tl-row">
+                    <div class="tl-line"></div>
+                    <div class="tl-step">
+                        <div class="tl-dot"></div>
+                        <span class="tl-days">Days 1-3</span>
+                        <h3>Configure</h3>
+                        <p>Import master data, set approval rules, add users, and map budgets.</p>
+                    </div>
+                    <div class="tl-step">
+                        <div class="tl-dot"></div>
+                        <span class="tl-days">Days 4-7</span>
+                        <h3>Train</h3>
+                        <p>Guided walkthrough, test transactions, and parallel run with existing sheets.</p>
+                    </div>
+                    <div class="tl-step">
+                        <div class="tl-dot"></div>
+                        <span class="tl-days">Days 8-14</span>
+                        <h3>Go live</h3>
+                        <p>Real transactions, founder on call, and zero extra cost for implementation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section 10: Founder -->
+        <section class="sec">
+            <div class="mx">
+                <div class="founder-card glass">
+                    <p class="quote">"If you run procurement at a growing company, you know the frustration. Your team is sharp. Your processes make sense on paper. But the tools are either too expensive, too shallow, or too slow to set up. I have spent 13 years sitting in those rooms, hearing the same story. So I built the tool I kept wishing I could recommend. ProDomino handles the depth your company needs at a price it can actually afford. And it goes live in two weeks, not two years."</p>
+                    <div class="founder-info">
+                        <div class="avatar">HM</div>
+                        <div>
+                            <div class="f-name">Harshad A. Mohgaonkar</div>
+                            <div class="f-title">Founder — Enalsys Consulting, Pune</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-// ═══ FORM ═══
-function submitForm() {
-  var n = document.getElementById('inp-name').value.trim();
-  var e = document.getElementById('inp-email').value.trim();
-  var co = document.getElementById('inp-company').value.trim();
-  var ph = document.getElementById('inp-phone').value.trim();
-  if (!n || !e || !ph || !co) { alert('Please fill in name, email, phone, and company.'); return; }
-  var r = document.getElementById('inp-role').value || '-';
-  var btn = document.querySelector('.fbt');
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-  var url = 'https://script.google.com/macros/s/AKfycbwzMPZeBYj-nTImLmYHioQFeFgMs8_pG-XCYat5RA1NGSMnI477t02KMR88K85X9UCW/exec';
-  // Use URL params approach - most reliable with Google Apps Script
-  var params = '?name=' + encodeURIComponent(n) + '&email=' + encodeURIComponent(e) + '&phone=' + encodeURIComponent(ph) + '&company=' + encodeURIComponent(co) + '&role=' + encodeURIComponent(r);
-  fetch(url + params, { method: 'GET', mode: 'no-cors' }).then(function() {
-    document.getElementById('formFields').classList.add('hidden');
-    document.getElementById('formSuccess').classList.add('show');
-  }).catch(function() {
-    document.getElementById('formFields').classList.add('hidden');
-    document.getElementById('formSuccess').classList.add('show');
-  });
-}
+        <!-- Section 11: FAQ -->
+        <section class="sec" id="sec-faq">
+            <div class="mx">
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <span class="lb">FAQ</span>
+                    <h2 class="st">Questions people actually ask.</h2>
+                </div>
 
-// ═══ PIPELINE GLOW ═══
-;(function() {
-  var pipe = document.getElementById('pipeline');
-  if (!pipe) return;
-  var nodes = pipe.querySelectorAll('.pipe-node');
-  var docs = pipe.querySelectorAll('.pipe-doc');
-  function tick() {
-    var pr = pipe.getBoundingClientRect();
-    if (pr.width < 10) { requestAnimationFrame(tick); return; }
-    var docXs = [];
-    docs.forEach(function(d) {
-      var r = d.getBoundingClientRect();
-      docXs.push(r.left - pr.left + r.width / 2);
-    });
-    nodes.forEach(function(n) {
-      var nr = n.getBoundingClientRect();
-      var nx = nr.left - pr.left + nr.width / 2;
-      var near = false;
-      docXs.forEach(function(dx) { if (Math.abs(dx - nx) < 50) near = true; });
-      if (near) n.classList.add('glow');
-      else n.classList.remove('glow');
-    });
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-})();
+                <div class="faq-wrap">
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">How is it different from enterprise tools? <span class="faq-icon">▼</span></button>
+                        <div class="faq-ans"><p>Enterprise tools cost $60K+/year with year-long rollouts. ProDomino delivers the same depth at a fraction of the cost, live in under 2 weeks, with multi-project MRP no competitor offers.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">Country-specific compliance? <span class="faq-icon">▼</span></button>
+                        <div class="faq-ans"><p>Yes. Built into core logic. India pack live. US, UK, UAE, Singapore, EU on the roadmap.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">How fast can we go live? <span class="faq-icon">▼</span></button>
+                        <div class="faq-ans"><p>Under two weeks. Import data, configure, founder-led onboarding, go live. No consultants needed.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">What industries? <span class="faq-icon">▼</span></button>
+                        <div class="faq-ans"><p>Mid-market ($6M–$250M) in construction, EPC, manufacturing, oil and gas, real estate.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">Integrations? <span class="faq-icon">▼</span></button>
+                        <div class="faq-ans"><p>V1: Excel import/export. V2: REST APIs with Tally, QuickBooks, Xero, SAP Business One.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">Early access programme? <span class="faq-icon">▼</span></button>
+                        <div class="faq-ans"><p>10 companies at early pricing. All modules, founder-led onboarding, priority support, roadmap input.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-// Particle network
-;(function(){
-  var cv=document.getElementById('heroCanvas');
-  if(!cv)return;
-  function rs(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight}
-  rs();window.addEventListener('resize',rs);
-  var ctx=cv.getContext('2d'),dots=[];
-  for(var i=0;i<140;i++)dots.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*2.5+1,dx:(Math.random()-.5)*.3,dy:(Math.random()-.5)*.3,a:Math.random()*.55+.15});
-  function draw(){
-    ctx.clearRect(0,0,cv.width,cv.height);
-    dots.forEach(function(d){d.x+=d.dx;d.y+=d.dy;if(d.x<0||d.x>cv.width)d.dx*=-1;if(d.y<0||d.y>cv.height)d.dy*=-1;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle='rgba(129,140,248,'+d.a+')';ctx.fill()});
-    for(var i=0;i<dots.length;i++)for(var j=i+1;j<dots.length;j++){var dx=dots[i].x-dots[j].x,dy=dots[i].y-dots[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){ctx.beginPath();ctx.moveTo(dots[i].x,dots[i].y);ctx.lineTo(dots[j].x,dots[j].y);ctx.strokeStyle='rgba(129,140,248,'+(0.14*(1-dist/150))+')';ctx.lineWidth=.8;ctx.stroke()}}
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-// Mockup pipeline glow
-;(function(){var idx=0;setInterval(function(){for(var i=0;i<6;i++){var el=document.getElementById('hf'+i);if(el){if(i===idx)el.classList.add('glow');else el.classList.remove('glow')}}idx=(idx+1)%6},900)})();
+        <!-- Section 12: CTA -->
+        <section class="sec" id="sec-cta">
+            <div class="mx">
+                <div class="cta-grid">
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <span class="lb">Get Early Access</span>
+                        <h2 class="st">10 companies. Real feedback. <br> Fraction of eventual pricing.</h2>
+                        <ul class="perks" style="align-items: flex-start; max-width: 400px; margin: 24px 0 0; text-align: left; list-style: none; padding: 0;">
+                            <li class="perk"><span class="perk-done">✓</span> Founder-led onboarding (no consultants)</li>
+                            <li class="perk"><span class="perk-done">✓</span> All 10 modules included</li>
+                            <li class="perk"><span class="perk-done">✓</span> Live in under 2 weeks</li>
+                            <li class="perk"><span class="perk-done">✓</span> Indian compliance built in</li>
+                            <li class="perk"><span class="perk-done">✓</span> Priority support + roadmap input</li>
+                            <li class="perk"><span class="perk-done">✓</span> Early access pricing locked in</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="form-box glass" id="formWrap">
+                            <div class="fg"><label>Full Name*</label><input type="text" id="name" placeholder="Harshad Mohgaonkar"></div>
+                            <div class="fg"><label>Work Email*</label><input type="email" id="email" placeholder="harshad@enalsys.com"></div>
+                            <div class="fg"><label>Phone*</label><input type="tel" id="phone" placeholder="+91 98765 43210"></div>
+                            <div class="fg"><label>Company Name*</label><input type="text" id="company" placeholder="Enalsys Consulting"></div>
+                            <div class="fg">
+                                <label>Role</label>
+                                <select id="role">
+                                    <option value="">Select Role</option>
+                                    <option>Procurement Head</option>
+                                    <option>CFO</option>
+                                    <option>Operations Head</option>
+                                    <option>IT Head</option>
+                                    <option>Founder</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <button class="btn-ind fbt" onclick="submitForm()">Request Early Access</button>
+                        </div>
+                        <div class="success-msg" id="successMsg">
+                            <b>Request Received!</b>
+                            <p>We'll be in touch within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-function showCountry(id){
-  var all=document.querySelectorAll('.fd-panel');
-  all.forEach(function(p){if(p.id===id)p.classList.toggle('open');else p.classList.remove('open')});
-}
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="mx footer-in">
+            <span class="f-brand">ProDomino — Enalsys Consulting &copy; 2026</span>
+            <div class="f-links">
+                <a href="mailto:harshad.am@enalsys.com">Email</a>
+                <a href="https://www.linkedin.com/in/harshadmohgaonkar/" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
 
-// Typing effect
-;(function(){
-  var speed=55;var cur=null;
-  function typeIt(id,text,cls,cb){
-    var el=document.getElementById(id);if(!el)return;
-    el.innerHTML='';
-    var sp=document.createElement('span');sp.className='typed'+cls;el.appendChild(sp);
-    if(cur)cur.remove();
-    cur=document.createElement('span');cur.className='hero-cursor';el.appendChild(cur);
-    var i=0;
-    function nxt(){if(i<text.length){sp.textContent+=text[i];i++;setTimeout(nxt,speed+Math.random()*25)}else{if(cb)setTimeout(cb,250)}}
-    nxt();
-  }
-  setTimeout(function(){
-    typeIt('hl1','BUILT BY','',function(){
-      typeIt('hl2','PROCUREMENT',' indigo',function(){
-        typeIt('hl3','PEOPLE.','',function(){
-          if(cur){cur.style.animation='hcblink .6s step-end 3';setTimeout(function(){if(cur)cur.style.opacity='0'},1800)}
-          setTimeout(function(){var e=document.getElementById('hContrast');if(e)e.classList.add('show')},400);
-          setTimeout(function(){var e=document.getElementById('hTagline');if(e)e.classList.add('show')},900);
-          setTimeout(function(){var e=document.getElementById('hSub');if(e)e.classList.add('show')},1200);
-          setTimeout(function(){var e=document.getElementById('hBtns');if(e)e.classList.add('show')},1500);
-          setTimeout(function(){var m=document.querySelector('.hero-mockup');if(m){m.style.opacity='1';m.style.transform='translateY(0)'}},1800);
+    <script>
+        // 0. State & Global Interaction
+        const mouse = { x: 0, y: 0 };
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
         });
-      });
-    });
-  },400);
-})();
-</script>
+
+        // 1. Navigation & Scroll
+        function goTo(id) {
+            const dest = document.getElementById(id);
+            if (!dest) return;
+            const start = window.pageYOffset;
+            const targetPos = dest.getBoundingClientRect().top + start - 80;
+            const distance = targetPos - start;
+            const duration = 1200;
+            let startTime = null;
+
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t * t * t * t + b;
+                t -= 2; return c / 2 * (t * t * t * t * t + 2) + b;
+            }
+
+            function animation(now) {
+                if (!startTime) startTime = now;
+                const progress = now - startTime;
+                const scrollPos = ease(progress, start, distance, duration);
+                window.scrollTo(0, scrollPos);
+                if (progress < duration) requestAnimationFrame(animation);
+            }
+            requestAnimationFrame(animation);
+        }
+
+        // 2. Typing Animation
+        const line1 = "If Your Procurement is";
+        const phrases = ["broken.", "manual.", "slow.", "opaque.", "expensive."];
+        const line3 = "We are here to Fix it.";
+        
+        const el1 = document.getElementById('line1');
+        const el2 = document.getElementById('line2');
+        const el3 = document.getElementById('line3');
+        const fadeEl = document.getElementById('heroFade');
+        
+        let pIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        let phase = 1;
+
+        function type() {
+            if (phase === 1) {
+                el1.textContent = line1.substring(0, charIdx++);
+                if (charIdx > line1.length) {
+                    phase = 2; charIdx = 0;
+                    setTimeout(type, 400);
+                } else setTimeout(type, 40);
+            } else if (phase === 2) {
+                const full = phrases[pIdx];
+                if (isDeleting) el2.textContent = full.substring(0, charIdx--) + "|";
+                else el2.textContent = full.substring(0, charIdx++) + "|";
+
+                let speed = isDeleting ? 30 : 100;
+                if (!isDeleting && charIdx === full.length + 1) {
+                    el2.textContent = full; // remove cursor
+                    // Wait 2 seconds on the word before proceeding
+                    if (pIdx === 0 && !fadeEl.classList.contains('show')) {
+                        phase = 3; charIdx = 0;
+                        setTimeout(type, 800);
+                    } else {
+                        isDeleting = true; speed = 2000;
+                        setTimeout(type, speed);
+                    }
+                } else if (isDeleting && charIdx === 0) {
+                    isDeleting = false;
+                    pIdx = (pIdx + 1) % phrases.length;
+                    setTimeout(type, 400);
+                } else setTimeout(type, speed + Math.random() * 40);
+            } else if (phase === 3) {
+                el3.textContent = line3.substring(0, charIdx++);
+                if (charIdx > line3.length) {
+                    fadeEl.classList.add('show');
+                    // Reset to cycle phrases in line 2
+                    phase = 2; isDeleting = true; charIdx = phrases[0].length;
+                    setTimeout(type, 2000);
+                } else setTimeout(type, 60);
+            }
+        }
+        setTimeout(type, 500);
+
+        // 3. Canvas Particles
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        let pts = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            pts = [];
+            const count = Math.min(window.innerWidth / 15, 80);
+            for (let i = 0; i < count; i++) {
+                pts.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+        window.onresize = resize;
+        resize();
+
+        function anim() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(129, 140, 248, 0.4)";
+            ctx.strokeStyle = "rgba(129, 140, 248, 0.08)";
+            
+            pts.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < pts.length; j++) {
+                    const p2 = pts[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(anim);
+        }
+        anim();
+
+
+
+        // 5. Journey Sync (P3 Upgraded)
+        function syncJourney() {
+            const cards = document.querySelectorAll('.j-card');
+            const pipeBar = document.querySelector('.pipe-wrap');
+            if (!pipeBar) return;
+            
+            const triggerOffset = pipeBar.getBoundingClientRect().bottom + 40;
+            let activeIdx = 0;
+
+            cards.forEach((card, i) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < triggerOffset) activeIdx = i;
+            });
+
+            for (let i = 0; i < 8; i++) {
+                const node = document.getElementById('pnA' + i);
+                const connector = document.getElementById('pcA' + i);
+                
+                if (node) {
+                    node.classList.remove('active', 'done');
+                    let trans = 'rotateY(0deg) translateZ(0px)';
+                    
+                    if (i < activeIdx) {
+                        node.classList.add('done');
+                        trans = 'rotateY(-15deg) translateZ(-20px) scale(0.95)';
+                    } else if (i === activeIdx) {
+                        node.classList.add('active');
+                        trans = 'rotateY(10deg) translateZ(40px) scale(1.1)';
+                    }
+                    node.style.transform = trans;
+                }
+                
+                if (connector) {
+                    if (i < activeIdx) connector.classList.add('lit');
+                    else connector.classList.remove('lit');
+                }
+            }
+        }
+
+        // 6. UI Toggles
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+
+        function showCountry(id, card) {
+            document.querySelectorAll('.f-panel').forEach(p => p.classList.remove('p-active'));
+            document.getElementById(id).classList.add('p-active');
+            document.querySelectorAll('.flag-card').forEach(c => c.classList.remove('c-active'));
+            if (card) card.classList.add('c-active');
+        }
+
+        // 7. Form Submission
+        async function submitForm() {
+            const btn = document.querySelector('.fbt');
+            const fields = ['name', 'email', 'phone', 'company', 'role'];
+            const data = {};
+            
+            for (let f of fields) {
+                const el = document.getElementById(f);
+                if (el.value.trim() === '') {
+                    alert('Please fill all required fields');
+                    el.focus();
+                    return;
+                }
+                data[f] = el.value;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            try {
+                const url = 'https://script.google.com/macros/s/AKfycbwzMPZeBYj-nTImLmYHioQFeFgMs8_pG-XCYat5RA1NGSMnI477t02KMR88K85X9UCW/exec';
+                await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                document.getElementById('formWrap').style.display = 'none';
+                document.getElementById('successMsg').style.display = 'block';
+            } catch (e) {
+                alert('Submission failed. Please try again or email us directly.');
+                btn.disabled = false;
+                btn.textContent = 'Request Early Access';
+            }
+        }
+
+        // 8. P2 Logic: Magnetic Pull (Cursor Tracker Removed)
+        document.querySelectorAll('a, button, .tilt-card').forEach(el => {
+            if (el.classList.contains('magnetic')) {
+                el.addEventListener('mousemove', (e) => {
+                    const r = el.getBoundingClientRect();
+                    const x = (e.clientX - r.left) - r.width / 2;
+                    const y = (e.clientY - r.top) - r.height / 2;
+                    el.style.transform = `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`;
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = '';
+                });
+            }
+        });
+
+        // 9. P1 & P2: Hybrid Interaction Engine
+        function initInteractions() {
+            if (window.innerWidth < 1024) return;
+            document.querySelectorAll('.tilt-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const r = card.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width;
+                    const y = (e.clientY - r.top) / r.height;
+                    const rx = (y - 0.5) * 12;
+                    const ry = (0.5 - x) * 12;
+
+                    card.style.setProperty('--x', (x * 100) + '%');
+                    card.style.setProperty('--y', (y * 100) + '%');
+                    card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+        }
+
+        // 10. Global Event Listeners (Syncing P0, P1, P2)
+        const progBar = document.getElementById('progBar');
+        const sections = document.querySelectorAll('section, header.hero');
+        const navLinks = document.querySelectorAll('.nav .links a, .mob-nav a');
+
+        function updateProgress() {
+            const h = document.documentElement, b = document.body;
+            const top = h.scrollTop || b.scrollTop;
+            const height = h.scrollHeight - h.clientHeight;
+            const scrolled = (top / height) * 100;
+            if (progBar) progBar.style.width = scrolled + "%";
+        }
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const id = e.target.id || 'sec-hero';
+                    navLinks.forEach(l => {
+                        l.classList.remove('active');
+                        if (l.getAttribute('onclick')?.includes(id)) l.classList.add('active');
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        sections.forEach(s => navObserver.observe(s));
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('active');
+                    if (e.target.classList.contains('prob-card')) {
+                        const s = e.target.querySelector('.prob-stat');
+                        if (s && !s.dataset.animated) { animateStat(s); s.dataset.animated = "true"; }
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        function animateStat(el) {
+            const text = el.innerText, match = text.match(/([\d\.]+)/);
+            if (!match) return;
+            const finalVal = parseFloat(match[0]), prefix = text.split(match[0])[0], suffix = text.split(match[0])[1];
+            const duration = 2000, start = performance.now();
+            function update(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const ease = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+                const current = finalVal * ease;
+                el.innerText = prefix + (match[0].includes('.') ? current.toFixed(1) : Math.floor(current)) + suffix;
+                if (p < 1) requestAnimationFrame(update); else el.innerText = text;
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Initialize Reveal Observer
+        document.querySelectorAll('.reveal, .reveal-up, .reveal-grid').forEach(el => revealObserver.observe(el));
+
+
+        window.addEventListener('scroll', () => {
+            updateProgress();
+            const nav = document.getElementById('mainNav');
+            if (nav) {
+                if (window.scrollY > 50) nav.classList.add('sc');
+                else nav.classList.remove('sc');
+            }
+            syncJourney();
+        }, { passive: true });
+
+        // 13. P3: Ambient Particles
+        function initAmbientDust() {
+            const canvas = document.getElementById('ambientCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                particles = [];
+                const count = Math.min(window.innerWidth / 15, 60);
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        r: Math.random() * 1.5 + 0.5,
+                        vx: (Math.random() - 0.5) * 0.2,
+                        vy: (Math.random() - 0.5) * 0.2,
+                        op: Math.random() * 0.4 + 0.1
+                    });
+                }
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+                    
+                    const dx = mouse.x - p.x;
+                    const dy = mouse.y - p.y;
+                    const d = Math.sqrt(dx*dx + dy*dy);
+                    if (d < 200) {
+                        p.x -= dx * 0.005; p.y -= dy * 0.005;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(129, 140, 248, ${p.op})`;
+                    ctx.fill();
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        window.onload = () => {
+            syncJourney();
+            initInteractions();
+            updateProgress();
+            initAmbientDust();
+            // Reveal initial elements
+            document.querySelectorAll('.reveal, .reveal-up').forEach(el => {
+                const r = el.getBoundingClientRect();
+                if (r.top < window.innerHeight) el.classList.add('active');
+            });
+        };
+
+        
+        window.addEventListener('DOMContentLoaded', () => { syncJourney(); });
+    </script>
 </body>
 </html>
