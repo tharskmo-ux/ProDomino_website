@@ -115,7 +115,6 @@
         .hero-typing { min-height: 240px; margin-bottom: 20px; }
         .hero-line { font-family: 'Rubik', sans-serif; font-weight: 800; font-size: clamp(2.6rem, 8vw, 76px); line-height: 0.94; letter-spacing: -3px; text-transform: uppercase; color: #fff; display: block; }
         .hero-line.ind { color: var(--ind); }
-        .cursor { display: inline-block; width: 4px; height: 0.8em; background: var(--ind); margin-left: 4px; vertical-align: middle; animation: blink 0.8s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         .hero-fade { opacity: 0; transform: translateY(10px); transition: all 0.8s ease; pointer-events: none; }
@@ -176,25 +175,28 @@
 
         /* Pipeline & Journey */
         .journey-sec { position: relative; padding-top: 0; }
-        .pipe-wrap { position: sticky; top: 64px; z-index: 50; padding: 12px 0; border-bottom: 1px solid var(--brd); transition: background 0.3s; background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); }
-        .pipe-bar { display: flex; align-items: center; justify-content: center; position: relative; width: 100%; padding-bottom: 16px; }
-        .pipe { display: flex; align-items: center; justify-content: center; gap: 0; width: 100%; max-width: 1000px; position: relative; }
+        .pipe-wrap { position: sticky; top: 64px; z-index: 50; padding: 12px 0; border-bottom: 1px solid var(--brd); transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); will-change: transform, background; }
+        .pipe-bar { display: flex; align-items: center; justify-content: center; position: relative; width: 100%; padding-bottom: 16px; perspective: 1000px; }
+        .pipe { display: flex; align-items: center; justify-content: center; gap: 0; width: 100%; max-width: 1000px; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .pipe::before { content: ''; position: absolute; top: 16px; left: 16px; right: 16px; height: 2px; background: rgba(129,140,248,.1); z-index: 0; border-radius: 2px; }
         
-        .pn { display: flex; flex-direction: column; align-items: center; cursor: pointer; position: relative; z-index: 2; flex-shrink: 0; }
-        .pn .pd { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(129,140,248,.3); background: #09090B; display: flex; align-items: center; justify-content: center; transition: all .4s; }
-        .pn .pi { width: 6px; height: 6px; border-radius: 50%; background: rgba(129,140,248,.15); transition: all .4s; }
-        .pn .pl { position: absolute; top: 40px; font-family: 'JetBrains Mono', monospace; font-size: 8px; color: rgba(255,255,255,.15); letter-spacing: 0.5px; text-transform: uppercase; font-weight: 500; transition: all .4s; white-space: nowrap; }
+        .pn { display: flex; flex-direction: column; align-items: center; cursor: pointer; position: relative; z-index: 2; flex-shrink: 0; will-change: transform; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .pn .pd { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(129,140,248,.3); background: #09090B; display: flex; align-items: center; justify-content: center; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .pn .pi { width: 6px; height: 6px; border-radius: 50%; background: rgba(129,140,248,.15); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .pn .pl { position: absolute; top: 40px; font-family: 'JetBrains Mono', monospace; font-size: 8px; color: rgba(255,255,255,.15); letter-spacing: 0.5px; text-transform: uppercase; font-weight: 500; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); white-space: nowrap; }
         
-        .pn.active .pd { border-color: rgba(129,140,248,.9); box-shadow: 0 0 15px rgba(129,140,248,.4); border-width: 2px; }
+        .pn.active .pd { border-color: rgba(129,140,248,.9); box-shadow: 0 0 20px rgba(129,140,248,0.5); border-width: 2px; animation: pulseNode 3s infinite cubic-bezier(0.4, 0, 0.2, 1); }
         .pn.active .pi { background: #818CF8; transform: scale(1.4); }
         .pn.active .pl { color: rgba(255,255,255,.95); font-weight: 600; transform: translateY(2px); }
+        
+        @keyframes pulseNode { 0% { box-shadow: 0 0 0 0 rgba(129,140,248,0.4); } 70% { box-shadow: 0 0 0 15px rgba(129,140,248,0); } 100% { box-shadow: 0 0 0 0 rgba(129,140,248,0); } }
+
         .pn.done .pd { border-color: rgba(129,140,248,.5); }
         .pn.done .pi { background: rgba(129,140,248,.4); }
         .pn.done .pl { color: rgba(255,255,255,.4); }
         
         .pc { flex: 1; height: 2px; background: transparent; position: relative; overflow: hidden; z-index: 1; min-width: 20px; }
-        .pc .pf { height: 100%; width: 0; background: linear-gradient(90deg, rgba(129,140,248,.3), rgba(129,140,248,.8)); transition: width .3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 8px rgba(129,140,248,.4); }
+        .pc .pf { height: 100%; width: 0; background: linear-gradient(90deg, rgba(129,140,248,.1), rgba(129,140,248,.8)); transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 0 12px rgba(129,140,248,0.6); }
         .pc.lit .pf { width: 100%; }
         
         .j-card { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px 0 20px; border-bottom: 1px solid var(--brd); width: 100%; max-width: 600px; margin: 0 auto; scroll-snap-align: start; scroll-margin-top: 100px; }
@@ -271,8 +273,8 @@
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Reveal Animations */
-        .reveal { opacity: 0; transition: opacity 0.8s cubic-bezier(0.21, 0.45, 0.32, 0.9); }
-        .reveal-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.21, 0.45, 0.32, 0.9); }
+        .reveal { opacity: 0; transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity; }
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
         .reveal.active { opacity: 1; }
         .reveal-up.active { opacity: 1; transform: translateY(0); }
 
@@ -297,7 +299,7 @@
         .nav-a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background: var(--ind); transform: scaleX(0); transition: transform 0.3s; }
 
         /* P1: 3D Tilt */
-        .tilt-card { perspective: 1000px; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
+        .tilt-card { perspective: 1000px; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
 
         /* P1: Section Glows */
         .glow-ind::before { content: ''; position: absolute; top: 50%; left: 50%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(129, 140, 248, 0.04) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none; }
@@ -1099,6 +1101,9 @@
     <script>
         // 0. State & Global Interaction
         const mouse = { x: 0, y: 0 };
+        let activeIdx = 0;
+        let isTicking = false;
+
         document.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
@@ -1203,8 +1208,9 @@
                     vy: (Math.random() - 0.5) * 0.5
                 });
             }
+            // IntersectionObserver handles activeIdx tracking
         }
-        window.onresize = resize;
+        window.addEventListener('resize', resize);
         resize();
 
         function anim() {
@@ -1238,19 +1244,17 @@
 
 
 
-        // 5. Journey Sync (P3 Upgraded)
+        // 5. Journey Sync (P3 Upgraded - Optimized)
         function syncJourney() {
-            const cards = document.querySelectorAll('.j-card');
-            const pipeBar = document.querySelector('.pipe-wrap');
-            if (!pipeBar) return;
+            const pipe = document.querySelector('.pipe');
+            const wrap = document.querySelector('.pipe-wrap');
+            if (!pipe || !wrap) return;
             
-            const triggerOffset = pipeBar.getBoundingClientRect().bottom + 40;
-            let activeIdx = 0;
+            const scrollY = window.scrollY;
 
-            cards.forEach((card, i) => {
-                const rect = card.getBoundingClientRect();
-                if (rect.top < triggerOffset) activeIdx = i;
-            });
+            // 3D Perspective Shift
+            const progress = (scrollY % window.innerHeight) / window.innerHeight;
+            pipe.style.transform = `rotateX(${10 - (progress * 5)}deg) rotateY(${(mouse.x - window.innerWidth/2) * 0.005}deg) translateZ(0)`;
 
             for (let i = 0; i < 8; i++) {
                 const node = document.getElementById('pnA' + i);
@@ -1258,16 +1262,15 @@
                 
                 if (node) {
                     node.classList.remove('active', 'done');
-                    let trans = 'rotateY(0deg) translateZ(0px)';
-                    
                     if (i < activeIdx) {
                         node.classList.add('done');
-                        trans = 'rotateY(-15deg) translateZ(-20px) scale(0.95)';
+                        node.style.transform = 'translateZ(-10px) scale(0.95)';
                     } else if (i === activeIdx) {
                         node.classList.add('active');
-                        trans = 'rotateY(10deg) translateZ(40px) scale(1.1)';
+                        node.style.transform = 'translateZ(30px) scale(1.1)';
+                    } else {
+                        node.style.transform = 'translateZ(0) scale(1)';
                     }
-                    node.style.transform = trans;
                 }
                 
                 if (connector) {
@@ -1275,6 +1278,31 @@
                     else connector.classList.remove('lit');
                 }
             }
+        }
+
+        // 5b. Journey Observer (Precision Track)
+        function initJourneyObserver() {
+            const cards = document.querySelectorAll('.j-card');
+            const observerOptions = {
+                root: null,
+                rootMargin: '-40% 0% -40% 0%', // Focused sweet spot in center
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        const idx = parseInt(id.split('-')[1]);
+                        if (!isNaN(idx)) {
+                            activeIdx = idx;
+                            syncJourney(); // Update nodes immediately
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => observer.observe(card));
         }
 
         // 6. UI Toggles
@@ -1423,13 +1451,19 @@
 
 
         window.addEventListener('scroll', () => {
-            updateProgress();
-            const nav = document.getElementById('mainNav');
-            if (nav) {
-                if (window.scrollY > 50) nav.classList.add('sc');
-                else nav.classList.remove('sc');
+            if (!isTicking) {
+                window.requestAnimationFrame(() => {
+                    updateProgress();
+                    const nav = document.getElementById('mainNav');
+                    if (nav) {
+                        if (window.scrollY > 50) nav.classList.add('sc');
+                        else nav.classList.remove('sc');
+                    }
+                    syncJourney();
+                    isTicking = false;
+                });
+                isTicking = true;
             }
-            syncJourney();
         }, { passive: true });
 
         // 13. P3: Ambient Particles
@@ -1465,12 +1499,7 @@
                     if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
                     if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
                     
-                    const dx = mouse.x - p.x;
-                    const dy = mouse.y - p.y;
-                    const d = Math.sqrt(dx*dx + dy*dy);
-                    if (d < 200) {
-                        p.x -= dx * 0.005; p.y -= dy * 0.005;
-                    }
+                    // Mouse interaction removed to eliminate ghost cursor perception
 
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -1487,6 +1516,7 @@
             initInteractions();
             updateProgress();
             initAmbientDust();
+            initJourneyObserver();
             // Reveal initial elements
             document.querySelectorAll('.reveal, .reveal-up').forEach(el => {
                 const r = el.getBoundingClientRect();
