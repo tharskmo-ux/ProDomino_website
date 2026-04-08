@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProDomino - PROCUREMENT REIMAGINED </title>
+    <title>ProDomino — PROCUREMENT REIMAGINED.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -174,8 +174,11 @@
         .prob-sol { font-size: 15px; color: var(--grn); font-weight: 600; line-height: 1.5; text-wrap: balance; }
 
         /* Pipeline & Journey */
-        .journey-sec { position: relative; padding-top: 0; }
-        .pipe-wrap { position: sticky; top: 64px; z-index: 50; padding: 12px 0; border-bottom: 1px solid var(--brd); transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); will-change: transform, background; }
+        .journey-sec { position: relative; height: 750vh; padding-top: 0; }
+        .journey-pin { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; flex-direction: column; }
+        .journey-rail { display: flex; width: max-content; height: 100%; will-change: transform; transition: transform 0.1s cubic-bezier(0.2, 0, 0.2, 1); }
+
+        .pipe-wrap { position: relative; top: 0; z-index: 50; padding: 12px 0; border-bottom: 1px solid var(--brd); transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); will-change: transform, background; margin-top: 64px; }
         .pipe-bar { display: flex; align-items: center; justify-content: center; position: relative; width: 100%; padding-bottom: 16px; perspective: 1000px; }
         .pipe { display: flex; align-items: center; justify-content: center; gap: 0; width: 100%; max-width: 1000px; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .pipe::before { content: ''; position: absolute; top: 16px; left: 16px; right: 16px; height: 2px; background: rgba(129,140,248,.1); z-index: 0; border-radius: 2px; }
@@ -199,7 +202,17 @@
         .pc .pf { height: 100%; width: 0; background: linear-gradient(90deg, rgba(129,140,248,.1), rgba(129,140,248,.8)); transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 0 12px rgba(129,140,248,0.6); }
         .pc.lit .pf { width: 100%; }
         
-        .j-card { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px 0 20px; border-bottom: 1px solid var(--brd); width: 100%; max-width: 600px; margin: 0 auto; scroll-snap-align: start; scroll-margin-top: 100px; }
+        .j-card { width: 100vw; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 120px 24px 20px; border: none; margin: 0; flex-shrink: 0; transition: opacity 0.4s; }
+        
+        @media (max-width: 1024px) {
+            .journey-sec { height: auto; }
+            .journey-pin { position: relative; height: auto; overflow: visible; }
+            .journey-rail { flex-direction: column; width: 100%; height: auto; transform: none !important; }
+            .j-card { width: 100%; height: auto; min-height: 80vh; padding: 60px 24px; border-bottom: 1px solid var(--brd); }
+            .journey-pin .mx[style*="absolute"] { position: relative !important; padding-top: 60px !important; pointer-events: auto !important; }
+        }
+        .j-card .mx { width: 100%; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+
         .j-card:last-child { border-bottom: none; }
         .j-step { font-family: 'JetBrains Mono', monospace; font-size: 50px; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px; text-align: center; position: relative; z-index: 0; }
         .j-tag { display: block; width: 100%; background: #0f172a; padding: 8px 14px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.25em; color: var(--ind); margin-bottom: 16px; position: relative; z-index: 1; border: 1px solid rgba(129, 140, 248, 0.1); text-align: center; }
@@ -635,110 +648,129 @@
 
             </div>
         </section>
-        <!-- Section 5: The Flow -->
         <section class="journey-sec" id="sec-journey">
-            <div class="mx" style="padding-top: 100px; margin-bottom: 60px; text-align: center;">
-                <span class="lb reveal-up" style="margin: 0 auto 12px; display: inline-block;">The Flow</span>
-                <h2 class="st reveal-up reveal-delay-1" style="font-size: clamp(2.5rem, 6vw, 4rem); margin: 0 auto 16px;">One cycle.<br>Eight stages.</h2>
-                <p class="sd reveal-up reveal-delay-2" style="margin-bottom: 0; margin: 0 auto;">Every stage feeds the next. No handoffs. No data lost.</p>
-            </div>
-            <div class="pipe-wrap glass">
-                <div class="mx">
-                    <div class="pipe-bar">
-                        <div class="pipe" id="pipeA">
-                            <div class="pn active" id="pnA0" onclick="goTo('j-0')"><div class="pd"><div class="pi"></div></div><div class="pl">PR</div></div>
-                            <div class="pc" id="pcA0"><div class="pf"></div></div>
-                            <div class="pn" id="pnA1" onclick="goTo('j-1')"><div class="pd"><div class="pi"></div></div><div class="pl">Approve</div></div>
-                            <div class="pc" id="pcA1"><div class="pf"></div></div>
-                            <div class="pn" id="pnA2" onclick="goTo('j-2')"><div class="pd"><div class="pi"></div></div><div class="pl">Source</div></div>
-                            <div class="pc" id="pcA2"><div class="pf"></div></div>
-                            <div class="pn" id="pnA3" onclick="goTo('j-3')"><div class="pd"><div class="pi"></div></div><div class="pl">Order</div></div>
-                            <div class="pc" id="pcA3"><div class="pf"></div></div>
-                            <div class="pn" id="pnA4" onclick="goTo('j-4')"><div class="pd"><div class="pi"></div></div><div class="pl">Receive</div></div>
-                            <div class="pc" id="pcA4"><div class="pf"></div></div>
-                            <div class="pn" id="pnA5" onclick="goTo('j-5')"><div class="pd"><div class="pi"></div></div><div class="pl">Match</div></div>
-                            <div class="pc" id="pcA5"><div class="pf"></div></div>
-                            <div class="pn" id="pnA6" onclick="goTo('j-6')"><div class="pd"><div class="pi"></div></div><div class="pl">Pay</div></div>
-                            <div class="pc" id="pcA6"><div class="pf"></div></div>
-                            <div class="pn" id="pnA7" onclick="goTo('j-7')"><div class="pd"><div class="pi"></div></div><div class="pl">Analyse</div></div>
+            <div class="journey-pin">
+                <div class="mx" style="padding-top: 100px; text-align: center; position: absolute; width: 100%; left: 0; pointer-events: none; z-index: 10;">
+                    <span class="lb reveal-up" style="margin: 0 auto 12px; display: inline-block;">The Flow</span>
+                    <h2 class="st reveal-up reveal-delay-1" style="font-size: clamp(2rem, 5vw, 3rem); margin: 0 auto 16px;">One cycle. Eight stages.</h2>
+                </div>
+                
+                <div class="pipe-wrap glass">
+                    <div class="mx">
+                        <div class="pipe-bar">
+                            <div class="pipe" id="pipeA">
+                                <div class="pn active" id="pnA0" onclick="goTo('j-0')"><div class="pd"><div class="pi"></div></div><div class="pl">PR</div></div>
+                                <div class="pc" id="pcA0"><div class="pf"></div></div>
+                                <div class="pn" id="pnA1" onclick="goTo('j-1')"><div class="pd"><div class="pi"></div></div><div class="pl">Approve</div></div>
+                                <div class="pc" id="pcA1"><div class="pf"></div></div>
+                                <div class="pn" id="pnA2" onclick="goTo('j-2')"><div class="pd"><div class="pi"></div></div><div class="pl">Source</div></div>
+                                <div class="pc" id="pcA2"><div class="pf"></div></div>
+                                <div class="pn" id="pnA3" onclick="goTo('j-3')"><div class="pd"><div class="pi"></div></div><div class="pl">Order</div></div>
+                                <div class="pc" id="pcA3"><div class="pf"></div></div>
+                                <div class="pn" id="pnA4" onclick="goTo('j-4')"><div class="pd"><div class="pi"></div></div><div class="pl">Receive</div></div>
+                                <div class="pc" id="pcA4"><div class="pf"></div></div>
+                                <div class="pn" id="pnA5" onclick="goTo('j-5')"><div class="pd"><div class="pi"></div></div><div class="pl">Match</div></div>
+                                <div class="pc" id="pcA5"><div class="pf"></div></div>
+                                <div class="pn" id="pnA6" onclick="goTo('j-6')"><div class="pd"><div class="pi"></div></div><div class="pl">Pay</div></div>
+                                <div class="pc" id="pcA6"><div class="pf"></div></div>
+                                <div class="pn" id="pnA7" onclick="goTo('j-7')"><div class="pd"><div class="pi"></div></div><div class="pl">Analyse</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journey-rail" id="journeyRail">
+                    <div class="j-card" id="j-0">
+                        <div class="mx">
+                            <div class="j-step">01</div>
+                            <span class="j-tag">PR</span>
+                            <h3>Need identified. PR created.</h3>
+                            <p>MRP calculates net need from project milestones, checks inventory, and creates purchase requests automatically.</p>
+                            <div class="j-chips"><span class="j-chip">PR Engine</span><span class="j-chip">Budget Check</span><span class="j-chip">Auto-PR</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/pr/PR-MATCH</div></div><div class="jm-body"><div class="jm-head"><b>Purchase Request — PR-0412</b></div><div class="jm-row"><span>TMT Steel 12mm</span><span>380 MT</span><span class="jm-st s-grn">In Budget</span></div><div class="jm-row"><span>Project Name</span><span>Project Alpha</span></div><div class="jm-row"><span>Priority</span><span class="jm-st s-red">Urgent</span></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="j-card" id="j-1">
+                        <div class="mx">
+                            <div class="j-step">02</div>
+                            <span class="j-tag">Approve</span>
+                            <h3>Routed. Reviewed. Approved.</h3>
+                            <p>PR enters configurable approval chain. Auto-escalation and full audit trail with timestamps.</p>
+                            <div class="j-chips"><span class="j-chip">Delegation of Authority</span><span class="j-chip">Auto-Escalation</span><span class="j-chip">Audit Trail</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/pr/PR-2026-0412</div></div><div class="jm-body"><div class="jm-head"><b>Approval Chain — PR-0412</b></div><div class="jm-row"><span>L1 — Project Manager</span><span class="jm-st s-grn">Approved</span></div><div class="jm-row"><span>L2 — Procurement Head</span><span class="jm-st s-amb">Awaiting</span></div><div class="jm-row"><span>L3 — CFO (>$25K)</span><span class="jm-st s-purp">Queued</span></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="j-card" id="j-2">
+                        <div class="mx">
+                            <div class="j-step">03</div>
+                            <span class="j-tag">Source</span>
+                            <h3>Vendors compared. Best price found.</h3>
+                            <p>System checks rate contracts. If none, floats RFQ. Responses scored on price, quality, and delivery.</p>
+                            <div class="j-chips"><span class="j-chip">Rate Contracts</span><span class="j-chip">RFQ Portal</span><span class="j-chip">Reverse Auction</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/rfq/RFQ-0087</div></div><div class="jm-body"><div class="jm-head"><b>RFQ Evaluation — TMT Steel</b></div><div class="jm-row"><span>Tata Steel</span><span>$620/MT</span><span class="jm-st s-grn">Score: 92</span></div><div class="jm-row"><span>JSW Steel</span><span>$598/MT</span><span class="jm-st s-amb">Score: 78</span></div><div class="jm-row"><span>Vizag Steel</span><span>$645/MT</span><span class="jm-st s-amb">Score: 74</span></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="j-card" id="j-3">
+                        <div class="mx">
+                            <div class="j-step">04</div>
+                            <span class="j-tag">Order</span>
+                            <h3>PO generated. Sent to vendor.</h3>
+                            <p>One click converts approved PR into purchase order. Tax calculated automatically. PDF dispatched.</p>
+                            <div class="j-chips"><span class="j-chip">Auto Tax Calc</span><span class="j-chip">PDF Generation</span><span class="j-chip">Vendor Notify</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/po/PO-2026-0298</div></div><div class="jm-body"><div class="jm-head"><b>PO-0298 — Tata Steel</b></div><div class="jm-row"><span>Subtotal (380 MT)</span><span>$235,600</span></div><div class="jm-row"><span>GST (18%)</span><span>$42,408</span></div><div class="jm-row"><span>Total Payable</span><span class="jm-st s-blue">$278,008</span></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="j-card" id="j-4">
+                        <div class="mx">
+                            <div class="j-step">05</div>
+                            <span class="j-tag">Receive</span>
+                            <h3>Goods arrive. GRN posted.</h3>
+                            <p>Quantity verified against PO. Quality inspection recorded. Inventory updated across all stores.</p>
+                            <div class="j-chips"><span class="j-chip">GRN vs PO</span><span class="j-chip">Quality Check</span><span class="j-chip">Multi-Store</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/grn/GRN-0156</div></div><div class="jm-body"><div class="jm-head"><b>GRN-0156 — Received</b></div><div class="jm-row"><span>Ordered Qty</span><span>380 MT</span></div><div class="jm-row"><span>Received Qty</span><span>380 MT</span></div><div class="jm-row"><span>Quality Check</span><span class="jm-st s-grn">Passed</span></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="j-card" id="j-5">
+                        <div class="mx">
+                            <div class="j-step">06</div>
+                            <span class="j-tag">Match</span>
+                            <h3>PO. GRN. Invoice. Matched.</h3>
+                            <p>Three-way matching with configurable tolerance. Auto-clear or flag with line-level detail.</p>
+                            <div class="j-chips"><span class="j-chip">3-Way Match</span><span class="j-chip">Tolerance Rules</span><span class="j-chip">Exceptions</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/invoices/INV-4821</div></div><div class="jm-body"><div class="jm-head"><b>3-Way Match — INV-4821</b></div><div class="jm-row"><span>Invoice</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row"><span>PO</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row"><span>GRN</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row" style="border-bottom: none;"><span style="color: #818CF8; font-weight: 600;">4-way match</span><span class="jm-st s-purp">On the way</span></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="j-card" id="j-6">
+                        <div class="mx">
+                            <div class="j-step">07</div>
+                            <span class="j-tag">Pay</span>
+                            <h3>Tax deducted. Payment processed.</h3>
+                            <p>Tax deductions by vendor type. Compliance deadlines tracked. Payment through same DoA engine.</p>
+                            <div class="j-chips"><span class="j-chip">TDS / TCS</span><span class="j-chip">MSME Rules</span><span class="j-chip">Payment DoA</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/payments/PAY-0298</div></div><div class="jm-body"><div class="jm-head"><b>Payment — Tata Steel</b></div><div class="jm-row"><span>Invoice Total</span><span>$278,008</span></div><div class="jm-row"><span>TDS (1%)</span><span>-$2,780</span></div><div class="jm-row"><span>MSME Deadline</span><span class="jm-st s-amb">12 days left</span></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="j-card" id="j-7">
+                        <div class="mx">
+                            <div class="j-step">08</div>
+                            <span class="j-tag">Analyse</span>
+                            <h3>Every transaction becomes insight.</h3>
+                            <p>Spend by category, project, and vendor. Anomaly detection and weekly CXO digests automatically.</p>
+                            <div class="j-chips"><span class="j-chip">Analytics</span><span class="j-chip">Anomaly Alerts</span><span class="j-chip">CXO Digest</span></div>
+                            <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/analytics</div></div><div class="jm-body"><div class="jm-head"><b>Insights</b></div><div class="jm-row"><span>Spend Savings</span><span class="jm-st s-grn">$184K</span></div><div class="jm-row"><span>Split PO Alert</span><span class="jm-st s-red">Detected</span></div><div class="jm-row"><span>Maverick Spend</span><span class="jm-st s-amb">$8.2K</span></div></div></div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="mx">
-                <div class="j-card" id="j-0">
-                    <div class="j-step">01</div>
-                    <span class="j-tag">PR</span>
-                    <h3>Need identified. PR created.</h3>
-                    <p>MRP calculates net need from project milestones, checks inventory, and creates purchase requests automatically.</p>
-                    <div class="j-chips"><span class="j-chip">PR Engine</span><span class="j-chip">Budget Check</span><span class="j-chip">Auto-PR</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/pr/PR-MATCH</div></div><div class="jm-body"><div class="jm-head"><b>Purchase Request — PR-0412</b></div><div class="jm-row"><span>TMT Steel 12mm</span><span>380 MT</span><span class="jm-st s-grn">In Budget</span></div><div class="jm-row"><span>Project Name</span><span>Project Alpha</span></div><div class="jm-row"><span>Priority</span><span class="jm-st s-red">Urgent</span></div></div></div>
-                </div>
-
-                <div class="j-card" id="j-1">
-                    <div class="j-step">02</div>
-                    <span class="j-tag">Approve</span>
-                    <h3>Routed. Reviewed. Approved.</h3>
-                    <p>PR enters configurable approval chain. Auto-escalation and full audit trail with timestamps.</p>
-                    <div class="j-chips"><span class="j-chip">Delegation of Authority</span><span class="j-chip">Auto-Escalation</span><span class="j-chip">Audit Trail</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/pr/PR-2026-0412</div></div><div class="jm-body"><div class="jm-head"><b>Approval Chain — PR-0412</b></div><div class="jm-row"><span>L1 — Project Manager</span><span class="jm-st s-grn">Approved</span></div><div class="jm-row"><span>L2 — Procurement Head</span><span class="jm-st s-amb">Awaiting</span></div><div class="jm-row"><span>L3 — CFO (>$25K)</span><span class="jm-st s-purp">Queued</span></div></div></div>
-                </div>
-
-                <div class="j-card" id="j-2">
-                    <div class="j-step">03</div>
-                    <span class="j-tag">Source</span>
-                    <h3>Vendors compared. Best price found.</h3>
-                    <p>System checks rate contracts. If none, floats RFQ. Responses scored on price, quality, and delivery.</p>
-                    <div class="j-chips"><span class="j-chip">Rate Contracts</span><span class="j-chip">RFQ Portal</span><span class="j-chip">Reverse Auction</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/rfq/RFQ-0087</div></div><div class="jm-body"><div class="jm-head"><b>RFQ Evaluation — TMT Steel</b></div><div class="jm-row"><span>Tata Steel</span><span>$620/MT</span><span class="jm-st s-grn">Score: 92</span></div><div class="jm-row"><span>JSW Steel</span><span>$598/MT</span><span class="jm-st s-amb">Score: 78</span></div><div class="jm-row"><span>Vizag Steel</span><span>$645/MT</span><span class="jm-st s-amb">Score: 74</span></div></div></div>
-                </div>
-
-                <div class="j-card" id="j-3">
-                    <div class="j-step">04</div>
-                    <span class="j-tag">Order</span>
-                    <h3>PO generated. Sent to vendor.</h3>
-                    <p>One click converts approved PR into purchase order. Tax calculated automatically. PDF dispatched.</p>
-                    <div class="j-chips"><span class="j-chip">Auto Tax Calc</span><span class="j-chip">PDF Generation</span><span class="j-chip">Vendor Notify</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/po/PO-2026-0298</div></div><div class="jm-body"><div class="jm-head"><b>PO-0298 — Tata Steel</b></div><div class="jm-row"><span>Subtotal (380 MT)</span><span>$235,600</span></div><div class="jm-row"><span>GST (18%)</span><span>$42,408</span></div><div class="jm-row"><span>Total Payable</span><span class="jm-st s-blue">$278,008</span></div></div></div>
-                </div>
-
-                <div class="j-card" id="j-4">
-                    <div class="j-step">05</div>
-                    <span class="j-tag">Receive</span>
-                    <h3>Goods arrive. GRN posted.</h3>
-                    <p>Quantity verified against PO. Quality inspection recorded. Inventory updated across all stores.</p>
-                    <div class="j-chips"><span class="j-chip">GRN vs PO</span><span class="j-chip">Quality Check</span><span class="j-chip">Multi-Store</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/grn/GRN-0156</div></div><div class="jm-body"><div class="jm-head"><b>GRN-0156 — Received</b></div><div class="jm-row"><span>Ordered Qty</span><span>380 MT</span></div><div class="jm-row"><span>Received Qty</span><span>380 MT</span></div><div class="jm-row"><span>Quality Check</span><span class="jm-st s-grn">Passed</span></div></div></div>
-                </div>
-
-                <div class="j-card reveal-up" id="j-5">
-                    <div class="j-step">06</div>
-                    <span class="j-tag">Match</span>
-                    <h3>PO. GRN. Invoice. Matched.</h3>
-                    <p>Three-way matching with configurable tolerance. Auto-clear or flag with line-level detail.</p>
-                    <div class="j-chips"><span class="j-chip">3-Way Match</span><span class="j-chip">Tolerance Rules</span><span class="j-chip">Exceptions</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/invoices/INV-4821</div></div><div class="jm-body"><div class="jm-head"><b>3-Way Match — INV-4821</b></div><div class="jm-row"><span>Invoice</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row"><span>PO</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row"><span>GRN</span><span class="jm-st s-grn">Matched</span></div><div class="jm-row" style="border-bottom: none;"><span style="color: #818CF8; font-weight: 600;">4-way match</span><span class="jm-st s-purp">On the way</span></div></div></div>
-                </div>
-
-                <div class="j-card" id="j-6">
-                    <div class="j-step">07</div>
-                    <span class="j-tag">Pay</span>
-                    <h3>Tax deducted. Payment processed.</h3>
-                    <p>Tax deductions by vendor type. Compliance deadlines tracked. Payment through same DoA engine.</p>
-                    <div class="j-chips"><span class="j-chip">TDS / TCS</span><span class="j-chip">MSME Rules</span><span class="j-chip">Payment DoA</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/payments/PAY-0298</div></div><div class="jm-body"><div class="jm-head"><b>Payment — Tata Steel</b></div><div class="jm-row"><span>Invoice Total</span><span>$278,008</span></div><div class="jm-row"><span>TDS (1%)</span><span>-$2,780</span></div><div class="jm-row"><span>MSME Deadline</span><span class="jm-st s-amb">12 days left</span></div></div></div>
-                </div>
-
-                <div class="j-card" id="j-7">
-                    <div class="j-step">08</div>
-                    <span class="j-tag">Analyse</span>
-                    <h3>Every transaction becomes insight.</h3>
-                    <p>Spend by category, project, and vendor. Anomaly detection and weekly CXO digests automatically.</p>
-                    <div class="j-chips"><span class="j-chip">Analytics</span><span class="j-chip">Anomaly Alerts</span><span class="j-chip">CXO Digest</span></div>
-                    <div class="j-mock" style="width: 100%; margin: 0 auto;"><div class="jm-bar"><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-dot"></div><div class="jm-url">prodomino.in/analytics</div></div><div class="jm-body"><div class="jm-head"><b>Insights</b></div><div class="jm-row"><span>Spend Savings</span><span class="jm-st s-grn">$184K</span></div><div class="jm-row"><span>Split PO Alert</span><span class="jm-st s-red">Detected</span></div><div class="jm-row"><span>Maverick Spend</span><span class="jm-st s-amb">$8.2K</span></div></div></div>
-                </div>
-            </div>
         </section>
         <!-- Section 6: Modules -->
         <section class="sec glow-ind" id="sec-modules">
@@ -814,7 +846,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="reveal-up"><td>Multi-level approvals</td><td class="best check">Multi-Level DoA</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td></tr>
+                            <tr class="reveal-up"><td>Multi-level approvals</td><td class="best check">N-level DoA</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td></tr>
                             <tr class="reveal-up"><td>Auto 3-way matching</td><td class="best check">PO · GRN · Invoice</td><td class="check">✓</td><td class="cross">✗</td><td class="partial">Partial</td></tr>
                             <tr class="reveal-up"><td>Multi-project MRP</td><td class="best check">Built-in</td><td class="check">✓</td><td class="cross">✗</td><td class="cross">✗</td></tr>
                             <tr class="reveal-up"><td>Indian tax (GST/TDS)</td><td class="best check">Native</td><td class="partial">Partial</td><td class="check">✓</td><td class="cross">✗</td></tr>
@@ -983,7 +1015,7 @@
                         <div class="tl-dot"></div>
                         <span class="tl-days">Days 8-14</span>
                         <h3>Go live</h3>
-                        <p>Real transactions.</p>
+                        <p>Real transactions</p>
                     </div>
                 </div>
             </div>
@@ -1243,18 +1275,44 @@
 
 
 
-        // 5. Journey Sync (P3 Upgraded - Optimized)
+        // 5. Journey Sync (Static Horizontal Scroll)
         function syncJourney() {
+            const sec = document.getElementById('sec-journey');
+            const rail = document.getElementById('journeyRail');
             const pipe = document.querySelector('.pipe');
-            const wrap = document.querySelector('.pipe-wrap');
-            if (!pipe || !wrap) return;
-            
-            const scrollY = window.scrollY;
+            if (!sec || !rail || !pipe) return;
 
-            // 3D Perspective Shift
-            const progress = (scrollY % window.innerHeight) / window.innerHeight;
+            const rect = sec.getBoundingClientRect();
+            const winH = window.innerHeight;
+            
+            // Calculate how far through the section we are (0 to 1)
+            let progress = -rect.top / (rect.height - winH);
+            progress = Math.max(0, Math.min(1, progress));
+
+            // Mobile Fallback: Only move rail on Large Screens
+            if (window.innerWidth > 1024) {
+                const railWidth = rail.scrollWidth;
+                const moveWidth = railWidth - window.innerWidth;
+                rail.style.transform = `translateX(${-progress * moveWidth}px)`;
+                
+                // Fade title as we progress
+                const header = sec.querySelector('.mx[style*="position: absolute"]');
+                if (header) {
+                    header.style.opacity = progress > 0.05 ? Math.max(0, 1 - (progress * 5)) : 1;
+                    header.style.transform = `translateY(${-progress * 50}px)`;
+                }
+            } else {
+                rail.style.transform = 'none';
+            }
+
+            // 3D Perspective Shift on the pipe based on movement
             pipe.style.transform = `rotateX(${10 - (progress * 5)}deg) rotateY(${(mouse.x - window.innerWidth/2) * 0.005}deg) translateZ(0)`;
 
+            // Update Active Index (8 stages: 0 to 7)
+            const newIdx = Math.floor(progress * 8);
+            activeIdx = Math.min(7, newIdx);
+
+            // Update Nodes
             for (let i = 0; i < 8; i++) {
                 const node = document.getElementById('pnA' + i);
                 const connector = document.getElementById('pcA' + i);
@@ -1279,23 +1337,24 @@
             }
         }
 
-        // 5b. Journey Observer (Precision Track)
+        // 5b. Journey Observer (Precision Track for Mobile)
         function initJourneyObserver() {
             const cards = document.querySelectorAll('.j-card');
             const observerOptions = {
                 root: null,
-                rootMargin: '-40% 0% -40% 0%', // Focused sweet spot in center
+                rootMargin: '-50% 0px -50% 0px',
                 threshold: 0
             };
 
             const observer = new IntersectionObserver((entries) => {
+                if (window.innerWidth > 1024) return; // Desktop uses progress-based sync
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.id;
                         const idx = parseInt(id.split('-')[1]);
                         if (!isNaN(idx)) {
                             activeIdx = idx;
-                            syncJourney(); // Update nodes immediately
+                            syncJourney();
                         }
                     }
                 });
